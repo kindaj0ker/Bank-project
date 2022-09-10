@@ -11,6 +11,7 @@ fakeUser();
 
 emailField.addEventListener("blur", function () {
   if (localStorage.getItem(emailField.value) === null) {
+    console.log(localStorage.getItem(emailField.value));
     emailErrorField.classList.remove("hidden");
   } else {
     passErrorField.classList.add("hidden");
@@ -26,6 +27,10 @@ passField.addEventListener("blur", function () {
 
 logInForm.addEventListener("submit", function (e) {
   e.preventDefault();
-
-  window.location.href = "/user-acc.html";
+  if (
+    localStorage.getItem(emailField.value) !== null &&
+    localStorage.getItem(passField.value) !== null
+  ) {
+    window.location.href = "/user-acc.html";
+  } else return;
 });

@@ -103,7 +103,6 @@ const isValidForm = function () {
     confErrorField.classList.contains("hidden")
   );
 };
-export let newUserEmail = email.value;
 
 createAccBtn.addEventListener("click", function (e) {
   e.preventDefault();

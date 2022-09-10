@@ -21,40 +21,42 @@
     <meta name="viewport" content="width=device-width" />
   </head>
   <body>
-    <header>
-      <div class="user-header">
-       <img class="bank-logo" src="../css/img/logowithoutname.png"/>
-        <h2>Hello,<span class="user-f--name"></span></h2>
-        <a href class="log-out--btn" href="../js/logIn.js">LOG OUT</a>
-      </div>
-    </header>
     <div class="user-display">
-
-      <div class="user-menu">
+      <nav class="user-menu">
+        <div class="logo">
+          <img class="bank-logo" src="../css/img/brand-logo-header.png" />
+        </div>
         <ul class="user-menu--list">
           <li>
-            <a href="./about.html">Home</a>
+            <a class="user-menu--li" href="#">Home</a>
           </li>
-          <li >
-            <a href="./why-us.html">My cards</a>
+          <li>
+            <a class="user-menu--li" href="#">My cards</a>
           </li>
-          <li >
-            <a href="./testimonial.html">Savings</a>
+          <li>
+            <a class="user-menu--li" href="#">Savings</a>
           </li>
-          <li >
-            <a href="./support.html"></a>
+          <li>
+            <a class="user-menu--li" href="#">Transactions</a>
           </li>
         </ul>
-      </div>
-    </div>
-      <div class="main-content"></div>
+      </nav>
 
-      <div class="user-info">
-        <div class="currency-info--box"></div>
-        <div class="user-date--time__box"></div>
-        <div class="log-out--timer"></div>
+      <div class="main-content">
+        <div class="user-header">
+          <div class="greeting box-style">
+            <h2>Hello,<span class="user-f--name"></span></h2>
+          </div>
+          <a href class="log-out--btn" href="../js/logIn.js">LOG OUT</a>
+        </div>
+        <div class="user-info">
+          <div class="currency-info--box box-style"></div>
+          <div class="user-date--time__box box-style"></div>
+          <div class="log-out--timer box-style">
+            <h5>You'll be logged out in<span class="timer"></span></h5>
+          </div>
+        </div>
       </div>
-
     </div>
   </body>
 </html>

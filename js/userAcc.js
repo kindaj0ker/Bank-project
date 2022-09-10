@@ -60,5 +60,14 @@ window.addEventListener("load", function () {
 // Currency info-box
 
 // Date-time box
-const today = new Date();
-console.log(today);
+
+//Log out timer
+const timer = document.querySelector(".timer");
+const countDownTimerFunc = setInterval(function (time) {
+  const min = Math.trunc(`${time / 60}`);
+  const sec = time % 60;
+  timer.textContent = `${min}:${sec}`;
+  time--;
+}, 1000);
+let time = 60;
+countDownTimerFunc();
