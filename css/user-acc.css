@@ -1,0 +1,31 @@
+:root {
+  --menu-font: "Cairo", sans-serif;
+  --header-font: "Playfair Display SC", serif;
+  --text-font: "Lato", sans-serif;
+  --element-font: "Dosis", sans-serif;
+}
+* {
+  margin: 0;
+}
+.user-header {
+  display: flex;
+}
+.bank-logo {
+  width: 5rem;
+}
+.log-out--btn {
+  background-color: white;
+  margin: 0.5rem;
+  text-decoration: none;
+  padding: 0.2rem;
+  border: 0.3rem black solid;
+  color: black;
+  font-family: var(--element-font);
+  font-size: 1.5rem;
+  box-shadow: 0.2rem 0.3rem 0.4rem gray;
+  text-align: center;
+}
+.log-out--btn:hover {
+  background-color: black;
+  color: white;
+}

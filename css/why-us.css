@@ -1,0 +1,83 @@
+body {
+  margin: 0;
+  padding: 0;
+}
+.content {
+  display: block;
+  background-color: rgba(255, 255, 255, 0.75);
+  border-radius: 25px;
+  margin: 1.5rem;
+}
+.blocks {
+  margin: 2rem 1rem;
+  background-color: rgba(182, 181, 179, 0.75);
+  border-radius: 25px;
+  box-shadow: 0.3rem 0.3rem 0.6rem rgb(138, 133, 133);
+  transition: transform 2s, opacity 2s;
+}
+s
+.title-adv {
+  display: block;
+  margin: 2rem 0rem;
+  text-align: center;
+}
+.title-adv h2 {
+  font-family: var(--header-font);
+  font-size: 30px;
+  color: black
+  margin: 1.5rem 0rem;
+  padding: 0;
+}
+.title-adv p{
+   font-family: var(--text-font);
+  font-size: 20px;
+  color: aliceblue;
+  margin: 0rem 0rem;
+  padding: 0;
+}
+.advantages-block {
+  display: flex;
+  flex-direction: row;
+  margin: 0;
+}
+.advantages {
+  flex: 1;
+  margin: 0.5rem 0.5rem;
+  background-color: white;
+  border-radius: 25px;
+}
+
+.advantages h3 {
+  font-family: var(--header-font);
+  font-size: 20px;
+  margin: 0rem 0.2rem;
+  padding: 0;
+  text-align: center;
+}
+.advantages p {
+  font-family: var(--text-font);
+  font-size: 15px;
+  margin: 0.8rem;
+  padding: 0;
+}
+.advantages span img {
+  width: 3.5rem;
+  margin: 0.5rem;
+  padding: 0.5rem;
+  background-color: rgba(84, 161, 21, 0.671);
+  border-radius: 5px;
+}
+.arrow-btns{
+  position: fixed;
+  right: 3rem;
+  bottom: 6rem;
+  display:grid;
+  grid-template-rows: 1fr 1fr;
+}
+
+.arrow-btn{
+  height: 50px;
+  margin: 0 0 0.2rem 0;
+  background-color: rgba(255, 255, 255, 0.55);
+  border-radius: 50%;
+}
