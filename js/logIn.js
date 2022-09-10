@@ -1,14 +1,11 @@
 "use strict";
-import { fakeUser, User } from "./userAcc";
-
+import User from "./userAcc";
 //Log in
 const emailField = document.getElementById("email-f");
 const passField = document.getElementById("password");
 const logInForm = document.querySelector(".log-in__form");
 const emailErrorField = document.getElementById("email-error");
 const passErrorField = document.getElementById("pass-error");
-
-fakeUser();
 
 emailField.addEventListener("blur", function () {
   if (localStorage.getItem(emailField.value) === null) {
@@ -36,13 +33,12 @@ logInForm.addEventListener("submit", function (e) {
   } else return;
 });
 //Fake accounts data
-function fakeUser() {
-  const userPeter = new User(
-    "Peter",
-    "Jackson",
-    "2000-02-02",
-    "peterJ@gmail.com",
-    "IamPeter00!"
-  );
-  localStorage.setItem("peterJ@gmail.com", JSON.stringify(userPeter));
-}
+const userPeter = new User(
+  "Peter",
+  "Jackson",
+  "2000-02-02",
+  "peterJ@gmail.com",
+  "IamPeter00!",
+  "VIP"
+);
+localStorage.setItem("peterJ@gmail.com", JSON.stringify(userPeter));

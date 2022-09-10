@@ -104,16 +104,23 @@ const isValidForm = function () {
   );
 };
 
+const firstName = fName.value;
+const lastName = lName.value;
+const bDay = ageField.value;
+const userEmail = email.value;
+const password = password.value;
+const cardPlan = plan.value;
+
 createAccBtn.addEventListener("click", function (e) {
   e.preventDefault();
   if (isValidForm(e)) {
     const user = new User(
-      fName.value,
-      lName.value,
-      ageField.value,
-      email.value,
-      password.value,
-      plan.value
+      firstName,
+      lastName,
+      bDay,
+      userEmail,
+      password,
+      cardPlan
     );
     localStorage.setItem(email.value, JSON.stringify(user));
     registerForm.classList.add("hidden");

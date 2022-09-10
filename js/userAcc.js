@@ -4,19 +4,18 @@ import { newUserEmail } from "./getCard";
 
 // Create new user account
 const users = [];
-
 export class User {
-  constructor(fName, lName, bDay, email, password, plan) {
+  constructor(fN, lN, bDay, email, password, plan) {
     this.id = uniqid();
-    this.fName = fName;
-    this.lName = lName;
+    this.fN = fName;
+    this.lN = lName;
     this.bDay = bDay;
     this.email = email;
     this.password = password;
     this.cards = [
       {
         id: "",
-        plan: "",
+        plan: this.plan,
         date: new Date().toISOString().split("T")[0],
       },
     ];
