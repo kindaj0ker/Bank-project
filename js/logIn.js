@@ -1,5 +1,6 @@
 "use strict";
-import { fakeUser } from "./userAcc";
+import { fakeUser, User } from "./userAcc";
+
 //Log in
 const emailField = document.getElementById("email-f");
 const passField = document.getElementById("password");
@@ -34,3 +35,14 @@ logInForm.addEventListener("submit", function (e) {
     window.location.href = "/user-acc.html";
   } else return;
 });
+//Fake accounts data
+function fakeUser() {
+  const userPeter = new User(
+    "Peter",
+    "Jackson",
+    "2000-02-02",
+    "peterJ@gmail.com",
+    "IamPeter00!"
+  );
+  localStorage.setItem("peterJ@gmail.com", JSON.stringify(userPeter));
+}

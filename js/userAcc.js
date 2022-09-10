@@ -36,19 +36,6 @@ export class User {
 }
 
 //New user from registered user
-localStorage.getItem;
-
-//Fake accounts data
-export function fakeUser() {
-  const userPeter = new User(
-    "Peter",
-    "Jackson",
-    "2000-02-02",
-    "peterJ@gmail.com",
-    "IamPeter00!"
-  );
-  localStorage.setItem("peterJ@gmail.com", JSON.stringify(userPeter));
-}
 
 //Header greeting
 const userFname = document.querySelector(".user-f--name");
