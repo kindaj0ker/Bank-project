@@ -1,6 +1,5 @@
 "use strict";
 import uniqid from "uniqid";
-import { newUserEmail } from "./getCard";
 
 // Create new user account
 const users = [];
@@ -36,7 +35,7 @@ export class User {
 }
 
 //New user from registered user
-localStorage.getItem;
+// localStorage.getItem;
 
 //Fake accounts data
 export function fakeUser() {
@@ -63,11 +62,11 @@ window.addEventListener("load", function () {
 
 //Log out timer
 const timer = document.querySelector(".timer");
-const countDownTimerFunc = setInterval(function (time) {
-  const min = Math.trunc(`${time / 60}`);
-  const sec = time % 60;
-  timer.textContent = `${min}:${sec}`;
-  time--;
-}, 1000);
-let time = 60;
-countDownTimerFunc();
+if (timer) { // если есть таймер блок то..
+  setInterval(function (time) {// interval возвращает intervalID чтобы потом можно было его выключить.
+    const min = Math.trunc(`${time / 60}`);
+    const sec = time % 60;
+    timer.textContent = `${min}:${sec}`;
+    time--;
+  }, 1000);
+}
