@@ -1,5 +1,5 @@
 "use strict";
-import User from "./userAcc";
+import { User } from "./userAcc";
 //Log in
 const emailField = document.getElementById("email-f");
 const passField = document.getElementById("password");
@@ -15,6 +15,7 @@ emailField.addEventListener("blur", function () {
     passErrorField.classList.add("hidden");
   }
 });
+
 passField.addEventListener("blur", function () {
   if (localStorage.getItem(passField.value) === null) {
     passErrorField.classList.remove("hidden");
@@ -30,8 +31,9 @@ logInForm.addEventListener("submit", function (e) {
     localStorage.getItem(passField.value) !== null
   ) {
     window.location.href = "/user-acc.html";
-  } else return;
+  };
 });
+
 //Fake accounts data
 const userPeter = new User(
   "Peter",

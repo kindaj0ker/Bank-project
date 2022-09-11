@@ -4,7 +4,7 @@
   "description": "Bank app",
   "source": "html/about.html",
   "scripts": {
-    "start": "parcel",
+    "start": "parcel 'html/*.html' --lazy",
     "build": "parcel build about.html"
   },
   "author": "Daria Zherebiateva",

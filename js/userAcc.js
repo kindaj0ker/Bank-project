@@ -1,14 +1,13 @@
 "use strict";
 import uniqid from "uniqid";
-import { newUserEmail } from "./getCard";
 
 // Create new user account
 const users = [];
 export class User {
   constructor(fN, lN, bDay, email, password, plan) {
     this.id = uniqid();
-    this.fN = fName;
-    this.lN = lName;
+    this.fN = fN;
+    this.lN = lN;
     this.bDay = bDay;
     this.email = email;
     this.password = password;

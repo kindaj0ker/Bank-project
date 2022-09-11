@@ -83,6 +83,9 @@ h2 {
   font-family: var(--element-font);
   font-size: 1.5rem;
   text-decoration: none;
+  width: 100%;
+  cursor: pointer;
+  border: none;
 }
 .log-in--btn:hover {
   background: orange;
