@@ -76,6 +76,7 @@ body {
 }
 .log-out--timer h5 {
   color: white;
+  font-weight: 200;
 }
 .timer {
   color: white;

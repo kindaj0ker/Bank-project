@@ -33,6 +33,7 @@ logInForm.addEventListener("submit", function (e) {
   } else return;
 });
 //Fake accounts data
+
 const userPeter = new User(
   "Peter",
   "Jackson",

@@ -4,6 +4,7 @@
   --text-font:'Lato', sans-serif;
   --element-font: "Dosis", sans-serif;
 }
+
 *{
   box-sizing: border-box;
 }
@@ -13,7 +14,10 @@ body {
   min-height: 100vh;
   background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.4)),url(./img/background.png);
 }
-
+/* Main menu styles */
+#nav-icon{
+  display: none;
+}
 header {
   background-color: rgba(245, 245, 245, 0.55);
   display: flex;
@@ -24,9 +28,7 @@ header {
   margin: 0;
   padding: 0;
 }
-.footer-btn {
-  text-decoration: none;
-}
+
 #brand-icon-header {
   display: inline;
   height: 5.5rem;
@@ -117,6 +119,52 @@ header {
   background-color: black;
   color: white;
 }
+@media (max-width:960px){
+  #nav-icon {
+    display: flex;
+    width: 60px;
+    height: 45px;
+    position: relative;
+    margin: 30px auto;
+    transform: rotate(0deg);
+    transition: .5s ease-in-out;
+    cursor: pointer;
+}
+#nav-icon span {
+    display: block;
+    position: absolute;
+    height: 9px;
+    width: 100%;
+    background: #337AB7;
+    border-radius: 9px;
+    opacity: 1;
+    left: 0;
+    transform: rotate(0deg);
+    transition: .25s ease-in-out;
+}
+#nav-icon span:nth-child(1) {
+    top: 0px;
+}
+#nav-icon span:nth-child(2) {
+    top: 18px;
+}
+#nav-icon span:nth-child(3) {
+    top: 36px;
+}
+#nav-icon.open span:nth-child(1) {
+    top: 18px;
+    transform: rotate(135deg);
+}
+#nav-icon.open span:nth-child(2) {
+    opacity: 0;
+    left: -60px;
+}
+#nav-icon.open span:nth-child(3) {
+    top: 18px;
+    transform: rotate(-135deg);
+}
+}
+/* Footer */
 .main-footer {
   background-color: rgba(245, 245, 245, 0.6);
   border: none;
@@ -153,6 +201,9 @@ header {
   padding: 0rem;
   margin: 0rem;
   text-align: left;
+}
+.footer-btn {
+  text-decoration: none;
 }
 .copyright{
   color: rgb(10, 0, 0);

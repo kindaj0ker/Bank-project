@@ -5,9 +5,9 @@ import { newUserEmail } from "./getCard";
 // Create new user account
 const users = [];
 export class User {
-  constructor(fN, lN, bDay, email, password, plan) {
+  constructor(fName, lName, bDay, email, password, plan) {
     this.id = uniqid();
-    this.fN = fName;
+    this.fName = fName;
     this.lN = lName;
     this.bDay = bDay;
     this.email = email;
@@ -46,14 +46,21 @@ window.addEventListener("load", function () {
 // Currency info-box
 
 // Date-time box
-
 //Log out timer
+
 const timer = document.querySelector(".timer");
+let time = 60;
 const countDownTimerFunc = setInterval(function (time) {
-  const min = Math.trunc(`${time / 60}`);
-  const sec = time % 60;
+  const min = toString(Math.trunc(`${time / 60}`));
+  const sec = toString(`${time % 60}`);
   timer.textContent = `${min}:${sec}`;
   time--;
 }, 1000);
-let time = 60;
-countDownTimerFunc();
+
+const logOutTimer = setTimeout(function () {
+  countDownTimerFunc();
+  if (min === "0" && sec === "0") {
+    console.log(lpggedout);
+  }
+}, time);
+// window.addEventListener("click", countDownTimerFunc);
