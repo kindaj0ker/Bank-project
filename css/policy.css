@@ -11,14 +11,27 @@
   border-radius: 15px;
   background-color: rgba(182, 181, 179, 0.85);
   width: 60%;
+  max-height: 20rem;
+  min-height: 20rem;
+  overflow: hidden;
 }
 .policy-box--photo {
   padding: 0;
+  flex: 1;
+  width: 100%;
   object-fit: cover;
 }
 .policy-box--text {
   padding: 1rem;
-  max-width: 0;
   display: flex;
+  flex: 1;
   flex-direction: column;
+}
+.policy-box--text p {
+  font-family: var(--text-font);
+  font-size: 1.2rem;
+}
+.policy-box--text h3 {
+  font-family: var(--header-font);
+  font-size: 1.5rem;
 }
