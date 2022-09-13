@@ -1,35 +1,22 @@
 "use strict";
 // Slider;
 let curSlide = 0;
+const slidesContainer = document.querySelector(".slider-wrapper");
 const btnSliderLeft = document.querySelector(".arrow-left--slider");
 const btnSliderRight = document.querySelector(".arrow-right--slider");
-const slides = document.querySelectorAll(".slide");
-const maxSlide = slides.length;
+const slide = document.querySelector(".slide");
 
-const changeSlide = function (slide) {
-  slides.forEach((s, index) => {
-    s.style.transform = `translateX(${index * 100}%)`;
-  });
-};
 // Next slide
 const nextSlideFunc = function () {
-  if (curSlide === maxSlide - 1) {
-    curSlide = 0;
-  } else {
-    curSlide++;
-  }
-  changeSlide(curSlide);
+  const slideWidth = slide.clientWidth + 16; // 16 is 1 rem
+  slidesContainer.scrollLeft += slideWidth;
 };
 btnSliderRight.addEventListener("click", nextSlideFunc);
 
 // Previous slide
 const prevSlideFunc = function () {
-  if (curSlide === 0) {
-    curSlide = maxSlide - 1;
-  } else {
-    curSlide--;
-  }
-  changeSlide(curSlide);
+  const slideWidth = slide.clientWidth + 16; // 16 is 1 rem
+  slidesContainer.scrollLeft -= slideWidth;
 };
 btnSliderLeft.addEventListener("click", prevSlideFunc);
 
@@ -39,4 +26,3 @@ document.addEventListener("keydown", function (e) {
   if (e.key === "ArrowLeft") prevSlideFunc();
   if (e.key === "ArrowRight") nextSlideFunc();
 });
-changeSlide(0);
