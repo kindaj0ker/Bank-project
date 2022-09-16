@@ -1,9 +1,8 @@
 :root{
   --menu-font: "Cairo", sans-serif;
-  --header-font: 'Roboto Slab', serif;
+  --header-font: "Playfair Display SC", serif;
   --text-font:'Lato', sans-serif;
   --element-font: "Dosis", sans-serif;
-  --orange-color: rgb(255, 94, 0);
 }
 
 *{
@@ -24,8 +23,9 @@ header {
   border-bottom-left-radius: 15%;
   border-bottom-right-radius: 15%;
   margin: 0;
-  padding: 0;
   width: 100%;
+  padding: 0;
+  position: fixed;
 }
 
 
@@ -144,95 +144,4 @@ header {
     left: 0;
     transform: rotate(0deg);
     transition: .25s ease-in-out;
-}
-#nav-icon span:nth-child(1) {
-    top: 0px;
-}
-#nav-icon span:nth-child(2) {
-    top: 18px;
-}
-#nav-icon span:nth-child(3) {
-    top: 36px;
-}
-#nav-icon.open span:nth-child(1) {
-    top: 18px;
-    transform: rotate(135deg);
-}
-#nav-icon.open span:nth-child(2) {
-    opacity: 0;
-    left: -60px;
-}
-#nav-icon.open span:nth-child(3) {
-    top: 18px;
-    transform: rotate(-135deg);
-}
-}
-/* Footer */
-.main-footer {
-  background-color: rgba(245, 245, 245, 0.6);
-  border: none;
-  border-top-left-radius: 15%;
-  border-top-right-radius: 15%;
-  width: 100vw;
-  padding: 0.5rem;
-  margin: auto 0 0;
-  height: max-content;
-}
-.footer-links {
-  text-decoration: none;
-  list-style: none;
-  display: flex;
-  justify-content: space-evenly;
-  margin: 0;
-  padding: 0;
-  }
-.footer-btn:hover{
-    color: white;
-    font-weight: 500;
-  }
-.footer-btn{
-  font-family: var(--menu-font);
-  color: black;
-  font-size: 1.2rem;
-  margin: 1rem 0rem;
-  padding: 0;
-}
-.footer-p{
-  color: aliceblue;
-  font-family: var(--element-font);
-  font-size: 1rem;
-  padding: 0rem;
-  margin: 0rem;
-  text-align: left;
-}
-.footer-btn {
-  text-decoration: none;
-}
-.copyright{
-  color: rgb(10, 0, 0);
-  font-family: var(--element-font);
-  font-size: 1.2rem;
-  margin: 0.5rem;
-  padding: 0rem;
-  text-align: center;
-}
-/* extra-classes toggle by js */
-.hidden {
-  display: none;
-  margin: 0rem;
-}
-.sticky-menu{
-  position:fixed;
-}
-
-.hidden-block {
-  opacity: 0;
-  transform: translateY(5rem);
-}
-.orange{
-  color: var(--orange-color);
-}
-.lazy-img{
-  width:15rem;
-  filter: blur(25px);
 }

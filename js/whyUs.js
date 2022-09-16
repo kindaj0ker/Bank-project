@@ -1,29 +1,30 @@
 "use strict";
-const blockThree = document.querySelector(".block--3");
+const blockThree = document.querySelector(".intersection");
+const blockOne = document.querySelector(".block--1");
 const header = document.querySelector(".menu-org");
+const arrows = document.querySelectorAll(".arrow");
 const arrowUp = document.querySelector(".arrow-btn--up");
 const arrowDown = document.querySelector(".arrow-btn--down");
 const footer = document.querySelector(".main-footer");
-
 const allBlocks = document.querySelectorAll(".blocks");
-//Sticky menu
-// const obsOptions = {
-//   root: null,
-//   rootMargin: "0px",
-//   threshold: 0.4,
-// };
-// const obsFunc = function (entries) {
-//   const [entry] = entries;
-//   console.log(entry, entry.isIntersecting);
 
-//   if (!entry.isIntersecting) {
-//     header.classList.add("sticky-menu");
-//   } else {
-//     header.classList.remove("sticky-menu");
-//   }
-// };
-// const observer = new IntersectionObserver(obsFunc, obsOptions);
-// observer.observe(blockThree);
+//Sticky menu
+const obsOptions = {
+  root: null,
+  rootMargin: "0px",
+  threshold: 0,
+};
+const obsFunc = function (entries) {
+  const [entry] = entries;
+  if (entry.isIntersecting) {
+    header.classList.add("sticky-menu");
+  }
+  if (!entry.isIntersecting) {
+    header.classList.remove("sticky-menu");
+  }
+};
+const observer = new IntersectionObserver(obsFunc, obsOptions);
+observer.observe(blockThree);
 
 //Reveal elements on scroll
 
@@ -33,7 +34,7 @@ const revealBlocks = function (entries, observer) {
 };
 const blockObserver = new IntersectionObserver(revealBlocks, {
   root: null,
-  threshold: 0.35,
+  threshold: 0.15,
 });
 allBlocks.forEach(function (block) {
   blockObserver.observe(block);
@@ -42,23 +43,48 @@ allBlocks.forEach(function (block) {
 
 // Arrow buttons navigation on page
 arrowUp.addEventListener("click", function () {
-  header.scrollIntoView({ behavior: "smooth" });
+  blockOne.scrollIntoView({ behavior: "smooth" });
 });
 arrowDown.addEventListener("click", function () {
   footer.scrollIntoView({ behavior: "smooth" });
 });
-const coordsBlockThree = blockThree.getBoundingClientRect();
-const heightBlockThree = coordsBlockThree.y;
-console.log(heightBlockThree);
+// Hide arrow down if footer is intersecting
 
-const arrowNavigation = function (entries, observer) {
+const arrowNavigation = function (entries) {
   const [entry] = entries;
-  console.log(entry);
+  if (entry.isIntersecting) {
+    arrows.forEach((arrow) => {
+      arrow.classList.remove("hidden");
+    });
+  } else {
+    arrows.forEach((arrow) => {
+      arrow.classList.add("hidden");
+    });
+  }
 };
-const blockObserver = new IntersectionObserver(revealBlocks, {
+const arrowObserver = new IntersectionObserver(arrowNavigation, {
   root: null,
-  threshold: 0.35,
+  rootMargin: "0px",
+  threshold: 0,
 });
+arrowObserver.observe(blockThree);
 
-arrowNavigation.observe(blockThree);
-block.classList.add("hidden-block");
+//Lazy load
+const lazyImg = document.querySelectorAll("img[data-src]");
+const loadImg = function (entry) {
+  const [entry] = entries;
+  if (entry.isIntersecting) {
+    entry.target.scr = entry.target.dataset.src;
+    entry.target.addEventListener("load", function () {
+      entry.target.classList.remove("lazy-img");
+    });
+  }
+  observer.unobserve(entry.target);
+};
+const imgObserver = new IntersectionObserver(loadImg, {
+  root: null,
+  treshold: 0,
+  rootMargin: "30rem",
+});
+lazyImg.forEach((img) => imgObserver.observe(img));
+console.log(entry);

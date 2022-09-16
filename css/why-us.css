@@ -9,36 +9,40 @@ body {
   margin: 1.5rem;
 }
 .blocks {
-  margin: 2rem 1rem;
-  background-color: rgba(182, 181, 179, 0.75);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin: 2.5rem auto;
+  padding: 0.5rem;
+  /* background-color: rgba(182, 181, 179, 0.75); */
   border-radius: 25px;
-  box-shadow: 0.3rem 0.3rem 0.6rem rgb(138, 133, 133);
+  /* box-shadow: 0.3rem 0.3rem 0.6rem rgb(138, 133, 133); */
   transition: transform 2s, opacity 2s;
 }
-s
 .title-adv {
   display: block;
-  margin: 2rem 0rem;
+  margin: 0.5rem auto;
   text-align: center;
 }
 .title-adv h2 {
   font-family: var(--header-font);
   font-size: 30px;
-  color: black
+  color: black;
   margin: 1.5rem 0rem;
-  padding: 0;
 }
-.title-adv p{
-   font-family: var(--text-font);
+.title-adv p {
+  font-family: var(--text-font);
   font-size: 20px;
-  color: aliceblue;
-  margin: 0rem 0rem;
+  color: black;
+  margin: 0.3rem;
   padding: 0;
 }
 .advantages-block {
   display: flex;
   flex-direction: row;
-  margin: 0;
+  margin: 0.2rem;
+  padding: 0.5rem 0;
 }
 .advantages {
   flex: 1;
@@ -67,17 +71,70 @@ s
   background-color: rgba(84, 161, 21, 0.671);
   border-radius: 5px;
 }
-.arrow-btns{
+.arrow-btns {
   position: fixed;
   right: 3rem;
   bottom: 6rem;
-  display:grid;
+  display: grid;
   grid-template-rows: 1fr 1fr;
 }
 
-.arrow-btn{
+.arrow-btn {
   height: 50px;
-  margin: 0 0 0.2rem 0;
+  margin: 0 0 1rem 0;
   background-color: rgba(255, 255, 255, 0.55);
   border-radius: 50%;
+}
+.text-block {
+  display: flex;
+  flex-direction: row;
+  border-radius: 15px;
+  width: 80%;
+}
+
+.block-title {
+  margin: 1rem 1.5rem;
+  font-family: var(--header-font);
+  font-size: 2.5rem;
+}
+.block-text {
+  margin: 0.5rem auto;
+  padding: 0.5rem 1.5rem;
+  font-family: var(--text-font);
+  font-size: 1.1rem;
+  line-height: 22px;
+}
+.block-img {
+  margin: 1rem;
+  max-width: 30rem;
+  min-width: 20rem;
+}
+.highlights {
+  background-color: rgba(182, 181, 179, 0.75);
+  box-shadow: 0.3rem 0.3rem 0.6rem rgb(138, 133, 133);
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  margin: 0;
+  padding: 0.5rem 1.5rem;
+  width: 100%;
+}
+.highlight {
+  display: flex;
+  flex-direction: column;
+  padding: 0 1rem;
+}
+.highlight-text {
+  font-family: var(--text-font);
+  font-size: 1.1rem;
+}
+.highlight-numbers {
+  font-size: 2.5rem;
+  padding: 0;
+  display: inline;
+  font-family: var(--text-font);
+  color: var(--orange-color);
+}
+.block--3 h1 {
+  font-size: 2.5rem;
+  font-family: var(--header-font);
 }
