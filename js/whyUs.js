@@ -47,6 +47,7 @@ arrowUp.addEventListener("click", function () {
 });
 arrowDown.addEventListener("click", function () {
   footer.scrollIntoView({ behavior: "smooth" });
+  arrowDown.classList.toggle("hidden");
 });
 // Hide arrow down if footer is intersecting
 
@@ -69,22 +70,21 @@ const arrowObserver = new IntersectionObserver(arrowNavigation, {
 });
 arrowObserver.observe(blockThree);
 
-//Lazy load
-const lazyImg = document.querySelectorAll("img[data-src]");
-const loadImg = function (entry) {
-  const [entry] = entries;
-  if (entry.isIntersecting) {
-    entry.target.scr = entry.target.dataset.src;
-    entry.target.addEventListener("load", function () {
-      entry.target.classList.remove("lazy-img");
-    });
-  }
-  observer.unobserve(entry.target);
-};
-const imgObserver = new IntersectionObserver(loadImg, {
-  root: null,
-  treshold: 0,
-  rootMargin: "30rem",
-});
-lazyImg.forEach((img) => imgObserver.observe(img));
-console.log(entry);
+// //Lazy load (parcel doesn't support)
+// const lazyImg = document.querySelectorAll("img[data-src]");
+// const loadImg = function (entries) {
+//   const [entry] = entries;
+//   if (!entry.isIntersecting) return;
+//   entry.target.src = entry.target.dataset.src;
+//   entry.target.addEventListener("load", function () {
+//     console.log(loaded);
+//     entry.target.classList.remove(".lazy-img");
+//   });
+//   observer.unobserve(entry.target);
+// };
+
+// const imgObserver = new IntersectionObserver(loadImg, {
+//   root: null,
+//   treshold: 0,
+// });
+// lazyImg.forEach((img) => imgObserver.observe(img));
