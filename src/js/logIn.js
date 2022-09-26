@@ -1,5 +1,9 @@
 "use strict";
-import User from "./userAcc";
+import {User} from "./userAcc";
+
+import('../css/shared-css.css');
+import('../css/log-in.css');
+
 //Log in
 const emailField = document.getElementById("email-f");
 const passField = document.getElementById("password");
