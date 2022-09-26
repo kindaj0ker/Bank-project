@@ -1,6 +1,8 @@
 "use strict";
 import uniqid from "uniqid";
-import { newUserEmail } from "./getCard";
+
+import('../css/shared-css.css');
+import('../css/user-acc.css');
 
 // Create new user account
 const users = [];

@@ -1,4 +1,8 @@
 "use strict";
+
+import('../css/shared-css.css');
+import('../css/why-us.css');
+
 const blockThree = document.querySelector(".intersection");
 const blockOne = document.querySelector(".block--1");
 const header = document.querySelector(".menu-org");

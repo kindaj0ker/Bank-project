@@ -15,7 +15,7 @@ body {
   display: flex;
   flex-direction: column;
   min-height: 100vh;
-  background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.4)),url(./img/background.png);
+  background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.4)),url(../img/background.png);
 }
 /* Main menu styles */
 .nav-menu{
@@ -87,7 +87,7 @@ body {
   border-radius: 1rem;
   color: white;
   background: -webkit-gradient(linear, left top, left bottom, from(#FED8B1), to(#ffae43)); 
-  background: -moz-linear-gradient(top, #FED8B1,  #ffae43)
+  background: -moz-linear-gradient(top, #FED8B1,  #ffae43);
   background-image: -o-linear-gradient(top,#FED8B1,  #FFAE43);
 }
 .user-bar {

@@ -1,5 +1,9 @@
 "use strict";
 import VanillaTilt from "vanilla-tilt";
+
+import('../css/shared-css.css');
+import('../css/about.css');
+
 const cards = document.querySelectorAll(".card-wrapper");
 const closeCautionBtn = document.querySelector("#close-caution-banner-btn");
 const cautionBanner = document.getElementsByClassName("caution-banner")[0];
