@@ -1,8 +1,8 @@
 "use strict";
-import {User} from "./userAcc";
+import { User } from "./userAcc";
 
-import('../css/shared-css.css');
-import('../css/log-in.css');
+import("../css/shared-css.css");
+import("../css/log-in.css");
 
 //Log in
 const emailField = document.getElementById("email-f");
@@ -33,17 +33,7 @@ logInForm.addEventListener("submit", function (e) {
     localStorage.getItem(emailField.value) !== null &&
     localStorage.getItem(passField.value) !== null
   ) {
+    export const logedInUserEmail = emailField.value;
     window.location.href = "/user-acc.html";
   } else return;
 });
-//Fake accounts data
-
-const userPeter = new User(
-  "Peter",
-  "Jackson",
-  "2000-02-02",
-  "peterJ@gmail.com",
-  "IamPeter00!",
-  "VIP"
-);
-localStorage.setItem("peterJ@gmail.com", JSON.stringify(userPeter));
