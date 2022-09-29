@@ -1,8 +1,6 @@
 "use strict";
-import { User } from "./userAcc";
 
-import("../css/shared-css.css");
-import("../css/log-in.css");
+import './fakeData.js';
 
 //Log in
 const emailField = document.getElementById("email-f");
@@ -13,14 +11,16 @@ const passErrorField = document.getElementById("pass-error");
 
 emailField.addEventListener("blur", function () {
   if (localStorage.getItem(emailField.value) === null) {
-    console.log(localStorage.getItem(emailField.value));
     emailErrorField.classList.remove("hidden");
   } else {
     passErrorField.classList.add("hidden");
   }
 });
+
 passField.addEventListener("blur", function () {
-  if (localStorage.getItem(passField.value) === null) {
+  const userByEmail = JSON.parse(localStorage.getItem(emailField.value));
+
+  if (userByEmail.password !== passField.value || passField.value === null) {
     passErrorField.classList.remove("hidden");
   } else {
     passErrorField.classList.add("hidden");
@@ -29,11 +29,13 @@ passField.addEventListener("blur", function () {
 
 logInForm.addEventListener("submit", function (e) {
   e.preventDefault();
+  const userByEmail = JSON.parse(localStorage.getItem(emailField.value));
+
   if (
     localStorage.getItem(emailField.value) !== null &&
-    localStorage.getItem(passField.value) !== null
+    userByEmail.password === passField.value
   ) {
-    export const logedInUserEmail = emailField.value;
-    window.location.href = "/user-acc.html";
-  } else return;
+    localStorage.setItem('logedInUserEmail', emailField.value);
+    window.location.href = "./user-acc.html"
+  };
 });
