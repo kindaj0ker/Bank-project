@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width, initial scale=1.0" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Playfair+Display+SC:wght@700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cairo:wght@500&family=Dosis:wght@700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://necolas.github.io/normalize.css/8.0.1/normalize.css"
+      rel="stylesheet"
+      type="text/css"
+    />
+    <link href="../css/get-card.css" rel="stylesheet" type="text/css" />
+    <link href="../css/shared-css.css" rel="stylesheet" type="text/css" />
+    <script defer type="module">
+      import uniqid from 'https://jspm.dev/uniqid';
+
+      window.uniqid = uniqid;
+    </script>
+    <script defer type="module" src="../js/getCard.js"></script>
+  </head>
+  <body>
+    <header class="menu-org">
+      <div id="nav-icon">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+      <img id="brand-icon-header" src="../img/brand-logo-header.png" />
+      <div class="main-menu-bar">
+        <ul class="menu">
+          <li class="hover-effect" id="about">
+            <a class="menu-link" href="./about.html">ABOUT US</a>
+          </li>
+          <li class="hover-effect" id="why-us">
+            <a class="menu-link" href="./why-us.html">WHY US</a>
+          </li>
+          <li class="hover-effect" id="testimonial">
+            <a class="menu-link" href="./testimonial.html">TESTIMONIALS</a>
+          </li>
+          <li class="hover-effect" id="support">
+            <a class="menu-link" href="./support.html">SUPPORT</a>
+          </li>
+        </ul>
+      </div>
+      <div class="user-bar acc-btns menu-link">
+        <a href="./get-card.html" id="get-card-btn">GET THE CARD</a>
+        <a href="./log-in.html" id="log-in-btn">LOG IN</a>
+      </div>
+    </header>
+    <div class="register-content">
+      <h4>START FOR FREE</h4>
+      <h1>Create new account<span class="orange-des">.</span></h1>
+      <h5>Already a Member? <span> <a href="./log-in.html" class="span-orange">Log In</a></span></h5>
+      <form class="register-form">
+        <div class="form-field full-width--fields">
+          <label for="plan">Choose your plan</label><br />
+          <select class="plan" name="plan" size="1" required>
+            <option class="card-option" value="Standart">Standart FREE</option>
+            <option class="card-option" selected value="Plus">Plus $5.99/month</option>
+            <option class="card-option" value="Premium">Premium $9.99/month</option>
+            <option class="card-option" value="VIP">VIP $19.99/month</option>
+          </select>
+        </div>
+        <div class="form-field f-name-f">
+          <div class="label-img">
+            <label for="fname">First name:</label><br />
+            <img src="../img/user-card.svg" />
+          </div>
+          <div class="input-wrapper">
+            <input class="inputField" type="text" id="fname" name="fname" /><br />
+          </div>
+        </div>
+        <div class="form-field l-name-f">
+          <div class="label-img">
+          <label for="lname">Last name:</label><br />
+          <img src="../img/user-card.svg" />
+          </div>
+          <div class="input-wrapper">
+            <input class="inputField" type="text" id="lname" name="lname" /><br />        
+          </div>  
+        </div>
+        <div class="form-field birth-field">
+          <div class="label-img">
+          <label for="birth">Date of birth:</label><br />
+          <img src="../img/birthday.svg" />
+          </div>
+          <div class="input-wrapper">
+            <input class="inputField" type="date" min="1920-01-01" max="" id="bday" name="birthday" /><br />        
+          </div>  
+        </div>
+        <div class="hidden password-validation" id="age-check--error">
+            <img class="incorrect-img--sign" src="../img/exclamation.svg"/>
+          <p>Sorry, but you should be at least 16 years old to use our bank. Come back when you reach it! </p>
+        </div>  
+        <div class="form-field full-width--fields">
+           <div class="label-img">
+             <label for="email">Email</label><br />
+             <img src="../img/email.svg" />
+          </div>
+          <div class="input-wrapper">
+            <input
+            class="inputField"
+            type="email"
+            id="email-f"
+            name="email"
+          /><br />          
+          </div>
+        </div>
+        <div class="form-field full-width--fields">
+          <div class="label-img">
+            <label for="password">Password</label><br />
+            <img src="../img/password.svg" />
+          </div>
+          <div class="input-wrapper">
+            <input
+            class="inputField"
+            type="password"
+            id="password"
+            name="password"
+            size="20"
+          /><br />    
+          </div> 
+        </div>
+        <div class="hidden"id="pass">
+            <img class="incorrect-img--sign" src="../img/exclamation.svg"/>
+          <p>A minimum 6 characters password contains a combination of <strong>uppercase and lowercase letter</strong> and <strong>number</strong> and symbols ! “ # $ % ‘ () *</p>
+        </div>     
+        <div class="form-field full-width--fields">
+          <div class="label-img">
+            <label for="confirm-password">Confirm password</label><br />
+            <img src="../img/password.svg" />
+           </div>
+            <div class="input-wrapper">
+              <input
+              class="inputField"
+              type="password"
+              id="confirm-password"
+              name="confirm-password"
+              size="20"
+            /><br />      
+           </div>   
+        </div>
+        <div class="hidden" id="conf-pass">
+          <img class="incorrect-img--sign" src="../img/exclamation.svg"/>
+          <p> <strong>Attention!</strong> Your new password and confirmation password do not match. Please confirm and try again.</p>
+        </div>     
+        <button class="create-acc--btn" />Create account</button>
+      </form>
+    </div>
+
+    <div class="success-reg--message hidden">
+      <img class="success-sign" src="../img/success-sign.svg"/>
+      <h3>Congratulations!</h3>
+      <h4>You've successfully been registered in <span class="span-orange">neoBank</span> system</h4>
+    </div>
+    <footer class="main-footer">
+      <ul class="footer-links">
+        <li>
+          <a href="./policy.html" class="footer-btn">POLICY</a>
+        </li>
+        <li>
+          <a href="./terms.html" class="footer-btn">TERMS</a>
+        </li>
+      </ul>
+      <p class="footer-p">
+        neoBank is a Banking information and Transaction Service that is
+        provided to Custmers 24 hours a day and 7 days a week
+      </p>
+      <p class="copyright">&copy; Copyright by Daria Zherebiateva, 2022</p>
+    </footer>
+  </body>
+</html>
