@@ -1,6 +1,8 @@
 "use strict";
 
-const uniqid = window.uniqid;
+const uniqid = new ShortUniqueId();
+
+console.log(uniqid());
 
 // Create new user account
 export class User {
@@ -60,10 +62,12 @@ export class User {
 //Header greeting
 const userFname = document.querySelector(".user-f--name");
 window.addEventListener("load", function () {
-  let user = JSON.parse(localStorage.getItem(localStorage.getItem('logedInUserEmail')));
+  let user = JSON.parse(
+    localStorage.getItem(localStorage.getItem("logedInUserEmail"))
+  );
 
   if (user) {
-    console.log('hey!', user.fName);
+    console.log("hey!", user.fName);
     console.log(localStorage.getItem("newUserEmail"));
   }
 });

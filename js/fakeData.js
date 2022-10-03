@@ -1,7 +1,7 @@
 "use strict";
 
 import { User } from "./userAcc.js";
-const uniqid = window.uniqid;
+const uniqid = new ShortUniqueId();
 
 //Fake Peter class
 export const userPeter = new User(
@@ -389,4 +389,4 @@ userPeter.createNewTransaction(
   "travel"
 );
 
-localStorage.setItem("peterJ@gmail.com",  JSON.stringify(userPeter));
+localStorage.setItem("peterJ@gmail.com", JSON.stringify(userPeter));
