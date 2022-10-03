@@ -19,14 +19,7 @@
     />
     <link href="../css/log-in.css" rel="stylesheet" type="text/css" />
     <link href="../css/shared-css.css" rel="stylesheet" type="text/css" />
-    <script defer type="module">
-      import uniqid from 'https://jspm.dev/uniqid';
-
-      window.uniqid = uniqid;
-    </script>
-    <script defer type="module" src="../js/logIn.js"></script>
   </head>
-
   <body>
     <header class="menu-org">
       <div id="nav-icon">
@@ -96,23 +89,25 @@
           <p>Incorrect password. Try again!</p>
         </div>
         <button class="log-in--btn">LOG IN</button>
-        <a href class="forgot-pass" href="">Forgot password</a>
+        <a class="forgot-pass" href="">Forgot password</a>
       </form>
     </div>
+    <footer class="main-footer">
+      <ul class="footer-links">
+        <li>
+          <a href="./policy.html" class="footer-btn">POLICY</a>
+        </li>
+        <li>
+          <a href="./terms.html" class="footer-btn">TERMS</a>
+        </li>
+      </ul>
+      <p class="footer-p">
+        neoBank is a Banking information and Transaction Service that is
+        provided to Custmers 24 hours a day and 7 days a week
+      </p>
+      <p class="copyright">&copy; Copyright by Daria Zherebiateva, 2022</p>
+    </footer>
+    <script src="https://cdn.jsdelivr.net/npm/short-unique-id@latest/dist/short-unique-id.min.js"></script>
+    <script defer type="module" src="../js/logIn.js"></script>
   </body>
-  <footer class="main-footer">
-    <ul class="footer-links">
-      <li>
-        <a href="./policy.html" class="footer-btn">POLICY</a>
-      </li>
-      <li>
-        <a href="./terms.html" class="footer-btn">TERMS</a>
-      </li>
-    </ul>
-    <p class="footer-p">
-      neoBank is a Banking information and Transaction Service that is provided
-      to Custmers 24 hours a day and 7 days a week
-    </p>
-    <p class="copyright">&copy; Copyright by Daria Zherebiateva, 2022</p>
-  </footer>
 </html>
