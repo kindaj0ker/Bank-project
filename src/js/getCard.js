@@ -1,6 +1,9 @@
 "use strict";
 import { User } from "./userAcc.js";
 
+import('../css/shared-css.css');
+import('../css/get-card.css');
+
 const registerForm = document.querySelector(".register-content");
 const createAccBtn = document.querySelector(".create-acc--btn");
 const plan = document.querySelector(".plan");

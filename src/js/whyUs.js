@@ -1,5 +1,8 @@
 "use strict";
 
+import('../css/shared-css.css');
+import('../css/why-us.css');
+
 const blockThree = document.querySelector(".intersection");
 const blockOne = document.querySelector(".block--1");
 const header = document.querySelector(".menu-org");
@@ -71,20 +74,21 @@ const arrowObserver = new IntersectionObserver(arrowNavigation, {
 });
 arrowObserver.observe(blockThree);
 
-//Lazy load (parcel doesn't support)
-const lazyImg = document.querySelectorAll("img[data-src]");
-const loadImg = function (entries) {
-  const [entry] = entries;
-  if (!entry.isIntersecting) return;
-  entry.target.src = entry.target.dataset.src;
-  entry.target.addEventListener("load", function () {
-    entry.target.classList.remove("lazy-img");
-  });
-  observer.unobserve(entry.target);
-};
+// //Lazy load (parcel doesn't support)
+// const lazyImg = document.querySelectorAll("img[data-src]");
+// const loadImg = function (entries) {
+//   const [entry] = entries;
+//   if (!entry.isIntersecting) return;
+//   entry.target.src = entry.target.dataset.src;
+//   entry.target.addEventListener("load", function () {
+//     console.log(loaded);
+//     entry.target.classList.remove(".lazy-img");
+//   });
+//   observer.unobserve(entry.target);
+// };
 
-const imgObserver = new IntersectionObserver(loadImg, {
-  root: null,
-  treshold: 0,
-});
-lazyImg.forEach((img) => imgObserver.observe(img));
+// const imgObserver = new IntersectionObserver(loadImg, {
+//   root: null,
+//   treshold: 0,
+// });
+// lazyImg.forEach((img) => imgObserver.observe(img));

@@ -1,6 +1,9 @@
 "use strict";
+import uniqid from "uniqid";
+import { logedInUserEmail } from "./logIn";
 
-const uniqid = window.uniqid;
+import("../css/shared-css.css");
+import("../css/user-acc.css");
 
 // Create new user account
 export class User {
@@ -14,7 +17,6 @@ export class User {
     this.cards = [];
     this.transactions = [];
   }
-
   createNewCard(cardPlan, id = `${uniqid()}`, expired, currency = "$") {
     const day = new Date().getDate().toString().padStart(2, "0");
     const month = new Date().getMonth().toString().padStart(2, "0");
@@ -29,7 +31,6 @@ export class User {
     const card = Object.fromEntries(data);
     this.cards.push(card);
   }
-
   createNewTransaction(
     group,
     cardID,
@@ -56,16 +57,13 @@ export class User {
 }
 
 //New user from registered user
-
+const curUserEmail = logedInUserEmail;
+const curUser = JSON.stringify(localStorage.getItem(curUserEmail));
 //Header greeting
 const userFname = document.querySelector(".user-f--name");
 window.addEventListener("load", function () {
-  let user = JSON.parse(localStorage.getItem(localStorage.getItem('logedInUserEmail')));
-
-  if (user) {
-    console.log('hey!', user.fName);
-    console.log(localStorage.getItem("newUserEmail"));
-  }
+  localStorage.getItem("newUserEmail");
+  console.log(localStorage.getItem("newUserEmail"));
 });
 
 // Currency info-box
@@ -74,19 +72,18 @@ window.addEventListener("load", function () {
 //Log out timer
 
 const timer = document.querySelector(".timer");
-if (timer) {
-  let time = 60;
-  setInterval(function () {
-    const min = toString(Math.trunc(`${time / 60}`));
-    const sec = toString(`${time % 60}`);
-    timer.textContent = `${min}:${sec}`;
-    time--;
-  }, 1000);
+let time = 60;
+const countDownTimerFunc = setInterval(function (time) {
+  const min = toString(Math.trunc(`${time / 60}`));
+  const sec = toString(`${time % 60}`);
+  timer.textContent = `${min}:${sec}`;
+  time--;
+}, 1000);
 
-  setTimeout(function () {
-    if (min === "0" && sec === "0") {
-      console.log(lpggedout);
-    }
-  }, time);
-}
+const logOutTimer = setTimeout(function () {
+  countDownTimerFunc();
+  if (min === "0" && sec === "0") {
+    console.log(lpggedout);
+  }
+}, time);
 // window.addEventListener("click", countDownTimerFunc);

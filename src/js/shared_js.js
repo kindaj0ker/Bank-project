@@ -1,5 +1,7 @@
 "use strict";
 
+import('../css/shared-css.css');
+
 // Menu highlight
 const [currPageLink] = window.location.href.split("/").slice(-1);
 const currPageName = currPageLink.split(".")[0];

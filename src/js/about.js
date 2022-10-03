@@ -1,4 +1,8 @@
 "use strict";
+import VanillaTilt from "vanilla-tilt";
+
+import('../css/shared-css.css');
+import('../css/about.css');
 
 const cards = document.querySelectorAll(".card-wrapper");
 const closeCautionBtn = document.querySelector("#close-caution-banner-btn");
@@ -7,7 +11,7 @@ const getStartedBtn = document.querySelector(".get-started");
 
 // Cards animation
 const animationCards = function (e) {
-  window.VanillaTilt.init(e.target.closest(".card-wrapper"), {
+  VanillaTilt.init(e.target.closest(".card-wrapper"), {
     max: 35,
     speed: 400,
     glare: true,
