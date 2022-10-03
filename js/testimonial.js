@@ -1,8 +1,5 @@
 "use strict";
 
-import('../css/shared-css.css');
-import('../css/testimonial.css');
-
 // Slider;
 let curSlide = 0;
 const btnSliderLeft = document.querySelector(".arrow-left--slider");
