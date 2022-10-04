@@ -23,20 +23,35 @@ document.addEventListener("click", function(e){
 showContent();
 })
 
+//Init page
+const homeInitFunc=function(transactions,curUser){
+showBalance (transactions);
+ revealCards (curUser);
+}
+const savingsInitFunc=function(savings){
+  createSavingsType(savings);
+  showSavings();
+}
+const loanInitFunc=function(){}
+const transferInitFunc=function(){}
+
 //Show html depends on current menu selection
 const contentSpace=document.querySelector(".content-space");
-const showContent=function(){
+
+function showContent(){
   allMenu.forEach((m)=>{
   if (m.classList.contains("menu-highlighted")){
     contentSpace.innerHTML="";
     const curMenu="#"+m.id.toLowerCase();
     const curTemplateID=document.querySelector(curMenu)
     const curTemplateContent=curTemplateID.content.cloneNode(true);
-    contentSpace.appendChild(curTemplateContent)
+    contentSpace.appendChild(curTemplateContent);
   } else return
 });
 }
+
 showContent();
+
 // Create new user account
 export class User {
   constructor(fName, lName, bDay, email, password) {
@@ -91,30 +106,27 @@ export class User {
 }
 
 //New user from registered user
-const curUserEmail=
-const curUser=userPeter;
-
-
-
+const curUser=JSON.parse(localStorage.getItem("peterJ@gmail.com"));
 
 
 //Header greeting
-const userFname = document.querySelector(".user-f--name");
-window.addEventListener("load", function () {
-  let user = JSON.parse(
-    localStorage.getItem(localStorage.getItem("logedInUserEmail"))
-  );
+// const userFname = document.querySelector(".user-f--name");
+// window.addEventListener("load", function () {
+//   let user = JSON.parse(
+//     localStorage.getItem(localStorage.getItem("logedInUserEmail"))
+//   );
 
-  if (user) {
-    console.log("hey!", user.fName);
-    console.log(localStorage.getItem("newUserEmail"));
-  }
-});
+//   if (user) {
+//     console.log("hey!", user.fName);
+//     console.log(localStorage.getItem("newUserEmail"));
+//   }
+// });
 
 //Content 
+
 //Show Balance
 
-const showBalance = function (transactions) {
+function showBalance (transactions) {
   return transactions.reduce((total, cur) => {
     if (cur.type === "withdrawal") {
       return (total -= Number(cur.amount));
@@ -124,7 +136,7 @@ const showBalance = function (transactions) {
 
 //Reveal cards
 const cardsZone = document.querySelector(".user-cards__zone");
-const revealCards = function (curUser) {
+function revealCards (curUser) {
   //Show balance of every card
   curUser.cards.forEach((card) => {
     const curId = card.id;
@@ -148,7 +160,6 @@ const revealCards = function (curUser) {
         </div>
       </div>
     </div>`;
-
     cardsZone.insertAdjacentHTML("afterbegin", cardHtml);
   });
 };
@@ -161,7 +172,7 @@ const sortTransactions = function (curCard) {
 };
 
 //Reveal card transactions block
-const revealTransactions = function (transactions, curTarget, curCard) {
+function revealTransactions(transactions, curTarget, curCard) {
   const cardTransactionsContainer = curTarget.closest(".total-card__info");
   if (sortTransactions(curCard.id).length === 0) {
     const noTransBlock = `<div class="no-transactions__block">
@@ -290,7 +301,6 @@ const updateCardsContainer = function (curUser) {
   cardsZone.innerHTML = "";
   revealCards(curUser);
 };
-updateCardsContainer(curUser);
 
 // Sort savings
 const sortSavings = function () {
@@ -298,9 +308,10 @@ const sortSavings = function () {
     return transaction.group === "savings";
   });
 };
+
 //Create savings in user interface
 const categoriesSavingsBlock = document.querySelector(".categories-block");
-const createSavingsType = function (savings) {
+function createSavingsType(savings) {
   savings.forEach((s) => {
     const html = `<div class="category">
         <img class="saving-category__img" id="${s}" src="../img/${s}-saving.png"/>
@@ -312,7 +323,7 @@ const createSavingsType = function (savings) {
 
 //Show savings
 const savingsBlock = document.querySelector(".savings-block");
-const showSavings = function () {
+function showSavings() {
   const savingsTypes = new Set();
   sortSavings().forEach((saving) => {
     const type = saving.savingType;
@@ -320,7 +331,6 @@ const showSavings = function () {
   });
   createSavingsType(savingsTypes);
 };
-showSavings();
 
 //Reveal savings
 const savingsRevealingBlock = document.getElementById("savings");
