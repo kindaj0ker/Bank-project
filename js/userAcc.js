@@ -2,8 +2,41 @@
 
 const uniqid = new ShortUniqueId();
 
-console.log(uniqid());
+//Highlight main page
+const home=document.getElementById("HOME");
+home.classList.add("menu-highlighted");
+home.parentElement.classList.add("highlighted");
 
+//Highlighted menu
+const allMenu=Array.from(document.getElementsByClassName("user-menu--li"));
+document.addEventListener("click", function(e){
+  if (e.target.classList.contains("user-menu--li")){
+  allMenu.forEach((m)=> {
+    if (m.classList.contains("menu-highlighted") && m.parentElement.classList.contains("highlighted")) {
+    m.classList.toggle("menu-highlighted");
+    m.parentElement.classList.toggle("highlighted");
+    };
+    e.target.parentElement.classList.add("highlighted");
+    e.target.classList.add("menu-highlighted");
+  }) 
+  }
+showContent();
+})
+
+//Show html depends on current menu selection
+const contentSpace=document.querySelector(".content-space");
+const showContent=function(){
+  allMenu.forEach((m)=>{
+  if (m.classList.contains("menu-highlighted")){
+    contentSpace.innerHTML="";
+    const curMenu="#"+m.id.toLowerCase();
+    const curTemplateID=document.querySelector(curMenu)
+    const curTemplateContent=curTemplateID.content.cloneNode(true);
+    contentSpace.appendChild(curTemplateContent)
+  } else return
+});
+}
+showContent();
 // Create new user account
 export class User {
   constructor(fName, lName, bDay, email, password) {
@@ -71,6 +104,7 @@ window.addEventListener("load", function () {
     console.log(localStorage.getItem("newUserEmail"));
   }
 });
+
 
 // Currency info-box
 

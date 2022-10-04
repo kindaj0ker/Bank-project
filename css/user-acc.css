@@ -3,6 +3,7 @@
   --header-font: "Playfair Display SC", serif;
   --text-font: "Lato", sans-serif;
   --element-font: "Dosis", sans-serif;
+  --orange-color: rgb(255, 94, 0);
 }
 * {
   margin: 0;
@@ -34,17 +35,32 @@ body {
   color: rgb(127, 137, 154);
 }
 .user-menu--li:hover {
-  color: white;
+  color: var(--orange-color);
 }
 .main-content {
   background-color: rgb(17, 18, 19);
   border-radius: 25px;
   margin: 0 1rem;
+  display:flex;
+  flex-direction: column;
+}
+.user-content{
+  display: flex;
+  flex-direction: row;
+}
+.content-space{
+  display:flex;
+  flex-direction: column;
+  width:80%;
 }
 .user-header {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+}
+.user-info{
+  display: flex;
+  flex-direction: column;
 }
 .greeting {
   color: white;
@@ -81,4 +97,265 @@ body {
 .timer {
   color: white;
   font-weight: 800;
+}
+/* main user content styles */
+/* transactions */
+.transactions {
+  display: hidden;
+  flex-direction: column;
+  width: 90%;
+  align-items: flex-start;
+}
+.transaction {
+  margin: 0.2rem auto;
+  padding: 0.3rem;
+  font-family: var(--element-font);
+  display: flex;
+  flex-direction: row;
+  width: 50%;
+  border-radius: 10px;
+  background-color: white;
+  justify-content: space-between;
+  align-items: center;
+  align-self: flex-start;
+}
+.transaction-group {
+  background-color: grey;
+  border-radius: 3px;
+  width: 3rem;
+  margin: 0.3rem;
+}
+
+.oper-group__img {
+  padding: 0.2rem;
+  margin: 0;
+  width: 2.5rem;
+  align-self: center;
+}
+.transaction-name--date__block {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+.transaction--date {
+  color: grey;
+}
+
+.withdrawal {
+  color: red;
+  border: 0.3rem solid red;
+}
+.deposit {
+  border: 0.3rem solid green;
+  color: green;
+}
+.transaction-amount {
+  display: flex;
+  flex-flow: right;
+}
+/* CARDS ZONE */
+.no-transactions__block {
+  background-color: var(--blue-color);
+  border: 0.1rem solid black;
+}
+.user-cards__zone {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  width: 80rem;
+  background-color: azure;
+}
+.total-card__info {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+.user-card {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+}
+.card-info__block {
+  margin: 0 0.2rem;
+  display: flex;
+  flex-direction: column;
+  font-family: var(--element-font);
+}
+.card-wrapper {
+  display: flex;
+}
+.card-number {
+  margin: 0;
+}
+.card-plan {
+  margin: 0;
+}
+.expiry-date {
+  margin: 0;
+}
+.transactions-init {
+  margin: 0.5rem 0;
+  color: var(--blue-color);
+  text-decoration: underline;
+  font-size: 1.1rem;
+}
+.transactions-init:hover {
+  color: var(--grey-color);
+  cursor: pointer;
+}
+.user-card__img {
+  width: 8rem;
+  align-self: flex-start;
+}
+/* checkbox */
+.sorting-box {
+  display: flex;
+  flex-direction: row;
+  float: right;
+  justify-content: space-evenly;
+}
+/* Create new card */
+.create-card__box {
+  padding: 0.2rem;
+  display: flex;
+  direction: row;
+  width: fit-content;
+}
+.creat-card__btn {
+  margin: auto 0.5rem;
+  padding: 0.3rem;
+  border-radius: 100px;
+  background-color: var(--blue-color);
+  border: 0.2rem solid black;
+}
+.create-p {
+  margin: auto 0.5rem;
+}
+.register-form {
+  width: 100%;
+  display: grid;
+}
+select {
+  background-color: orange;
+  outline: none;
+  width: 100%;
+  margin: 0.5rem 0 0 0;
+  padding: 0.3rem;
+  border-radius: 10px;
+}
+.card-option {
+  color: black;
+  outline: none;
+}
+
+.form-field {
+  font-family: var(--text-font);
+  background-color: rgb(38, 42, 52);
+  border-radius: 15px;
+  margin: 0.3rem 0rem;
+  padding: 0.3rem 0rem;
+}
+
+.form-field label {
+  color: rgb(127, 137, 154);
+  font-size: 1rem;
+  margin: 0rem 0.5rem;
+  padding: 0;
+}
+.form-field img {
+  background-color: whitesmoke;
+  border-radius: 10px;
+  padding: 0.2rem;
+  margin: 0.2rem;
+  width: 1.5rem;
+}
+.create-acc--btn {
+  align-self: center;
+  background-color: orange;
+  color: white;
+  border-radius: 15px;
+  margin: 1rem 0rem;
+  padding: 0.5rem;
+  display: block;
+  box-shadow: 0.3rem 0.3rem 0.4rem gray;
+  font-family: var(--element-font);
+  font-size: 1.5rem;
+}
+.create-acc--btn:hover {
+  background: orange;
+  color: white;
+}
+
+/* Savings */
+.savings-block {
+  display: flex;
+  flex-direction: column;
+  margin: 2rem auto;
+  width: 100%;
+}
+.categories-block {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  background-color: grey;
+  border-radius: 15px;
+  align-items: center;
+}
+.category {
+  display: flex;
+  flex-direction: column;
+  margin: 0.5rem 0;
+}
+.saving-category__img {
+  width: 5rem;
+  background-color: aliceblue;
+  border: 0.2rem solid black;
+  border-radius: 10px;
+}
+.saving-category__name {
+  font-family: var(--element-font);
+  margin: 0.2rem auto;
+}
+.saving-category__img:hover {
+  cursor: grab;
+  width: 5.5rem;
+  padding: 0.5rem;
+}
+/* recuest loan */
+.request-loan__block {
+  display: flex;
+  flex-direction: column;
+  width: 50%;
+  background-color: aliceblue;
+}
+.loan-form {
+  display: flex;
+  flex-direction: column;
+}
+.loan-field__wrapper {
+  display: flex;
+  flex-direction: row;
+}
+.loan-field {
+  display: flex;
+  flex-direction: column;
+  align-content: center;
+}
+.next-field__btn {
+  width: 4rem;
+  border-radius: 20px;
+  overflow: hidden;
+}
+.request-loan__arrow {
+  width: 70%;
+}
+/* estra classes */
+.menu-highlighted{
+color: var(--orange-color);
+justify-content: center;
+}
+.highlighted{
+  background-color:aliceblue;
+  border-radius: 10px;
+  width: 100%;
+  align-items: center;
 }

@@ -18,6 +18,7 @@
       type="text/css"
     />
     <link href="../css/user-acc.css" rel="stylesheet" type="text/css" />
+    
   </head>
   <body>
     <div class="user-display">
@@ -27,16 +28,16 @@
         </div>
         <ul class="user-menu--list">
           <li>
-            <a class="user-menu--li" href="#">Home</a>
+            <a class="user-menu--li" id="HOME" href="#">Home</a>
           </li>
           <li>
-            <a class="user-menu--li" href="#">My cards</a>
+            <a class="user-menu--li" id="LOAN" href="#">Loan</a>
           </li>
           <li>
-            <a class="user-menu--li" href="#">Savings</a>
+            <a class="user-menu--li" id="SAVINGS" href="#">Savings</a>
           </li>
           <li>
-            <a class="user-menu--li" href="#">Transactions</a>
+            <a class="user-menu--li" id="TRANSFER" href="#">Transfer</a>
           </li>
         </ul>
       </nav>
@@ -48,19 +49,72 @@
           </div>
           <a href class="log-out--btn" href="../js/logIn.js">LOG OUT</a>
         </div>
-        <div class="user-info">
-          <div class="currency-info--box box-style"></div>
-          <div class="user-date--time__box box-style"></div>
-          <div class="log-out--timer box-style">
-            <h5>
-              You'll be logged out in
-              <span class="timer"></span>
-            </h5>
+        <div class="user-content">
+          <div class="content-space">
+          </div>
+          <div class="user-info">
+            <div class="currency-info--box box-style"></div>
+            <div class="user-date--time__box box-style"></div>
+            <div class="log-out--timer box-style">
+              <h5>
+                You'll be logged out in
+                <span class="timer"></span>
+              </h5>
+            </div>
           </div>
         </div>
       </div>
     </div>
-
+    <template class="account-content" id="home">
+       <div class="user-cards__zone">
+         <div class="create-card__box">
+            <h5 class="create-p creation">Get a new card <span class="creat-card__btn">+</span></h5>
+              <form class="register-form hidden">
+                <div class="form-field full-width--fields">
+                  <label for="plan">Choose your plan</label><br />
+                    <select class="plan" name="plan" size="1" required>
+                      <option class="card-option" value="Standart">Standart FREE</option>
+                      <option class="card-option" selected value="Plus">Plus $5.99/month</option>
+                      <option class="card-option" value="Premium">Premium $9.99/month</option>
+                      <option class="card-option" value="VIP">VIP $19.99/month</option>
+                    </select>
+                  </div>    
+                    <button class="create-acc--btn" />Get a Card</button>
+                </form>
+            </div>
+          </div>
+      </template>
+      <template class="account-content" id="loan">
+        <div class="request-loan__block">
+          <h5>Fill the form to request a bank loan and wait for the result</h5>
+          <form class="loan-form">
+          <div class="loan-field__wrapper">
+          <div class="loan-field amount-loan__info">
+          <label for="loan-amount">Type loan amount</label>
+          <input class="inputField_loan" type="text" id="loan-amount" name="loan_amount" />
+        </div>
+        <div class="loan-field">
+          <label for="loan-currency">Select currency</label>
+            <select class="loan-currency" name="loan-currency" size="1" required>
+              <option class="loan-option" value="$">$</option>
+              <option class="loan-option" selected value="€">€</option>
+              <option class="loan-option" value="£">£</option>
+          </select>
+        </div> 
+      </div>
+      <button class="next-field__btn" /><img class="request-loan__arrow" src='./request-loan__arrow.png'/></button>
+    </form>
+  </div>
+      </template>
+      <template class="account-content" id="savings">
+        <div class="savings-block">
+          <div class="categories-block">
+          </div>
+          <div id="savings" class="transactions"></div>
+        </div>
+      </template>
+      <template class="account-content" id="transfer">
+      </template>
     <script src="https://cdn.jsdelivr.net/npm/short-unique-id@latest/dist/short-unique-id.min.js"></script>
     <script defer type="module" src="../js/userAcc.js"></script>
   </body>
