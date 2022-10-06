@@ -2,6 +2,23 @@
 
 const uniqid = new ShortUniqueId();
 
+//New user from registered user
+// let curUser=JSON.parse(localStorage.getItem("logedIn"));
+let curUser=JSON.parse(localStorage.getItem("peterJ@gmail.com"));
+
+//Select main elements 
+
+const timerBlock = document.querySelector(".timer");
+const contentSpace=document.querySelector(".content-space");
+const allContentFillers=document.querySelectorAll(".content-filler");
+const cardsZone = document.querySelector(".user-cards__zone");
+let timer;
+
+//Init page
+
+if (timer) clearInterval(timer);
+countDownTimerFunc();
+
 //Highlight main page
 const home=document.getElementById("HOME");
 home.classList.add("menu-highlighted");
@@ -23,34 +40,27 @@ document.addEventListener("click", function(e){
 showContent();
 })
 
-//Init page
-const homeInitFunc=function(transactions,curUser){
-showBalance (transactions);
- revealCards (curUser);
-}
-const savingsInitFunc=function(savings){
-  createSavingsType(savings);
-  showSavings();
-}
-const loanInitFunc=function(){}
-const transferInitFunc=function(){}
-
 //Show html depends on current menu selection
-const contentSpace=document.querySelector(".content-space");
 
 function showContent(){
   allMenu.forEach((m)=>{
   if (m.classList.contains("menu-highlighted")){
     contentSpace.innerHTML="";
     const curMenu="#"+m.id.toLowerCase();
-    const curTemplateID=document.querySelector(curMenu)
-    const curTemplateContent=curTemplateID.content.cloneNode(true);
-    contentSpace.appendChild(curTemplateContent);
+    console.log(curMenu);
+    const curContentFiller=document.querySelector(curMenu);
+    console.log(curContentFiller);
+    allContentFillers.forEach((content)=>{
+      if(!content.classList.contains("hidden")){
+      content.classList.add("hidden");
+      } else return
+    });
+    console.log(curContentFiller);
+    curContentFiller.classList.remove("hidden");
   } else return
 });
-}
 
-showContent();
+}
 
 // Create new user account
 export class User {
@@ -105,27 +115,15 @@ export class User {
   }
 }
 
-//New user from registered user
-const curUser=JSON.parse(localStorage.getItem("peterJ@gmail.com"));
-
 
 //Header greeting
-// const userFname = document.querySelector(".user-f--name");
-// window.addEventListener("load", function () {
-//   let user = JSON.parse(
-//     localStorage.getItem(localStorage.getItem("logedInUserEmail"))
-//   );
+const userFname = document.querySelector(".user-f--name");
+window.addEventListener("DOMContentLoaded", function () {
 
-//   if (user) {
-//     console.log("hey!", user.fName);
-//     console.log(localStorage.getItem("newUserEmail"));
-//   }
-// });
-
-//Content 
+  userFname.textContent=`${curUser.fName}`;
+});
 
 //Show Balance
-
 function showBalance (transactions) {
   return transactions.reduce((total, cur) => {
     if (cur.type === "withdrawal") {
@@ -135,7 +133,6 @@ function showBalance (transactions) {
 };
 
 //Reveal cards
-const cardsZone = document.querySelector(".user-cards__zone");
 function revealCards (curUser) {
   //Show balance of every card
   curUser.cards.forEach((card) => {
@@ -302,107 +299,119 @@ const updateCardsContainer = function (curUser) {
   revealCards(curUser);
 };
 
-// Sort savings
-const sortSavings = function () {
-  return curUser.transactions.filter(function (transaction) {
-    return transaction.group === "savings";
-  });
-};
+// // Sort savings
+// const sortSavings = function () {
+//   return curUser.transactions.filter(function (transaction) {
+//     return transaction.group === "savings";
+//   });
+// };
 
-//Create savings in user interface
-const categoriesSavingsBlock = document.querySelector(".categories-block");
-function createSavingsType(savings) {
-  savings.forEach((s) => {
-    const html = `<div class="category">
-        <img class="saving-category__img" id="${s}" src="../img/${s}-saving.png"/>
-        <p class="saving-category__name">${s.replace("-", " ")}</p>
-      </div>`;
-    categoriesSavingsBlock.insertAdjacentHTML("afterbegin", html);
-  });
-};
+// //Create savings in user interface
+// const categoriesSavingsBlock = document.querySelector(".categories-block");
+// function createSavingsType(savings) {
+//   savings.forEach((s) => {
+//     const html = `<div class="category">
+//         <img class="saving-category__img" id="${s}" src="../img/${s}-saving.png"/>
+//         <p class="saving-category__name">${s.replace("-", " ")}</p>
+//       </div>`;
+//     categoriesSavingsBlock.insertAdjacentHTML("afterbegin", html);
+//   });
+// };
 
-//Show savings
-const savingsBlock = document.querySelector(".savings-block");
-function showSavings() {
-  const savingsTypes = new Set();
-  sortSavings().forEach((saving) => {
-    const type = saving.savingType;
-    savingsTypes.add(type);
-  });
-  createSavingsType(savingsTypes);
-};
+// //Show savings
+// const savingsBlock = document.querySelector(".savings-block");
+// function showSavings() {
+//   const savingsTypes = new Set();
+//   sortSavings().forEach((saving) => {
+//     const type = saving.savingType;
+//     savingsTypes.add(type);
+//   });
+//   createSavingsType(savingsTypes);
+// };
 
-//Reveal savings
-const savingsRevealingBlock = document.getElementById("savings");
-const revealSavings = function (e) {
-  const curSavingsType = e.target.id;
-  savingsRevealingBlock.innerHTML = "";
-  //show balance
-  let balance = 0;
-  let currencySaving = "";
-  sortSavings().forEach((s) => {
-    if (s.savingType === curSavingsType) {
-      const html = `<div class="transaction">
-        <img class="oper-group__img" src="../img/${s.savingType}-saving.png"/>
-        <div class="transaction-name--date__block">
-          <span class="transaction--name">${s.savingType}</span>
-          <span class="transaction--date">Today</span>
-            </div>
-        <div class="transaction-amount">
-          <span class="transaction-currency">${s.currency}</span>
-          <span class="transaction--amount">${s.amount}</span>
-        </div>`;
-      savingsRevealingBlock.insertAdjacentHTML("beforeend", html);
-      balance += +s.amount;
-      currencySaving = s.currency;
-    }
-  });
-  const balanceHtml = `
-        <div class="saving-balance">
-            <h5>Balance:${balance} ${currencySaving} </h5>
-        </div>`;
-  savingsRevealingBlock.insertAdjacentHTML("afterbegin", balanceHtml);
-};
-const savingTypeBtn = document.querySelectorAll(".saving-category__img");
-savingTypeBtn.forEach((btn) => btn.addEventListener("click", revealSavings));
+// //Reveal savings
+// const savingsRevealingBlock = document.getElementById("savings");
+// const revealSavings = function (e) {
+//   const curSavingsType = e.target.id;
+//   savingsRevealingBlock.innerHTML = "";
+//   //show balance
+//   let balance = 0;
+//   let currencySaving = "";
+//   sortSavings().forEach((s) => {
+//     if (s.savingType === curSavingsType) {
+//       const html = `<div class="transaction">
+//         <img class="oper-group__img" src="../img/${s.savingType}-saving.png"/>
+//         <div class="transaction-name--date__block">
+//           <span class="transaction--name">${s.savingType}</span>
+//           <span class="transaction--date">Today</span>
+//             </div>
+//         <div class="transaction-amount">
+//           <span class="transaction-currency">${s.currency}</span>
+//           <span class="transaction--amount">${s.amount}</span>
+//         </div>`;
+//       savingsRevealingBlock.insertAdjacentHTML("beforeend", html);
+//       balance += +s.amount;
+//       currencySaving = s.currency;
+//     }
+//   });
+//   const balanceHtml = `
+//         <div class="saving-balance">
+//             <h5>Balance:${balance} ${currencySaving} </h5>
+//         </div>`;
+//   savingsRevealingBlock.insertAdjacentHTML("afterbegin", balanceHtml);
+// };
+// const savingTypeBtn = document.querySelectorAll(".saving-category__img");
+// savingTypeBtn.forEach((btn) => btn.addEventListener("click", revealSavings));
 
 
-//Check input info
-const loanAmountInput = document.querySelector(".inputField_loan");
-const onlyNumbers = function () {
-  let regex = /[A-Za-z]/g;
-  this.value = this.value.replace(regex, "");
-};
+// //Check input info
+// const loanAmountInput = document.querySelector(".inputField_loan");
+// const onlyNumbers = function () {
+//   let regex = /[A-Za-z]/g;
+//   this.value = this.value.replace(regex, "");
+// };
 
-loanAmountInput.addEventListener("input", onlyPositiveNumbers);
-//Request a loan
-const nextFieldBtn = document.querySelector(".loan-form");
-const fieldsWrapper = document.querySelector(".amount-loan__info");
-nextFieldBtn.addEventListener("submit", revealNextField);
-const revealNextField = function (e) {
-  e.preventDefault();
-  fieldsWrapper.classList.add("hidden");
-};
+// loanAmountInput.addEventListener("input", onlyPositiveNumbers);
+// //Request a loan
+// const nextFieldBtn = document.querySelector(".loan-form");
+// const fieldsWrapper = document.querySelector(".amount-loan__info");
+// nextFieldBtn.addEventListener("submit", revealNextField);
+// const revealNextField = function (e) {
+//   e.preventDefault();
+//   fieldsWrapper.classList.add("hidden");
+// };
 
-// Currency info-box
+// // Currency info-box
 
-// Date-time box
-//Log out timer
+// // Date-time box
 
-const timer = document.querySelector(".timer");
-if (timer) {
-  let time = 60;
-  setInterval(function () {
-    const min = toString(Math.trunc(`${time / 60}`));
-    const sec = toString(`${time % 60}`);
-    timer.textContent = `${min}:${sec}`;
-    time--;
-  }, 1000);
-
-  setTimeout(function () {
-    if (min === "0" && sec === "0") {
-      console.log(lpggedout);
-    }
-  }, time);
+//Log out function
+const logOutBtn=document.querySelector(".log-out--btn");
+logOutBtn.addEventListener("click", logOut)
+function logOut(){
+window.location.href = "./log-in.html";
+localStorage.removeItem("logedIn");
 }
-// window.addEventListener("click", countDownTimerFunc);
+
+// Log out timer
+
+function countDownTimerFunc (){
+    function timeCounting(){
+    const min = String(Math.trunc(`${time / 60}`)).padStart(2,0);
+    const sec = String(`${time % 60}`).padStart(2,0);
+    timerBlock.textContent = `${min}:${sec}`;
+    if (time===0){
+    clearInterval(timer);
+    logOut();
+    }
+  time--;
+  }  
+  let time = 18000;
+  timeCounting();
+  timer = setInterval(timeCounting, 1000);
+  return timer;
+};
+document.addEventListener("click", function(){
+  if (timer) clearInterval(timer);
+  countDownTimerFunc();
+});

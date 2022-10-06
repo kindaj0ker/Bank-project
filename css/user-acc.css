@@ -359,3 +359,7 @@ justify-content: center;
   width: 100%;
   align-items: center;
 }
+.hidden{
+  margin: 0;
+  display: none;
+}
