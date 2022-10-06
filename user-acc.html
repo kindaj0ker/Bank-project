@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <meta name="viewport" content="width=device-width, initial scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -18,7 +18,6 @@
       type="text/css"
     />
     <link href="../css/user-acc.css" rel="stylesheet" type="text/css" />
-    
   </head>
   <body>
     <div class="user-display">
@@ -45,12 +44,59 @@
       <div class="main-content">
         <div class="user-header">
           <div class="greeting box-style">
-            <h2>Hello,<span class="user-f--name"></span></h2>
+            <h2>Hello, <span class="user-f--name"></span>!</h2>
           </div>
-          <a href class="log-out--btn" href="../js/logIn.js">LOG OUT</a>
+          <button class="log-out--btn">LOG OUT</button>
         </div>
         <div class="user-content">
           <div class="content-space">
+            <!-- home menu -->
+            <div id="home" class="user-cards__zone content-filler hidden">
+              <div class="create-card__box">
+                  <h5 class="create-p creation">Get a new card <span class="creat-card__btn">+</span></h5>
+                  <form class="register-form hidden">
+                    <div class="form-field full-width--fields">
+                      <label for="plan">Choose your plan</label><br />
+                      <select class="plan" name="plan" size="1" required>
+                        <option class="card-option" value="Standart">Standart FREE</option>
+                        <option class="card-option" selected value="Plus">Plus $5.99/month</option>
+                        <option class="card-option" value="Premium">Premium $9.99/month</option>
+                        <option class="card-option" value="VIP">VIP $19.99/month</option>
+                      </select>
+                        </div>    
+                      <button class="create-acc--btn" />Get a Card</button>
+                  </form>
+              </div>
+            </div>
+              <!-- loan menu -->
+            <div id="loan" class="request-loan__block content-filler hidden">
+              <h5>Fill the form to request a bank loan and wait for the result</h5>
+              <form class="loan-form">
+              <div class="loan-field__wrapper">
+                <div class="loan-field amount-loan__info">
+                  <label for="loan-amount">Type loan amount</label>
+                  <input class="inputField_loan" type="text" id="loan-amount" name="loan_amount" />
+                </div>
+              <div class="loan-field">
+                <label for="loan-currency">Select currency</label>
+                  <select class="loan-currency" name="loan-currency" size="1" required>
+                    <option class="loan-option" value="$">$</option>
+                    <option class="loan-option" selected value="€">€</option>
+                    <option class="loan-option" value="£">£</option>
+                  </select>
+               </div> 
+              </div>
+                <button class="next-field__btn" /><img class="request-loan__arrow" src='../img/request-loan__arrow.png'/></button>
+              </form>
+              </div>
+              <!-- savings menu -->
+            <div id="savings" class="savings-block content-filler hidden">
+              <div class="categories-block">
+              </div>
+              <div id="savings-transactions" class="transactions"></div>
+            </div>
+              <!-- transfer menu -->
+              <div id="transfer" class="hidden content-filler"> </div>
           </div>
           <div class="user-info">
             <div class="currency-info--box box-style"></div>
@@ -65,56 +111,6 @@
         </div>
       </div>
     </div>
-    <template class="account-content" id="home">
-       <div class="user-cards__zone">
-         <div class="create-card__box">
-            <h5 class="create-p creation">Get a new card <span class="creat-card__btn">+</span></h5>
-              <form class="register-form hidden">
-                <div class="form-field full-width--fields">
-                  <label for="plan">Choose your plan</label><br />
-                    <select class="plan" name="plan" size="1" required>
-                      <option class="card-option" value="Standart">Standart FREE</option>
-                      <option class="card-option" selected value="Plus">Plus $5.99/month</option>
-                      <option class="card-option" value="Premium">Premium $9.99/month</option>
-                      <option class="card-option" value="VIP">VIP $19.99/month</option>
-                    </select>
-                  </div>    
-                    <button class="create-acc--btn" />Get a Card</button>
-                </form>
-            </div>
-          </div>
-      </template>
-      <template class="account-content" id="loan">
-        <div class="request-loan__block">
-          <h5>Fill the form to request a bank loan and wait for the result</h5>
-          <form class="loan-form">
-          <div class="loan-field__wrapper">
-          <div class="loan-field amount-loan__info">
-          <label for="loan-amount">Type loan amount</label>
-          <input class="inputField_loan" type="text" id="loan-amount" name="loan_amount" />
-        </div>
-        <div class="loan-field">
-          <label for="loan-currency">Select currency</label>
-            <select class="loan-currency" name="loan-currency" size="1" required>
-              <option class="loan-option" value="$">$</option>
-              <option class="loan-option" selected value="€">€</option>
-              <option class="loan-option" value="£">£</option>
-          </select>
-        </div> 
-      </div>
-      <button class="next-field__btn" /><img class="request-loan__arrow" src='./request-loan__arrow.png'/></button>
-    </form>
-  </div>
-      </template>
-      <template class="account-content" id="savings">
-        <div class="savings-block">
-          <div class="categories-block">
-          </div>
-          <div id="savings" class="transactions"></div>
-        </div>
-      </template>
-      <template class="account-content" id="transfer">
-      </template>
     <script src="https://cdn.jsdelivr.net/npm/short-unique-id@latest/dist/short-unique-id.min.js"></script>
     <script defer type="module" src="../js/userAcc.js"></script>
   </body>
