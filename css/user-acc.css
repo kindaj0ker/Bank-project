@@ -3,7 +3,8 @@
   --header-font: "Playfair Display SC", serif;
   --text-font: "Lato", sans-serif;
   --element-font: "Dosis", sans-serif;
-  --orange-color: rgb(255, 94, 0);
+  --orange-color: #ff5e00;
+  --gray-color: rgb(202, 200, 199);
 }
 * {
   margin: 0;
@@ -199,7 +200,7 @@ body {
   font-size: 1.1rem;
 }
 .transactions-init:hover {
-  color: var(--grey-color);
+  color: var(--gray-color);
   cursor: pointer;
 }
 .user-card__img {

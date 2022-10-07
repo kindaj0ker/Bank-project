@@ -140,7 +140,7 @@ body {
   }
   #get-card-btn {
     font-size: 1.25rem;
-    padding: 0.15rem;
+    padding: 0.2rem;
   }
   #log-in-btn{
     font-size: 1.25rem;
@@ -169,13 +169,13 @@ body {
     margin:0rem 0.25rem;
   }
   #log-in-btn{
-    font-size: 0.8rem;
+    font-size: 0.85rem;
     padding: 0.2rem;
     margin: 0.2rem;
     border: 0.2rem black solid;
   }
 }
-@media (max-width:600px){
+@media (max-width:730px){
   .menu-org{
     display:none;
   }

@@ -39,6 +39,12 @@
   border-radius: 30px;
   overflow: hidden;
 }
+.master{
+  display: none;
+}
+.visa{
+  display: none;
+}
 .master-card {
   margin: 0;
   padding-left: 2rem;
@@ -47,7 +53,7 @@
 }
 .visa-card {
   position: absolute;
-  left: 75%;
+  left: 85%;
   bottom: 5%;
 }
 .info-block {
@@ -108,4 +114,178 @@ h2 {
   font-family: var(--menu-font);
   font-size: 1.2rem;
   font-weight: 500;
+}
+@media (max-width: 1300px){
+  .info-block{
+    margin-left: 0.5rem;
+    min-width: 100px;
+  }
+  .slogan{
+    font-size: 2rem;
+  }
+  span{
+    font-size: 1rem;
+  }
+  .get-started{
+    font-size: 1.8rem;
+  }
+  .cards{
+    margin-left: 0.5rem;
+  }
+  .card {
+  max-width: 280px;
+  min-width: 150px;
+}
+@media (max-width: 1080px){
+  .info-block{
+    padding: 0.4rem;
+  }
+  .get-started{
+    font-size: 1.6rem;
+  }
+  .card {
+  max-width: 250px;
+  min-width: 150px;
+}
+}
+@media (max-width: 960px){
+  .caution-banner{
+    font-size: 1rem;
+  }
+  .info-block{
+    padding: 0.26rem;
+  }
+  .slogan{
+  font-size: 1.8rem;
+  }
+  h2{
+    font-size: 1.2rem;
+  }
+  p{
+    font-size: 1rem;
+  }
+  .card {
+  max-width: 230px;
+}
+.master-card{
+  padding-left: 1rem;
+}
+}
+@media (max-width: 850px){
+  .slogan{
+  font-size: 1.5rem;
+  }
+  h2{
+    font-size: 1rem;
+  }
+  .get-started{
+  font-size: 1.2rem;
+  }
+.card {
+  max-width: 210px;
+}
+@media (max-width: 800px){
+   .caution-banner{
+    font-size: 0.8rem;
+  }
+  .content {
+  width:100%;
+  margin: 1rem auto;
+  display: flex;
+  flex-direction: column;
+}
+.info-block{
+padding: 1rem;
+margin: 0.1rem 0;
+width: 90%;
+}
+.slogan{
+  font-size: 1.6rem;
+}
+p{
+  font-size: 1.1rem;
+}
+h2{
+  font-size: 1.3rem;
+}
+span{
+  font-size: 1.3rem;
+}
+.get-started{
+  font-size: 1.6rem;
+  padding: 0.5srem;
+  width: 80%;
+  text-align: center;
+}
+.cards{
+  padding: 1rem auto;
+  margin: 5rem 0 1rem 0;
+  -moz-transform:rotate(90deg);
+  -ms-transform:rotate(90deg);
+  -o-transform:rotate(90deg);
+  -webkit-transform:rotate(90deg);
+}
+.card {
+  max-width: 250px;
+}
+.master-card {
+padding-bottom: 6rem;
+padding-right: 8rem;
+padding-left: 0rem;
+}
+.visa-card{
+ left:-20%;
+ bottom:70%;
+}
+}
+@media (max-width: 720px){
+  .card {
+  max-width: 240px;
+}
+.master-card {
+padding-bottom: 7rem;
+padding-right: 7rem;
+}
+@media (max-width: 670px){
+.visa-card{
+ left:-20%;
+ bottom:50%;
+}
+}
+@media (max-width: 620px){
+  .card {
+  max-width: 225px;
+}
+}
+@media (max-width: 600px){
+  .card {
+  width:fit-content;
+}
+  .master-card{
+    display: none;
+    padding: 0;
+}
+.cards{
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 2rem;
+}
+.card{
+  width:14rem;
+  margin-bottom: 1rem;
+}
+.master{
+  display: block;
+}
+.visa{
+  display:block;
+}
+}
+@media (max-width: 500px){
+  .card{
+  width:10rem;
+  }
 }

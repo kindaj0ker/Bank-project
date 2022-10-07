@@ -20,7 +20,7 @@ if (timer) clearInterval(timer);
 countDownTimerFunc();
 
 //Highlight main page
-const home=document.getElementById("HOME");
+const home=document.getElementById("menu-home");
 home.classList.add("menu-highlighted");
 home.parentElement.classList.add("highlighted");
 
@@ -40,26 +40,41 @@ document.addEventListener("click", function(e){
 showContent();
 })
 
+showContent();
 //Show html depends on current menu selection
 
 function showContent(){
   allMenu.forEach((m)=>{
   if (m.classList.contains("menu-highlighted")){
-    contentSpace.innerHTML="";
-    const curMenu="#"+m.id.toLowerCase();
-    console.log(curMenu);
+    const curId=m.id.split("-")[1];
+    const curMenu="#"+curId
     const curContentFiller=document.querySelector(curMenu);
-    console.log(curContentFiller);
     allContentFillers.forEach((content)=>{
       if(!content.classList.contains("hidden")){
       content.classList.add("hidden");
       } else return
     });
-    console.log(curContentFiller);
     curContentFiller.classList.remove("hidden");
+    if (curId==="home"){
+      revealHome();
+    }
   } else return
 });
+}
 
+//Reveal main content functions
+
+function revealHome(){
+  revealCards(curUser);
+}
+function revealLoan(){
+  
+}
+function revealSavingsBlock(){
+  revealSavings(e);
+}
+function revealTransfer(){
+  
 }
 
 // Create new user account
@@ -119,7 +134,6 @@ export class User {
 //Header greeting
 const userFname = document.querySelector(".user-f--name");
 window.addEventListener("DOMContentLoaded", function () {
-
   userFname.textContent=`${curUser.fName}`;
 });
 
@@ -298,73 +312,73 @@ const updateCardsContainer = function (curUser) {
   cardsZone.innerHTML = "";
   revealCards(curUser);
 };
+// Reveal Savings
+// Sort savings
+const sortSavings = function () {
+  return curUser.transactions.filter(function (transaction) {
+    return transaction.group === "savings";
+  });
+};
 
-// // Sort savings
-// const sortSavings = function () {
-//   return curUser.transactions.filter(function (transaction) {
-//     return transaction.group === "savings";
-//   });
-// };
+//Create savings in user interface
+const categoriesSavingsBlock = document.querySelector(".categories-block");
+function createSavingsType(savings) {
+  savings.forEach((s) => {
+    const html = `<div class="category">
+        <img class="saving-category__img" id="${s}" src="../img/${s}-saving.png"/>
+        <p class="saving-category__name">${s.replace("-", " ")}</p>
+      </div>`;
+    categoriesSavingsBlock.insertAdjacentHTML("afterbegin", html);
+  });
+};
 
-// //Create savings in user interface
-// const categoriesSavingsBlock = document.querySelector(".categories-block");
-// function createSavingsType(savings) {
-//   savings.forEach((s) => {
-//     const html = `<div class="category">
-//         <img class="saving-category__img" id="${s}" src="../img/${s}-saving.png"/>
-//         <p class="saving-category__name">${s.replace("-", " ")}</p>
-//       </div>`;
-//     categoriesSavingsBlock.insertAdjacentHTML("afterbegin", html);
-//   });
-// };
+//Show savings
+const savingsBlock = document.querySelector(".savings-block");
+function showSavings() {
+  const savingsTypes = new Set();
+  sortSavings().forEach((saving) => {
+    const type = saving.savingType;
+    savingsTypes.add(type);
+  });
+  createSavingsType(savingsTypes);
+};
 
-// //Show savings
-// const savingsBlock = document.querySelector(".savings-block");
-// function showSavings() {
-//   const savingsTypes = new Set();
-//   sortSavings().forEach((saving) => {
-//     const type = saving.savingType;
-//     savingsTypes.add(type);
-//   });
-//   createSavingsType(savingsTypes);
-// };
-
-// //Reveal savings
-// const savingsRevealingBlock = document.getElementById("savings");
-// const revealSavings = function (e) {
-//   const curSavingsType = e.target.id;
-//   savingsRevealingBlock.innerHTML = "";
-//   //show balance
-//   let balance = 0;
-//   let currencySaving = "";
-//   sortSavings().forEach((s) => {
-//     if (s.savingType === curSavingsType) {
-//       const html = `<div class="transaction">
-//         <img class="oper-group__img" src="../img/${s.savingType}-saving.png"/>
-//         <div class="transaction-name--date__block">
-//           <span class="transaction--name">${s.savingType}</span>
-//           <span class="transaction--date">Today</span>
-//             </div>
-//         <div class="transaction-amount">
-//           <span class="transaction-currency">${s.currency}</span>
-//           <span class="transaction--amount">${s.amount}</span>
-//         </div>`;
-//       savingsRevealingBlock.insertAdjacentHTML("beforeend", html);
-//       balance += +s.amount;
-//       currencySaving = s.currency;
-//     }
-//   });
-//   const balanceHtml = `
-//         <div class="saving-balance">
-//             <h5>Balance:${balance} ${currencySaving} </h5>
-//         </div>`;
-//   savingsRevealingBlock.insertAdjacentHTML("afterbegin", balanceHtml);
-// };
-// const savingTypeBtn = document.querySelectorAll(".saving-category__img");
-// savingTypeBtn.forEach((btn) => btn.addEventListener("click", revealSavings));
+//Reveal savings
+const savingsRevealingBlock = document.getElementById("savings-block");
+function revealSavings(e) {
+  const curSavingsType = e.target.id;
+  savingsRevealingBlock.innerHTML = "";
+  //show balance
+  let balance = 0;
+  let currencySaving = "";
+  sortSavings().forEach((s) => {
+    if (s.savingType === curSavingsType) {
+      const html = `<div class="transaction">
+        <img class="oper-group__img" src="../img/${s.savingType}-saving.png"/>
+        <div class="transaction-name--date__block">
+          <span class="transaction--name">${s.savingType}</span>
+          <span class="transaction--date">Today</span>
+            </div>
+        <div class="transaction-amount">
+          <span class="transaction-currency">${s.currency}</span>
+          <span class="transaction--amount">${s.amount}</span>
+        </div>`;
+      savingsRevealingBlock.insertAdjacentHTML("beforeend", html);
+      balance += +s.amount;
+      currencySaving = s.currency;
+    }
+  });
+  const balanceHtml = `
+        <div class="saving-balance">
+            <h5>Balance:${balance} ${currencySaving} </h5>
+        </div>`;
+  savingsRevealingBlock.insertAdjacentHTML("afterbegin", balanceHtml);
+};
+const savingTypeBtn = document.querySelectorAll(".saving-category__img");
+savingTypeBtn.forEach((btn) => btn.addEventListener("click", revealSavings));
 
 
-// //Check input info
+//Check input info
 // const loanAmountInput = document.querySelector(".inputField_loan");
 // const onlyNumbers = function () {
 //   let regex = /[A-Za-z]/g;
@@ -372,14 +386,15 @@ const updateCardsContainer = function (curUser) {
 // };
 
 // loanAmountInput.addEventListener("input", onlyPositiveNumbers);
-// //Request a loan
-// const nextFieldBtn = document.querySelector(".loan-form");
-// const fieldsWrapper = document.querySelector(".amount-loan__info");
-// nextFieldBtn.addEventListener("submit", revealNextField);
-// const revealNextField = function (e) {
-//   e.preventDefault();
-//   fieldsWrapper.classList.add("hidden");
-// };
+
+//Request a loan
+const nextFieldBtn = document.querySelector(".loan-form");
+const fieldsWrapper = document.querySelector(".amount-loan__info");
+nextFieldBtn.addEventListener("submit", revealNextField);
+function revealNextField(e) {
+  e.preventDefault();
+  fieldsWrapper.classList.add("hidden");
+};
 
 // // Currency info-box
 
