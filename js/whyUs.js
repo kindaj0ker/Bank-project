@@ -71,7 +71,7 @@ const arrowObserver = new IntersectionObserver(arrowNavigation, {
 });
 arrowObserver.observe(blockThree);
 
-//Lazy load (parcel doesn't support)
+//Lazy load 
 const lazyImg = document.querySelectorAll("img[data-src]");
 const loadImg = function (entries) {
   const [entry] = entries;

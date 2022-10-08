@@ -29,8 +29,8 @@ h5 {
 }
 .register-form {
   width: 33%;
-  display: grid;
-  grid-column-gap: 0.5rem;
+  display: flex;
+  flex-direction: column;
 }
 
 select {
@@ -72,19 +72,23 @@ select {
   justify-content: space-between;
   align-items: center;
 }
+.fl-names__fields{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
 .f-name-f {
-  grid-column-start: 1;
-  grid-column-end: 2;
+  width: 45%;
 }
 .l-name-f {
-  grid-column-start: 3;
-  grid-column-end: 4;
+  width: 45%;
+}
+.birth-field{
+  width: 45%;
 }
 .full-width--fields {
   display: block;
   width: 100%;
-  grid-column-start: 1;
-  grid-column-end: 4;
 }
 .form-field input {
   grid-column-start: 1;
@@ -98,7 +102,7 @@ select {
   caret: white;
   font-size: 1rem;
   margin: 0;
-  padding: 0;
+  padding: 0 0 0 0.2rem;
 }
 .input-wrapper {
   margin: 0.2rem;
@@ -162,4 +166,26 @@ select {
   margin: 1rem;
   font-family: var(--element-font);
   font-size: 1.3rem;
+}
+@media (max-width:1300px){
+  .register-form {
+  width: 45%;
+}
+@media (max-width:1000px){
+  .register-form {
+  width: 60%;
+}
+.register-content{
+  padding: 1rem;
+}
+}
+@media (max-width:800px){
+  .register-form {
+  width: 80%;
+}
+}
+@media (max-width:600px){
+  .register-form {
+  width: 100%;
+}
 }

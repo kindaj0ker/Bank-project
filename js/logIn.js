@@ -20,6 +20,7 @@ emailField.addEventListener("blur", function () {
 
 //Password check
 passField.addEventListener("blur", function () {
+   user=JSON.parse(localStorage.getItem(emailField.value));
   if (user.password !== passField.value) {
     passErrorField.classList.remove("hidden");
   } else {
@@ -30,8 +31,7 @@ passField.addEventListener("blur", function () {
 //Submition
 logInForm.addEventListener("submit", function (e) {
   e.preventDefault();
-  if (
-    localStorage.getItem(emailField.value) !== null &&
+  if (localStorage.getItem(emailField.value) !== null &&
     user.password === passField.value
   ) {
     localStorage.setItem('logedIn', JSON.stringify(user));

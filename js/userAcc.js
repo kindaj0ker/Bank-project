@@ -36,8 +36,8 @@ document.addEventListener("click", function(e){
     e.target.parentElement.classList.add("highlighted");
     e.target.classList.add("menu-highlighted");
   }) 
+  showContent();
   }
-showContent();
 })
 
 showContent();
