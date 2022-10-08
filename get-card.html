@@ -70,32 +70,34 @@
             <option class="card-option" value="VIP">VIP $19.99/month</option>
           </select>
         </div>
-        <div class="form-field f-name-f">
-          <div class="label-img">
-            <label for="fname">First name:</label><br />
-            <img src="../img/user-card.svg" />
+        <div class="fl-names__fields">
+          <div class="form-field f-name-f">
+            <div class="label-img">
+              <label for="fname">First name:</label><br />
+              <img src="../img/user-card.svg" />
+            </div>
+            <div class="input-wrapper">
+              <input
+                class="inputField"
+                type="text"
+                id="fname"
+                name="fname"
+              /><br />
+            </div>
           </div>
-          <div class="input-wrapper">
-            <input
-              class="inputField"
-              type="text"
-              id="fname"
-              name="fname"
-            /><br />
-          </div>
-        </div>
-        <div class="form-field l-name-f">
-          <div class="label-img">
-            <label for="lname">Last name:</label><br />
-            <img src="../img/user-card.svg" />
-          </div>
-          <div class="input-wrapper">
-            <input
-              class="inputField"
-              type="text"
-              id="lname"
-              name="lname"
-            /><br />
+          <div class="form-field l-name-f">
+            <div class="label-img">
+              <label for="lname">Last name:</label><br />
+              <img src="../img/user-card.svg" />
+            </div>
+            <div class="input-wrapper">
+              <input
+                class="inputField"
+                type="text"
+                id="lname"
+                name="lname"
+              /><br />
+            </div>
           </div>
         </div>
         <div class="form-field birth-field">
@@ -208,6 +210,6 @@
       <p class="copyright">&copy; Copyright by Daria Zherebiateva, 2022</p>
     </footer>
     <script src="https://cdn.jsdelivr.net/npm/short-unique-id@latest/dist/short-unique-id.min.js"></script>
-    <script type="module" src="../js/getCard.js"></script>
+    <script defer type="module" src="../js/getCard.js"></script>
   </body>
 </html>
