@@ -91,10 +91,32 @@
 .privacy-policy--block{
   flex-direction: column;
   }
-.policy-box--photo{
-  padding: 0;
-  width:100%;
-  height: 50%;
-  object-position: 50%;
+  .policy-box--photo{
+    align-self: center;
+    margin:0;
+    padding: 0 auto;
+    width:100%;
+    height: 8rem;
+    object-position: top;
+  }
+  .policy-box--text{
+    height: 60%;
+    margin: 0;
+    padding: 1rem;
+  }
+  .policy-box--text p{
+    margin: 0.5rem;
+    font-size: 0.8rem;
+    line-height: 1rem;
+  }
+  .policy-box--text h3{
+    margin: 0.5rem;
+  }
+  .slogan {
+  font-size: 2rem;
+}
+.title{
+  font-size: 1.2rem;
+  margin: 0.2rem;
 }
 }
