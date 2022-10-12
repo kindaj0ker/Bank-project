@@ -14,13 +14,14 @@ questions.forEach((q) =>
 
 //open/close contact form
 const formBtn = document.querySelector(".form-hidden--mode");
-const contactForm = document.querySelector(".form-fields");
+const contactForm = document.querySelector(".form-block");
 const closeFormBtn = document.querySelector(".close-form--btn");
 const userMessage = document.querySelector(".user-input--message");
 const sendMessageBtn = document.querySelector(".send-message__btn");
 const dialogBlock = document.querySelector(".dialog-block");
 const inputBlock = document.querySelector(".input-block");
 const userInfoForm = document.querySelector(".user-info__form");
+const sendDataMessage = document.querySelector(".send-data__message");
 
 function toggleForm() {
   contactForm.classList.toggle("hidden");
@@ -42,8 +43,8 @@ sendMessageBtn.addEventListener("click", function () {
               and we'll contact you soon.
             </p>
           </div>
-          <div class="user-message init-message">
-              <p class="init-form">Form</p>
+          <div class="operator-message init-message">
+              <p class="init-form">FORM</p>
             </div>`;
     dialogBlock.insertAdjacentHTML("beforeend", html);
     const initUserInfoFormLink = dialogBlock.querySelector(".init-message");
@@ -52,4 +53,10 @@ sendMessageBtn.addEventListener("click", function () {
       userInfoForm.classList.toggle("hidden");
     });
   }
+});
+
+userInfoForm.addEventListener("submit", function (e) {
+  e.preventDefault();
+  userInfoForm.classList.toggle("hidden");
+  sendDataMessage.classList.toggle("hidden");
 });

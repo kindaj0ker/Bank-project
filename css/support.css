@@ -1,11 +1,23 @@
 .content {
   display: flex;
   flex-direction: column;
+  background-color: var(--background-color);
+  width: 90%;
+  align-self: center;
+  border-radius: 10px;
+  margin: 0.5rem;
+}
+.faq-title {
+  margin: 1rem;
+  font-family: var(--header-font);
+  font-size: 2rem;
+  color: var(--orange-color);
 }
 .questions-block {
+  margin: 1rem;
   display: flex;
   flex-direction: column;
-  width: 80%;
+  width: 75%;
   border: 0.3rem solid black;
   border-radius: 10px;
 }
@@ -23,7 +35,7 @@
 }
 .answer {
   background-color: white;
-  font-family: "Lato", sans-serif;
+  font-family: var(--additional-font);
   border: 1px solid black;
 }
 .show-answer__span {
@@ -42,9 +54,9 @@
 }
 /* contact form */
 .contact-form {
-  width: 25%;
-  justify-self: flex-end;
-  align-self: flex-end;
+  position: fixed;
+  bottom: 5rem;
+  right: 1rem;
 }
 .form-hidden--mode {
   width: 4rem;
@@ -57,10 +69,10 @@
   width: 100%;
   padding: 0.5rem;
 }
-.form-fields {
+.form-block {
   display: flex;
   flex-direction: column;
-  width: 100%;
+  width: 25rem;
   background-color: aliceblue;
   border-radius: 20px;
 }
@@ -102,18 +114,22 @@
   border-radius: 10px;
   width: 45%;
   border: solid black 0.1px;
-  margin: 0 0.3rem;
+  margin: 0.3rem;
+  font-size: 1rem;
 }
 
 .operator-message p {
-  padding: 0.2rem;
+  padding: 0.4rem;
   line-height: 1rem;
   margin: 0;
+  font-family: var(--element-font);
+  font-size: 1rem;
 }
 .input-block {
   display: flex;
   flex-direction: column;
   background-color: rgb(225, 229, 233);
+  border-radius: 15px;
 }
 .send-message__wrapper {
   display: flex;
@@ -125,6 +141,7 @@
   margin: 0.2rem;
   background-color: inherit;
   border: none;
+  font-family: var(--additional-font);
 }
 .send-message__btn {
   width: fit-content;
@@ -149,10 +166,17 @@
   margin: 0.1rem 0.3rem;
   align-self: flex-end;
 }
+.input-block label {
+  padding: 0.5rem;
+  color: black;
+  font-family: var(--element-font);
+}
 .user-message p {
-  padding: 0.2rem;
+  padding: 0.4rem;
   margin: 0;
   text-align: left;
+  font-family: var(--element-font);
+  font-size: 1rem;
 }
 .init-form {
   color: blue;
@@ -167,6 +191,7 @@
 }
 .form-fields {
   padding: 0.3rem;
+  border-radius: 15px;
 }
 .form-field {
   padding: 0.3rem;
@@ -208,7 +233,7 @@
 }
 .send-user--data {
   width: 95%;
-  margin: 0.2rem auto;
+  margin: 0.5rem auto;
   background-color: var(--orange-color);
   color: white;
   border-radius: 15px;
@@ -218,7 +243,89 @@
   font-family: var(--element-font);
   font-size: 1.2rem;
 }
+.send-data__message {
+  font-family: var(--element-font);
+  font-size: 1.5rem;
+  align-self: center;
+}
 /* extra classes */
 .arrow-down {
   transform: rotate(180deg);
+}
+
+@media (max-width: 1000px) {
+  .content {
+    width: 95%;
+  }
+  .questions-block {
+    width: 90%;
+    align-self: center;
+  }
+  .faq-title {
+    font-size: 1.8rem;
+  }
+  .form-block {
+    width: 20rem;
+  }
+  .close-form--img {
+    width: 1.5rem;
+  }
+  .operator-span {
+    width: 3rem;
+  }
+}
+@media (max-width: 700px) {
+  .question {
+    font-size: 1.5rem;
+  }
+  .question-name {
+    margin: 0.3rem;
+    align-self: center;
+  }
+  .answer {
+    font-size: 1.2rem;
+    padding: 0.2rem;
+  }
+  .form-block {
+    width: 25rem;
+  }
+}
+@media (max-width: 550px) {
+  .questions-block {
+    width: 98%;
+  }
+  .form-block {
+    width: 20rem;
+  }
+  .show-answer__img {
+    width: 1.2rem;
+    height: 1.2rem;
+    margin: 0.2rem 0.2rem;
+    padding: 0.2rem;
+  }
+}
+@media (max-width: 400px) {
+  .questions-block {
+    width: 99%;
+  }
+  .question {
+    font-size: 1.1rem;
+  }
+  .answer {
+    font-size: 0.8rem;
+  }
+  .form-block {
+    width: 15rem;
+  }
+}
+@media (max-width: 200px) {
+  .form-block {
+    width: 10rem;
+  }
+  .question {
+    font-size: 0.8rem;
+  }
+  .answer {
+    font-size: 0.6rem;
+  }
 }
