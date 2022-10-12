@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Playfair+Display+SC:wght@700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Lato:wght@300&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cairo:wght@500&family=Dosis:wght@700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://necolas.github.io/normalize.css/8.0.1/normalize.css"
+      rel="stylesheet"
+      type="text/css"
+    />
+    <link href="../css/support.css" rel="stylesheet" type="text/css" />
+    <link href="../css/shared-css.css" rel="stylesheet" type="text/css" />
+    <meta name="viewport" content="width=device-width" />
+  </head>
+  <body>
+    <header>
+      <div class="nav-menu">
+        <div class="ham-wrapper"></div>
+        <div class="ham">
+          <div class="ham-bar" id="second-bar"></div>
+          <div class="ham-bar" id="third-bar"></div>
+          <div class="ham-bar" id="forth-bar"></div>
+        </div>
+        <img class="ham-icon" src="../img/ham-icon.png" />
+      </div>
+
+      <div class="menu-org">
+        <img id="brand-icon-header" src="../img/brand-logo-header.png" />
+        <div class="main-menu-bar">
+          <ul class="menu">
+            <li class="hover-effect" id="about">
+              <a class="menu-link" href="./about.html">ABOUT US</a>
+            </li>
+            <li class="hover-effect" id="why-us">
+              <a class="menu-link" href="./why-us.html">WHY US</a>
+            </li>
+            <li class="hover-effect" id="testimonial">
+              <a class="menu-link" href="./testimonial.html">TESTIMONIALS</a>
+            </li>
+            <li class="hover-effect" id="support">
+              <a class="menu-link" href="./support.html">SUPPORT</a>
+            </li>
+          </ul>
+        </div>
+        <div class="user-bar acc-btns menu-link">
+          <a href="./get-card.html" id="get-card-btn">GET THE CARD</a>
+          <a href="./log-in.html" id="log-in-btn">LOG IN</a>
+        </div>
+      </div>
+    </header>
+    <div class="content">
+      <h2 class="faq-title">Frequently Asked Questions</h2>
+      <div class="questions-block">
+        <section class="question" id="q-1">
+          <h4 class="question-name">
+            What amount do I need to open a deposit?
+          </h4>
+          <span class="show-answer__span">
+            <img class="show-answer__img" src="../img/down-arrow.svg" />
+          </span>
+        </section>
+        <section class="answer hidden" id="a-1">
+          <h4 class="question-name">
+            The initial amount for a deposit account is 10 units of currency.
+          </h4>
+        </section>
+        <section class="question" id="q-2">
+          <h4 class="question-name">
+            What is the maximum period I can open a deposit account for?
+          </h4>
+          <span class="show-answer__span">
+            <img class="show-answer__img" src="../img/down-arrow.svg" />
+          </span>
+        </section>
+        <section class="answer hidden" id="a-2">
+          <h4 class="question-name">The maximum period is 24 months.</h4>
+        </section>
+        <section class="question" id="q-3">
+          <h4 class="question-name">
+            In which currency can I open a deposit account?
+          </h4>
+          <span class="show-answer__span">
+            <img class="show-answer__img" src="../img/down-arrow.svg" />
+          </span>
+        </section>
+        <section class="answer hidden" id="a-3">
+          <h4 class="question-name">
+            You can open a deposit account via remote channels USD, EURO, and
+            GBP.
+          </h4>
+        </section>
+        <section class="question" id="q-4">
+          <h4 class="question-name">Why money transfer?</h4>
+          <span class="show-answer__span">
+            <img class="show-answer__img" src="../img/down-arrow.svg" />
+          </span>
+        </section>
+        <section class="answer hidden" id="a-4">
+          <h4 class="question-name">
+            Our international money transfer system offers you a wide range of
+            options to send or receive money quickly and simply without opening
+            an account by using your personal number only.
+          </h4>
+        </section>
+        <section class="question" id="q-5">
+          <h4 class="question-name">How to receive money transfers?</h4>
+          <span class="show-answer__span">
+            <img class="show-answer__img" src="../img/down-arrow.svg" />
+          </span>
+        </section>
+        <section class="answer hidden" id="a-5">
+          <h4 class="question-name">
+            You can receive money transfers at any of our bank’s service
+            centers, ATMs, pay terminals, and via our Internet Banking service.
+          </h4>
+        </section>
+        <section class="question" id="q-6">
+          <h4 class="question-name">Who pays money transfer fees?</h4>
+          <span class="show-answer__span">
+            <img class="show-answer__img" src="../img/down-arrow.svg" />
+          </span>
+        </section>
+        <section class="answer hidden" id="a-6">
+          <h4 class="question-name">
+            Money transfers only have a transfer fee which is paid by the sender
+            when transferring money. There are no fees for receiving transfers.
+          </h4>
+        </section>
+      </div>
+      <div class="contact-form">
+        <span class="form-hidden--mode">
+          <img class="form-hidden--img" src="../img/message-contact.svg" />
+        </span>
+        <!-- form -->
+        <div class="form-fields hidden">
+          <div class="form--header">
+            <span class="operator-span">
+              <img class="operator-img" src="../img/operator-img.png" />
+            </span>
+            <span class="close-form--btn"
+              ><img class="close-form--img" src="../img/close-banner-btn.svg"
+            /></span>
+          </div>
+          <div class="dialog-block">
+            <div class="operator-message">
+              <p>
+                Hello! I'm here to help you. Please, type your question below
+              </p>
+            </div>
+          </div>
+          <div class="input-block">
+            <label for="message">Type yor message</label>
+            <div class="send-message__wrapper">
+              <textarea
+                class="user-input--message"
+                rows="3"
+                maxlength="100"
+              ></textarea>
+              <button class="send-message__btn">
+                <img class="send-message__img" src="../img/send-message.svg" />
+              </button>
+            </div>
+          </div>
+          <form class="user-info__form hidden">
+            <div class="form-fields">
+              <div class="form-field name">
+                <div class="label-img">
+                  <label for="name">Name</label><br />
+                  <img src="../img/user-card.svg" />
+                </div>
+                <div class="input-wrapper">
+                  <input
+                    class="inputField"
+                    type="text"
+                    id="name"
+                    name="name"
+                  /><br />
+                </div>
+              </div>
+              <div class="form-field">
+                <div class="label-img">
+                  <label for="email">Email</label><br />
+                  <img src="../img/email.svg" />
+                </div>
+                <div class="input-wrapper">
+                  <input
+                    class="inputField"
+                    type="email"
+                    id="email-f"
+                    name="email"
+                  />
+                </div>
+              </div>
+            </div>
+            <button class="send-user--data">Send</button>
+          </form>
+        </div>
+      </div>
+    </div>
+    <footer class="main-footer">
+      <ul class="footer-links">
+        <li>
+          <a href="./policy.html" class="footer-btn">POLICY</a>
+        </li>
+        <li>
+          <a href="./terms.html" class="footer-btn">TERMS</a>
+        </li>
+      </ul>
+      <p class="footer-p">
+        neoBank is a Banking information and Transaction Service that is
+        provided to Custmers 24 hours a day and 7 days a week
+      </p>
+      <p class="copyright">&copy; Copyright by Daria Zherebiateva, 2022</p>
+    </footer>
+    <script type="module" src="../js/shared_js.js"></script>
+    <script type="module" src="../js/support.js"></script>
+  </body>
+</html>
