@@ -1,3 +1,7 @@
+.content {
+  display: flex;
+  flex-direction: column;
+}
 .questions-block {
   display: flex;
   flex-direction: column;
@@ -39,12 +43,13 @@
 /* contact form */
 .contact-form {
   width: 25%;
+  justify-self: flex-end;
+  align-self: flex-end;
 }
 .form-hidden--mode {
   width: 4rem;
   height: 4rem;
   display: block;
-  margin: 0.6rem;
   border-radius: 999px;
   background-color: aliceblue;
 }
