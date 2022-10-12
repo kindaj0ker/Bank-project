@@ -1,0 +1,219 @@
+.questions-block {
+  display: flex;
+  flex-direction: column;
+  width: 80%;
+  border: 0.3rem solid black;
+  border-radius: 10px;
+}
+.question {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  background-color: white;
+  font-family: var(--element-font);
+  font-size: 1.2rem;
+  padding: 0 0.5rem;
+}
+.question:hover {
+  background-color: rgb(214, 217, 219);
+}
+.answer {
+  background-color: white;
+  font-family: "Lato", sans-serif;
+  border: 1px solid black;
+}
+.show-answer__span {
+  display: flex;
+  margin: 0.8rem;
+}
+.show-answer__span:hover {
+  background-color: rgb(161, 161, 167);
+  border-radius: 999px;
+}
+.show-answer__img {
+  width: 1.2rem;
+  height: 1.2rem;
+  align-self: center;
+  margin: 0.8rem;
+}
+/* contact form */
+.contact-form {
+  width: 25%;
+}
+.form-hidden--mode {
+  width: 4rem;
+  height: 4rem;
+  display: block;
+  margin: 0.6rem;
+  border-radius: 999px;
+  background-color: aliceblue;
+}
+.form-hidden--img {
+  width: 100%;
+  padding: 0.5rem;
+}
+.form-fields {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  background-color: aliceblue;
+  border-radius: 20px;
+}
+.form--header {
+  border-radius: 15px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  background-color: var(--orange-color);
+}
+.operator-span {
+  width: 3rem;
+  height: 3rem;
+  margin: 0.2rem;
+  border-radius: 999px;
+  overflow: hidden;
+  color: aliceblue;
+}
+.operator-img {
+  object-fit: cover;
+  width: 3rem;
+}
+.close-form--img {
+  margin: 0.2rem;
+  width: 1.8rem;
+  background-color: rgb(214, 231, 245);
+  border-radius: 999px;
+}
+.dialog-block {
+  width: 100%;
+  height: 80%;
+  display: flex;
+  flex-direction: column;
+  padding: 0.8rem 0;
+}
+.operator-message {
+  background-color: rgb(232, 235, 236);
+  border-radius: 10px;
+  width: 45%;
+  border: solid black 0.1px;
+  margin: 0 0.3rem;
+}
+
+.operator-message p {
+  padding: 0.2rem;
+  line-height: 1rem;
+  margin: 0;
+}
+.input-block {
+  display: flex;
+  flex-direction: column;
+  background-color: rgb(225, 229, 233);
+}
+.send-message__wrapper {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+.user-input--message {
+  width: 95%;
+  margin: 0.2rem;
+  background-color: inherit;
+  border: none;
+}
+.send-message__btn {
+  width: fit-content;
+  height: fit-content;
+  padding: 0;
+  border: none;
+  align-self: center;
+  background-color: rgb(225, 229, 233);
+}
+.send-message__img {
+  width: 1.5rem;
+  margin: 0;
+}
+.send-message__img:hover {
+  cursor: pointer;
+}
+.user-message {
+  background-color: white;
+  border-radius: 10px;
+  width: 45%;
+  border: solid black 0.1px;
+  margin: 0.1rem 0.3rem;
+  align-self: flex-end;
+}
+.user-message p {
+  padding: 0.2rem;
+  margin: 0;
+  text-align: left;
+}
+.init-form {
+  color: blue;
+  text-decoration: underline;
+}
+.init-form:hover {
+  cursor: pointer;
+}
+/* form */
+.user-info__form {
+  width: 100%;
+}
+.form-fields {
+  padding: 0.3rem;
+}
+.form-field {
+  padding: 0.3rem;
+  margin: 0.2rem;
+  font-family: var(--text-font);
+  background-color: rgb(181, 182, 185);
+  border-radius: 15px;
+}
+
+.form-field label {
+  color: rgb(62, 63, 65);
+  font-size: 1rem;
+  margin: 0rem 0.5rem;
+  padding: 0;
+}
+.form-field img {
+  background-color: whitesmoke;
+  border-radius: 10px;
+  padding: 0.2rem;
+  margin: 0.2rem;
+  width: 1.5rem;
+}
+.label-img {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.form-field input {
+  width: 100%;
+  background-color: inherit;
+  border: none;
+  color: white;
+  cursor: inherit;
+  outline: none;
+  caret: white;
+  font-size: 1rem;
+  margin: 0.2rem;
+  padding: 0 0 0 0.2rem;
+}
+.send-user--data {
+  width: 95%;
+  margin: 0.2rem auto;
+  background-color: var(--orange-color);
+  color: white;
+  border-radius: 15px;
+  padding: 0.5rem;
+  display: block;
+  box-shadow: 0.3rem 0.3rem 0.4rem gray;
+  font-family: var(--element-font);
+  font-size: 1.2rem;
+}
+/* extra classes */
+.arrow-down {
+  transform: rotate(180deg);
+}

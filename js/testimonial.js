@@ -1,17 +1,20 @@
 "use strict";
 
 // Slider;
-let curSlide = 0;
+
 const btnSliderLeft = document.querySelector(".arrow-left--slider");
 const btnSliderRight = document.querySelector(".arrow-right--slider");
 const slides = document.querySelectorAll(".slide");
+
+let curSlide = 0;
 const maxSlide = slides.length;
 
 const changeSlide = function (slide) {
-  slides.forEach((s, index) => {
-    s.style.transform = `translateX(${index * 100}%)`;
+  slides.forEach((s, i) => {
+    s.style.transform = `translateX(${100 * (i - slide)}%)`;
   });
 };
+
 // Next slide
 const nextSlideFunc = function () {
   if (curSlide === maxSlide - 1) {
