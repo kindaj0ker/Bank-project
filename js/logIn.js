@@ -13,14 +13,14 @@ emailField.addEventListener("blur", function () {
   if (localStorage.getItem(emailField.value) === null) {
     emailErrorField.classList.remove("hidden");
   } else {
-    user=JSON.parse(localStorage.getItem(emailField.value));
-    passErrorField.classList.add("hidden");
+    user = JSON.parse(localStorage.getItem(emailField.value));
+    emailErrorField.classList.add("hidden");
   }
 });
 
 //Password check
 passField.addEventListener("blur", function () {
-   user=JSON.parse(localStorage.getItem(emailField.value));
+  user = JSON.parse(localStorage.getItem(emailField.value));
   if (user.password !== passField.value) {
     passErrorField.classList.remove("hidden");
   } else {
@@ -31,10 +31,11 @@ passField.addEventListener("blur", function () {
 //Submition
 logInForm.addEventListener("submit", function (e) {
   e.preventDefault();
-  if (localStorage.getItem(emailField.value) !== null &&
+  if (
+    localStorage.getItem(emailField.value) !== null &&
     user.password === passField.value
   ) {
-    localStorage.setItem('logedIn', JSON.stringify(user));
+    localStorage.setItem("logedIn", JSON.stringify(user));
     window.location.href = "./user-acc.html";
   } else return;
 });

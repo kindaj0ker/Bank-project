@@ -60,3 +60,4 @@ userInfoForm.addEventListener("submit", function (e) {
   userInfoForm.classList.toggle("hidden");
   sendDataMessage.classList.toggle("hidden");
 });
+toggleForm();

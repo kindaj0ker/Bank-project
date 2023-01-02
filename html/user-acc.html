@@ -51,7 +51,7 @@
         <div class="user-content">
           <div class="content-space">
             <!-- home menu -->
-            <div id="home" class="user-cards__zone content-filler hidden">
+            <div id="home" class="user-cards__zone content-filler content-wrapper hidden">
               <div class="create-card__box">
                   <h5 class="create-p creation">Get a new card <span class="creat-card__btn">+</span></h5>
                   <form class="register-form hidden">
@@ -69,7 +69,7 @@
               </div>
             </div>
               <!-- loan menu -->
-            <div id="loan" class="request-loan__block content-filler hidden">
+            <div id="loan" class="request-loan__block content-filler content-wrapper hidden">
               <h5>Fill the form to request a bank loan and wait for the result</h5>
               <form class="loan-form">
               <div class="loan-field__wrapper">
@@ -90,18 +90,19 @@
               </form>
               </div>
               <!-- savings menu -->
-            <div id="savings" class="savings-block content-filler hidden">
+            <div id="savings" class="savings-block content-filler content-wrapper hidden">
               <div class="categories-block">
+                <div class="all-savings--categories"></div>
               </div>
               <div id="savings-transactions" class="transactions"></div>
             </div>
               <!-- transfer menu -->
-              <div id="transfer" class="hidden content-filler"> </div>
+              <div id="transfer" class="hidden content-filler content-wrapper"> </div>
           </div>
           <div class="user-info">
-            <div class="currency-info--box box-style"></div>
-            <div class="user-date--time__box box-style"></div>
-            <div class="log-out--timer box-style">
+            <div class="currency-info--box info-box box-style"></div>
+            <div class="user-date--time__box info-box box-style"></div>
+            <div class="log-out--timer info-box box-style">
               <h5>
                 You'll be logged out in
                 <span class="timer"></span>
@@ -113,5 +114,7 @@
     </div>
     <script src="https://cdn.jsdelivr.net/npm/short-unique-id@latest/dist/short-unique-id.min.js"></script>
     <script defer type="module" src="../js/userAcc.js"></script>
+    <script defer type="module" src="../js/userSavings.js"></script>
+     <script defer type="module" src="../js/userTransfer.js"></script>
   </body>
 </html>

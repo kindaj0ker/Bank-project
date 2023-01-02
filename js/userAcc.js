@@ -1,16 +1,18 @@
 "use strict";
-
+import { showTotalSavingsBalance } from "./userSavings.js";
+import { showAllUserCards } from "./userTransfer.js";
 const uniqid = new ShortUniqueId();
 
 //New user from registered user
-// let curUser=JSON.parse(localStorage.getItem("logedIn"));
-let curUser=JSON.parse(localStorage.getItem("peterJ@gmail.com"));
 
-//Select main elements 
+//let curUser=JSON.parse(localStorage.getItem("logedIn"));
+
+let curUser = JSON.parse(localStorage.getItem("peterJ@gmail.com"));
+//Select main elements
 
 const timerBlock = document.querySelector(".timer");
-const contentSpace=document.querySelector(".content-space");
-const allContentFillers=document.querySelectorAll(".content-filler");
+const contentSpace = document.querySelector(".content-space");
+const allContentFillers = document.querySelectorAll(".content-filler");
 const cardsZone = document.querySelector(".user-cards__zone");
 let timer;
 
@@ -20,134 +22,86 @@ if (timer) clearInterval(timer);
 countDownTimerFunc();
 
 //Highlight main page
-const home=document.getElementById("menu-home");
+const home = document.getElementById("menu-home");
 home.classList.add("menu-highlighted");
 home.parentElement.classList.add("highlighted");
 
 //Highlighted menu
-const allMenu=Array.from(document.getElementsByClassName("user-menu--li"));
-document.addEventListener("click", function(e){
-  if (e.target.classList.contains("user-menu--li")){
-  allMenu.forEach((m)=> {
-    if (m.classList.contains("menu-highlighted") && m.parentElement.classList.contains("highlighted")) {
-    m.classList.toggle("menu-highlighted");
-    m.parentElement.classList.toggle("highlighted");
-    };
-    e.target.parentElement.classList.add("highlighted");
-    e.target.classList.add("menu-highlighted");
-  }) 
-  showContent();
+const allMenu = Array.from(document.getElementsByClassName("user-menu--li"));
+document.addEventListener("click", function (e) {
+  if (e.target.classList.contains("user-menu--li")) {
+    allMenu.forEach((m) => {
+      if (
+        m.classList.contains("menu-highlighted") &&
+        m.parentElement.classList.contains("highlighted")
+      ) {
+        m.classList.toggle("menu-highlighted");
+        m.parentElement.classList.toggle("highlighted");
+      }
+      e.target.parentElement.classList.add("highlighted");
+      e.target.classList.add("menu-highlighted");
+    });
+    showContent();
   }
-})
+});
 
 showContent();
+
 //Show html depends on current menu selection
 
-function showContent(){
-  allMenu.forEach((m)=>{
-  if (m.classList.contains("menu-highlighted")){
-    const curId=m.id.split("-")[1];
-    const curMenu="#"+curId
-    const curContentFiller=document.querySelector(curMenu);
-    allContentFillers.forEach((content)=>{
-      if(!content.classList.contains("hidden")){
-      content.classList.add("hidden");
-      } else return
-    });
-    curContentFiller.classList.remove("hidden");
-    if (curId==="home"){
-      revealHome();
-    }
-  } else return
-});
+function showContent() {
+  allMenu.forEach((m) => {
+    if (m.classList.contains("menu-highlighted")) {
+      const curId = m.id.split("-")[1];
+      const curMenu = "#" + curId;
+      const curContentFiller = document.querySelector(curMenu);
+      allContentFillers.forEach((content) => {
+        if (!content.classList.contains("hidden")) {
+          content.classList.add("hidden");
+        } else return;
+      });
+      curContentFiller.classList.remove("hidden");
+      if (curId === "home") {
+        revealHome();
+      }
+      if (curId === "savings") {
+        createSavingsType();
+      }
+      if (curId === "transfer") {
+        showAllUserCards();
+      }
+    } else return;
+  });
 }
 
 //Reveal main content functions
 
-function revealHome(){
+function revealHome() {
   revealCards(curUser);
 }
-function revealLoan(){
-  
-}
-function revealSavingsBlock(){
+function revealLoan() {}
+function revealSavingsBlock() {
   revealSavings(e);
 }
-function revealTransfer(){
-  
-}
-
-// Create new user account
-export class User {
-  constructor(fName, lName, bDay, email, password) {
-    this.id = uniqid();
-    this.fName = fName;
-    this.lN = lName;
-    this.bDay = bDay;
-    this.email = email;
-    this.password = password;
-    this.cards = [];
-    this.transactions = [];
-  }
-
-  createNewCard(cardPlan, id = `${uniqid()}`, expired, currency = "$") {
-    const day = new Date().getDate().toString().padStart(2, "0");
-    const month = new Date().getMonth().toString().padStart(2, "0");
-    const year = new Date().getFullYear() + 4;
-    const expiredDate = day + "-" + month + "-" + year;
-    const data = new Map([
-      ["plan", `${cardPlan}`],
-      ["id", `${id}`],
-      ["expired", `${expiredDate}`],
-      ["currency", `${currency}`],
-    ]);
-    const card = Object.fromEntries(data);
-    this.cards.push(card);
-  }
-
-  createNewTransaction(
-    group,
-    cardID,
-    transactionID = `${uniqid()}`,
-    amount,
-    currency,
-    date = `${new Date().toISOString().split("T")[0]}`,
-    type,
-    savingType = "other"
-  ) {
-    const data = new Map([
-      ["group", `${group}`],
-      ["cardID", `${cardID}`],
-      ["transactionID", `${transactionID}`],
-      ["amount", `${amount}`],
-      ["currency", `${currency}`],
-      ["type", `${type}`],
-      ["date", `${date}`],
-      ["savingType", `${savingType}`],
-    ]);
-    const transaction = Object.fromEntries(data);
-    this.transactions.push(transaction);
-  }
-}
-
+function revealTransfer() {}
 
 //Header greeting
 const userFname = document.querySelector(".user-f--name");
 window.addEventListener("DOMContentLoaded", function () {
-  userFname.textContent=`${curUser.fName}`;
+  userFname.textContent = `${curUser.fName}`;
 });
 
 //Show Balance
-function showBalance (transactions) {
+export function showBalance(transactions) {
   return transactions.reduce((total, cur) => {
     if (cur.type === "withdrawal") {
       return (total -= Number(cur.amount));
     } else return (total += Number(cur.amount));
   }, 0);
-};
+}
 
 //Reveal cards
-function revealCards (curUser) {
+function revealCards(curUser) {
   //Show balance of every card
   curUser.cards.forEach((card) => {
     const curId = card.id;
@@ -173,7 +127,7 @@ function revealCards (curUser) {
     </div>`;
     cardsZone.insertAdjacentHTML("afterbegin", cardHtml);
   });
-};
+}
 
 //Sort transactions
 const sortTransactions = function (curCard) {
@@ -228,7 +182,7 @@ function revealTransactions(transactions, curTarget, curCard) {
       cardTransactionsBlock.insertAdjacentHTML("beforeend", htmlString);
     });
   }
-};
+}
 
 // Show/close transactions block
 const openTransactions = document.addEventListener("click", function (e) {
@@ -330,7 +284,7 @@ function createSavingsType(savings) {
       </div>`;
     categoriesSavingsBlock.insertAdjacentHTML("afterbegin", html);
   });
-};
+}
 
 //Show savings
 const savingsBlock = document.querySelector(".savings-block");
@@ -341,7 +295,7 @@ function showSavings() {
     savingsTypes.add(type);
   });
   createSavingsType(savingsTypes);
-};
+}
 
 //Reveal savings
 const savingsRevealingBlock = document.getElementById("savings-block");
@@ -373,10 +327,9 @@ function revealSavings(e) {
             <h5>Balance:${balance} ${currencySaving} </h5>
         </div>`;
   savingsRevealingBlock.insertAdjacentHTML("afterbegin", balanceHtml);
-};
+}
 const savingTypeBtn = document.querySelectorAll(".saving-category__img");
 savingTypeBtn.forEach((btn) => btn.addEventListener("click", revealSavings));
-
 
 //Check input info
 // const loanAmountInput = document.querySelector(".inputField_loan");
@@ -394,39 +347,67 @@ nextFieldBtn.addEventListener("submit", revealNextField);
 function revealNextField(e) {
   e.preventDefault();
   fieldsWrapper.classList.add("hidden");
-};
+}
 
-// // Currency info-box
+// Currency info-box
 
-// // Date-time box
+// Date-time box
+const userNavigationBox = document.querySelector(".user-date--time__box");
+let lat, lng;
+
+if (curUser.location.length > 0) {
+  userNavigationBox.textContent =
+    userNavigationBox.textContent = `You are in ${curUser.location[0]}, ${curUser.location[1]}`;
+} else {
+  // Get user coords
+  navigator.geolocation.getCurrentPosition(function (position) {
+    lat = position.coords.latitude;
+    lng = position.coords.longitude;
+    const userPosition = fetch(
+      `http://api.geonames.org/findNearbyPlaceNameJSON?lat=${lat}&lng=${lng}&username=fecony`
+    )
+      .then(function (response) {
+        return response.json();
+      })
+      .then(function (response) {
+        const userCity = response.geonames[0].adminName1;
+        const userCountry = response.geonames[0].countryName;
+        curUser.location = [userCity, userCountry];
+        localStorage.setItem(curUser.email, JSON.stringify(curUser));
+        userNavigationBox.textContent = `You are in ${curUser.location[0]}, ${curUser.location[1]}`;
+      });
+  });
+}
+
+// Get position from API
 
 //Log out function
-const logOutBtn=document.querySelector(".log-out--btn");
-logOutBtn.addEventListener("click", logOut)
-function logOut(){
-window.location.href = "./log-in.html";
-localStorage.removeItem("logedIn");
+const logOutBtn = document.querySelector(".log-out--btn");
+logOutBtn.addEventListener("click", logOut);
+function logOut() {
+  window.location.href = "./log-in.html";
+  localStorage.removeItem("logedIn");
 }
 
 // Log out timer
 
-function countDownTimerFunc (){
-    function timeCounting(){
-    const min = String(Math.trunc(`${time / 60}`)).padStart(2,0);
-    const sec = String(`${time % 60}`).padStart(2,0);
+function countDownTimerFunc() {
+  function timeCounting() {
+    const min = String(Math.trunc(`${time / 60}`)).padStart(2, 0);
+    const sec = String(`${time % 60}`).padStart(2, 0);
     timerBlock.textContent = `${min}:${sec}`;
-    if (time===0){
-    clearInterval(timer);
-    logOut();
+    if (time === 0) {
+      clearInterval(timer);
+      logOut();
     }
-  time--;
-  }  
+    time--;
+  }
   let time = 18000;
   timeCounting();
   timer = setInterval(timeCounting, 1000);
   return timer;
-};
-document.addEventListener("click", function(){
+}
+document.addEventListener("click", function () {
   if (timer) clearInterval(timer);
   countDownTimerFunc();
 });
