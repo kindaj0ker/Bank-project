@@ -68,7 +68,7 @@ function showContent() {
         createSavingsType();
       }
       if (curId === "transfer") {
-        showAllUserCards();
+        showAllUserCards(curUser);
       }
     } else return;
   });
@@ -79,11 +79,6 @@ function showContent() {
 function revealHome() {
   revealCards(curUser);
 }
-function revealLoan() {}
-function revealSavingsBlock() {
-  revealSavings(e);
-}
-function revealTransfer() {}
 
 //Header greeting
 const userFname = document.querySelector(".user-f--name");
@@ -102,6 +97,7 @@ export function showBalance(transactions) {
 
 //Reveal cards
 function revealCards(curUser) {
+  cardsZone.innerHTML = "";
   //Show balance of every card
   curUser.cards.forEach((card) => {
     const curId = card.id;
@@ -171,7 +167,7 @@ function revealTransactions(transactions, curTarget, curCard) {
               <img class="oper-group__img" src="../img/${t.group}.png" />
             </span>
             <div class="transaction-name--date__block">
-              <span class="transaction--name">AMAZON</span>
+              <span class="transaction--name">${t.group.toUpperCase()}</span>
               <span class="transaction--date">Today</span>
             </div>
             <div class="transaction-amount">
@@ -229,20 +225,20 @@ const deletePrevInfo = function (curTarget, curCard) {
 };
 
 //Sorting functions
-const sortingTrans = function (curTarget, curCard, btn) {
+function sortingTrans(curTarget, curCard, btn) {
   if (btn.checked === true && !(btn.id === "all")) {
     const type = btn.id;
-    deletePrevInfo(curTarget);
+    // deletePrevInfo(curTarget);
     showSortedOperations(curTarget, curCard, type);
   }
-};
+}
 
 //Show sorted operations
 const showSortedOperations = function (curTarget, curCard, type) {
   const transactions = curUser.transactions.filter(function (t) {
     return t.cardID === curCard.id && t.type === type;
   });
-  revealTransactions(transactions, curTarget);
+  revealTransactions(transactions, curTarget, curCard);
 };
 
 //Create new card

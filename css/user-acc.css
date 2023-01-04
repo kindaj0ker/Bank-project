@@ -225,6 +225,11 @@ body {
   width: 8rem;
   align-self: flex-start;
 }
+.user-card__img:hover {
+  cursor: pointer;
+  border: white 1px solid;
+  border-radius: 15px;
+}
 /* checkbox */
 .sorting-box {
   display: flex;
@@ -362,6 +367,7 @@ select {
   color: var(--orange-color);
   cursor: pointer;
 }
+
 /* request loan */
 .request-loan__block {
   display: flex;
@@ -390,6 +396,8 @@ select {
 .request-loan__arrow {
   width: 70%;
 }
+/* transfer */
+
 /* estra classes */
 .orange-text {
   color: var(--orange-color);

@@ -14,7 +14,12 @@ export class User {
     this.location = [];
   }
 
-  createNewCard(cardPlan, id = `${uniqid()}`, expired, currency = "$") {
+  createNewCard(
+    cardPlan,
+    id = `${uniqid()}`,
+    expired = `${expiredDate}`,
+    currency = "$"
+  ) {
     const day = new Date().getDate().toString().padStart(2, "0");
     const month = new Date().getMonth().toString().padStart(2, "0");
     const year = new Date().getFullYear() + 4;
@@ -35,8 +40,8 @@ export class User {
     transactionID = `${uniqid()}`,
     amount,
     currency,
-    date = `${new Date().toISOString().split("T")[0]}`,
     type,
+    date = `${new Date().toISOString().split("T")[0]}`,
     savingType = "other"
   ) {
     const data = new Map([
@@ -46,8 +51,8 @@ export class User {
       ["amount", `${amount}`],
       ["currency", `${currency}`],
       ["type", `${type}`],
-      ["date", `${date}`],
       ["savingType", `${savingType}`],
+      ["date", `${date}`],
     ]);
     const transaction = Object.fromEntries(data);
     this.transactions.push(transaction);
