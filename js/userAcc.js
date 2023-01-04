@@ -132,17 +132,10 @@ const sortTransactions = function (curCard) {
   });
 };
 
-//Reveal card transactions block
-function revealTransactions(transactions, curTarget, curCard) {
-  const cardTransactionsContainer = curTarget.closest(".total-card__info");
-  if (sortTransactions(curCard.id).length === 0) {
-    const noTransBlock = `<div class="no-transactions__block">
-        <p class="no-transactions__p"> No transactions found</p>
-      </div>`;
-    cardTransactionsContainer.insertAdjacentHTML("beforeend", noTransBlock);
-  } else {
-    const transastions = `<div class="sorting-box">
-      <div>
+//Create radio buttons
+function createRadioBtns(curTarget) {
+  return `<div class="sorted-btns">
+  <div>
         <input class="radio" type="radio" id="all" name="trans" value="all" checked/>
         <label for="trans">All transactions</label>
       </div>
@@ -154,10 +147,21 @@ function revealTransactions(transactions, curTarget, curCard) {
         <input class="radio" type="radio" id="deposit" name="trans" value="deposits"/>
         <label for="trans">Deposits</label>
       </div>
-    </div>
+      </div>`;
+}
+//Reveal card transactions block
+function revealTransactions(transactions, curTarget, curCard) {
+  const cardTransactionsContainer = curTarget.closest(".total-card__info");
+  if (sortTransactions(curCard.id).length === 0) {
+    const noTransBlock = `<div class="no-transactions__block">
+        <p class="no-transactions__p"> No transactions found</p>
+      </div>`;
+    cardTransactionsContainer.insertAdjacentHTML("beforeend", noTransBlock);
+  } else {
+    const transastions = `<div class="sorting-box">
     <div class="transactions">
+    </div>
     </div>`;
-
     cardTransactionsContainer.insertAdjacentHTML("beforeEnd", transastions);
     const cardTransactionsBlock =
       cardTransactionsContainer.querySelector(".transactions");
@@ -193,9 +197,15 @@ const openTransactions = document.addEventListener("click", function (e) {
       closeTransactions.textContent = "Close transactions information ↑";
 
       //Add transactions info
+      revealTransactions(curUser.transactions, curTarget, curCard);
       const curCardID = curCard.id;
       sortTransactions(curCardID);
-      revealTransactions(curUser.transactions, curTarget, curCard);
+      const cardTransactionsContainer = curTarget.closest(".total-card__info");
+      const transContainer = curTarget.closest(".sorting-box");
+      console.log(curTarget);
+      console.log(transContainer);
+      const btns = createRadioBtns();
+      transContainer.insertAdjacentHTML("afterbegin", btns);
       const radioBtns = document.getElementsByName("trans");
       radioBtns.forEach((btn) =>
         btn.addEventListener("change", function () {
@@ -205,39 +215,76 @@ const openTransactions = document.addEventListener("click", function (e) {
     } else {
       //Close block
       closeTransactions.textContent = "Show transactions↓";
-      deletePrevInfo(curTarget, curCard);
+      // deletePrevInfo(curTarget, curCard);
+      radioBtnsDelete(curTarget, curTarget);
     }
   }
 });
 
+// //Delete radio btns
+// function deleteRadioBtns(curTarget, curCard) {}
+
+// //Delete prev transactions info
+// function deletePrevInfo(curTarget, curCard) {
+//   const transactionsBlock = curTarget.closest(".total-card__info");
+//   const transactions = transactionsBlock.querySelector(".transactions");
+//   if (sortTransactions(curCard.id).length === 0) {
+//     const noTransactions = document.querySelector(".no-transactions__block");
+//     transactionsBlock.removeChild(noTransactions);
+//   } else {
+//     const radioBtns = transactionsBlock.querySelector(".sorting-box");
+//     console.log(radioBtns);
+//     radioBtns.removeChild(transactions);
+//     transactionsBlock.removeChild(radioBtns);
+//   }
+// }
+
+//Delete radio btns
+function radioBtnsDelete(curTarget, curCard) {
+  const [transactionsBlock, transastions, mainBlock, radioBtnsContainer] =
+    mainPrevDelete(curTarget, curCard);
+  transactionsBlock.removeChild(mainBlock);
+}
 //Delete prev transactions info
-const deletePrevInfo = function (curTarget, curCard) {
-  const transactionsBlock = curTarget.closest(".total-card__info");
-  const transactions = transactionsBlock.querySelector(".transactions");
+
+function prevTransDelete(curTarget, curCard) {
+  const [transactionsBlock, transactions, _, radioBtnsContainer] =
+    mainPrevDelete(curTarget, curCard);
   if (sortTransactions(curCard.id).length === 0) {
     const noTransactions = document.querySelector(".no-transactions__block");
     transactionsBlock.removeChild(noTransactions);
   } else {
-    const radioBtns = transactionsBlock.querySelector(".sorting-box");
-    transactionsBlock.removeChild(transactions);
-    transactionsBlock.removeChild(radioBtns);
+    transactions.innerHTML = "";
   }
-};
+}
+//Main prev trans block
+function mainPrevDelete(curTarget, curCard) {
+  const transactionsBlock = curTarget.closest(".total-card__info");
+  const transactions = transactionsBlock.querySelector(".transactions");
+  const mainBlock = transactionsBlock.querySelector(".sorting-box");
+  const radioBtnsContainer = curTarget.closest(".sorted-btns");
+  return [transactionsBlock, transactions, mainBlock, radioBtnsContainer];
+}
 
 //Sorting functions
 function sortingTrans(curTarget, curCard, btn) {
-  if (btn.checked === true && !(btn.id === "all")) {
+  if (btn.checked === true) {
     const type = btn.id;
-    // deletePrevInfo(curTarget);
+    // deletePrevInfo(curTarget, curCard);
+    prevTransDelete(curTarget, curCard);
     showSortedOperations(curTarget, curCard, type);
   }
 }
 
 //Show sorted operations
 const showSortedOperations = function (curTarget, curCard, type) {
-  const transactions = curUser.transactions.filter(function (t) {
-    return t.cardID === curCard.id && t.type === type;
-  });
+  // const transactions = curUser.transactions.filter(function (t) {
+  //   return t.cardID === curCard.id && t.type === type;
+  // });
+  let transactions = sortTransactions(curCard.id);
+  if (type !== "all") {
+    transactions = transactions.filter((t) => t.type === type);
+  }
   revealTransactions(transactions, curTarget, curCard);
 };
 

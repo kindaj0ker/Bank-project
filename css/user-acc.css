@@ -123,7 +123,7 @@ body {
 .transactions {
   display: hidden;
   flex-direction: column;
-  width: 90%;
+  width: 100%;
   align-items: flex-start;
 }
 .transaction {
@@ -231,9 +231,13 @@ body {
   border-radius: 15px;
 }
 /* checkbox */
-.sorting-box {
+.sorted-btns {
   display: flex;
   flex-direction: row;
+}
+.sorting-box {
+  display: flex;
+  flex-direction: column;
   float: right;
   justify-content: space-evenly;
 }
