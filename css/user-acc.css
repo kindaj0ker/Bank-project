@@ -242,21 +242,23 @@ body {
   justify-content: space-evenly;
 }
 /* Create new card */
+
 .create-card__box {
-  padding: 0.2rem;
-  display: flex;
-  direction: row;
-  width: fit-content;
+  margin: 1rem;
+  padding: 1rem;
+  display: block;
+  width: 100%;
+  align-self: center;
+  background-color: var(--gray-color);
+  border-radius: 15px;
 }
-.creat-card__btn {
-  margin: auto 0.5rem;
-  padding: 0.3rem;
-  border-radius: 100px;
-  background-color: var(--blue-color);
-  border: 0.2rem solid black;
+.create-card__box:hover {
+  cursor: pointer;
 }
 .create-p {
-  margin: auto 0.5rem;
+  margin: auto 2rem;
+  text-align: center;
+  font-size: 1.2rem;
 }
 .register-form {
   width: 100%;
@@ -296,29 +298,72 @@ select {
   margin: 0.2rem;
   width: 1.5rem;
 }
-.create-acc--btn {
+.get-new--card__wrapper {
+  margin: 0.5rem;
+  padding: 0.5rem;
+  border-radius: 10px;
+}
+.get-new--card__wrapper:hover {
+  cursor: pointer;
+  background-color: white;
+  color: orange;
+}
+.card-creation--btns--wrapper {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+}
+.card-btn {
   align-self: center;
   background-color: orange;
   color: white;
   border-radius: 15px;
-  margin: 1rem 0rem;
+  margin: 1rem;
+  width: 100%;
   padding: 0.5rem;
   display: block;
   box-shadow: 0.3rem 0.3rem 0.4rem gray;
   font-family: var(--element-font);
   font-size: 1.5rem;
 }
-.create-acc--btn:hover {
-  background: orange;
-  color: white;
+.card-btn:hover {
+  background: white;
+  color: orange;
 }
-
+.waiting-block {
+  display: flex;
+  flex-direction: column;
+  margin: 0.2rem;
+  padding: 0.5rem;
+}
+.waiting-sign {
+  font-size: 1.3rem;
+}
 /* Savings */
 .savings-block {
   display: flex;
   flex-direction: column;
   margin: 2rem auto;
   width: 100%;
+}
+.manage-wrapper {
+  color: white;
+}
+.manage-sav--btn {
+  margin: 0.5rem;
+  font-size: 1.3rem;
+}
+.manage-sav--btn:hover {
+  cursor: pointer;
+  color: orange;
+  text-decoration: underline;
+}
+.manage-sav {
+  margin: 0.8rem;
+  font-size: 1rem;
+}
+.manage-sav:hover {
+  cursor: pointer;
 }
 .categories-block {
   display: flex;
@@ -425,4 +470,28 @@ select {
   margin: 0;
   padding: 0.5rem;
   width: 95%;
+}
+
+.loading-spinner::before {
+  width: 40px;
+  height: 40px;
+  border: solid 5px white;
+  border-radius: 50%;
+  content: "";
+  /* position: absolute;
+  top: 10%;
+  left: 10%; */
+  border-bottom-color: rgba(0, 0, 0, 0.562);
+  animation: linear 1.5s infinite load;
+  animation-play-state: inherit;
+  will-change: transform;
+  transform: translate3d(-50%, -50%, 0);
+}
+@keyframes load {
+  0% {
+    transform: translate3d(-50%, -50%, 0) rotate(0deg);
+  }
+  100% {
+    transform: translate3d(-50%, -50%, 0) rotate(360deg);
+  }
 }

@@ -116,3 +116,29 @@ function revealSavings(e) {
 
 const savingTypeBtn = document.querySelectorAll(".saving-category__img");
 savingTypeBtn.forEach((btn) => btn.addEventListener("click", revealSavings));
+
+//Manage savings
+const manageSavBtn = document.querySelector(".manage-sav--btn");
+const manageTypes = document.querySelectorAll(".manage-sav");
+const createSavBtn = document.querySelector(".create-sav--btn");
+const transferSavBtn = document.querySelector(".transfer-sav--btn");
+const manageSavBlock = document.querySelector(".manage-sav--wrapper");
+const createSavBlock = document.querySelector(".create-sav--block");
+const transferSavBlock = document.querySelector(".transfer-sav--block");
+
+manageSavBtn.addEventListener("click", function () {
+  manageTypes.forEach((m) => m.classList.toggle("hidden"));
+});
+
+//Create/transfer new saving function
+manageTypes.forEach((t) => {
+  t.addEventListener("click", function (e) {
+    const btnType = `${
+      e.target.closest(".manage-sav").classList[0].split("-")[0]
+    }SavBlock`;
+    console.log(btnType);
+    btnType.classList.remove("hidden");
+    manageSavBlock.classList.add("hidden");
+    categoriesBlock.remove();
+  });
+});

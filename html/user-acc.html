@@ -53,19 +53,40 @@
             <!-- home menu -->
             <div id="home" class="user-cards__zone content-filler content-wrapper hidden">
               <div class="create-card__box">
-                  <h5 class="create-p creation">Get a new card <span class="creat-card__btn">+</span></h5>
-                  <form class="register-form hidden">
+                <div class="get-new--card__wrapper">
+                  <h5 class="create-p creation">Get a new card</h5>
+                  </div>
+                  <form class="card-register-form hidden">
                     <div class="form-field full-width--fields">
+                      <!-- card's plans -->
+                      <div class="plans-wrapper new-card--wrapper">
                       <label for="plan">Choose your plan</label><br />
-                      <select class="plan" name="plan" size="1" required>
+                      <select class="new-plan" name="plan" size="1" required>
                         <option class="card-option" value="Standart">Standart FREE</option>
                         <option class="card-option" selected value="Plus">Plus $5.99/month</option>
                         <option class="card-option" value="Premium">Premium $9.99/month</option>
                         <option class="card-option" value="VIP">VIP $19.99/month</option>
                       </select>
-                        </div>    
-                      <button class="create-acc--btn" />Get a Card</button>
+                      </div>
+                      <!-- currency available -->
+                      <div class="currency-wrapper new-card--wrapper">
+                      <label for="plan">Select a currency</label><br />
+                      <select class="new-currency" name="currency" size="1" required>
+                        <option class="currency-option" value="$">$</option>
+                        <option class="currency-option" selected value="€">€</option>
+                        <option class="currency-option" value="£">£</option>
+                      </select>
+                      </div>
+                        </div>
+                        <div class="card-creation--btns--wrapper">  
+                      <button type="submit" class="create-new--card__btn card-btn" />Get a Card</button>
+                      <button type="button"class="cancel-card--creation card-btn" />Cancel</button>
+                      </div>  
                   </form>
+                  <div class="waiting-block hidden">
+                    <h5 class="waiting-sign">Waiting for bank approval</h5><div class="loading-spinner"></div></div>
+                    <div class="unsuccesful-card--pending hidden">
+                      <h4>You can not open a new card more than once a month. If you need futher help, please contact our support team or try again later.</h4><span class="close-unsuccesful--msg"><img src="../img/close-banner-btn.svg"/></span></div>
               </div>
             </div>
               <!-- loan menu -->
@@ -91,6 +112,23 @@
               </div>
               <!-- savings menu -->
             <div id="savings" class="savings-block content-filler content-wrapper hidden">
+              <div class="manage-wrapper">
+                <div class="manage-sav--wrapper">
+                  <div class="manage-sav--block">
+                    <div class="manage-sav--btn">
+                    <h4>Manage your savings</h4>
+                    </div>
+                  <div class="create-sav--btn manage-sav hidden">
+                    <h4>Create new saving</h4>
+                  </div>
+                  <div class="transfer-sav--btn manage-sav hidden">
+                    <h4>Transfer money to card</h4>
+                  </div>
+                  </div>
+                </div>
+                <div class="create-sav--block hidden"></div>
+                <div class="transfer-sav--block hidden"></div>
+              </div>
               <div class="categories-block">
                 <div class="all-savings--categories"></div>
               </div>

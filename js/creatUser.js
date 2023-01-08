@@ -2,28 +2,32 @@
 const uniqid = new ShortUniqueId();
 
 export class User {
-  constructor(fName, lName, bDay, email, password) {
+  constructor(
+    fName,
+    lName,
+    bDay,
+    email,
+    password,
+    cards = [],
+    transactions = [],
+    location = ""
+  ) {
     this.id = uniqid();
     this.fName = fName;
-    this.lN = lName;
+    this.lName = lName;
     this.bDay = bDay;
     this.email = email;
     this.password = password;
-    this.cards = [];
-    this.transactions = [];
-    this.location = [];
+    this.cards = cards;
+    this.transactions = transactions;
+    this.location = location;
   }
 
-  createNewCard(
-    cardPlan,
-    id = `${uniqid()}`,
-    expired = `${expiredDate}`,
-    currency = "$"
-  ) {
+  createNewCard(cardPlan, id = `${uniqid()}`, expired = null, currency) {
     const day = new Date().getDate().toString().padStart(2, "0");
-    const month = new Date().getMonth().toString().padStart(2, "0");
+    const month = (new Date().getMonth() + 1).toString().padStart(2, "0");
     const year = new Date().getFullYear() + 4;
-    const expiredDate = day + "-" + month + "-" + year;
+    const expiredDate = expired ?? day + "-" + month + "-" + year;
     const data = new Map([
       ["plan", `${cardPlan}`],
       ["id", `${id}`],

@@ -2,12 +2,24 @@
 import { showTotalSavingsBalance } from "./userSavings.js";
 import { showAllUserCards } from "./userTransfer.js";
 const uniqid = new ShortUniqueId();
-
+import { User } from "./creatUser.js";
 //New user from registered user
 
 //let curUser=JSON.parse(localStorage.getItem("logedIn"));
 
-let curUser = JSON.parse(localStorage.getItem("peterJ@gmail.com"));
+let { fName, lName, bDay, email, password, cards, transactions, location } =
+  JSON.parse(localStorage.getItem("peterJ@gmail.com"));
+const curUser = new User(
+  fName,
+  lName,
+  bDay,
+  email,
+  password,
+  cards,
+  transactions,
+  location
+);
+
 //Select main elements
 
 const timerBlock = document.querySelector(".timer");
@@ -65,7 +77,7 @@ function showContent() {
         revealHome();
       }
       if (curId === "savings") {
-        createSavingsType();
+        // createSavingsType();
       }
       if (curId === "transfer") {
         showAllUserCards(curUser);
@@ -77,7 +89,7 @@ function showContent() {
 //Reveal main content functions
 
 function revealHome() {
-  revealCards(curUser);
+  updateCardsContainer(curUser);
 }
 
 //Header greeting
@@ -97,7 +109,6 @@ export function showBalance(transactions) {
 
 //Reveal cards
 function revealCards(curUser) {
-  cardsZone.innerHTML = "";
   //Show balance of every card
   curUser.cards.forEach((card) => {
     const curId = card.id;
@@ -133,18 +144,18 @@ const sortTransactions = function (curCard) {
 };
 
 //Create radio buttons
-function createRadioBtns(curTarget) {
+function createRadioBtns(id) {
   return `<div class="sorted-btns">
   <div>
-        <input class="radio" type="radio" id="all" name="trans" value="all" checked/>
+        <input class="radio" type="radio" id="all" name="trans_${id}" value="all" checked/>
         <label for="trans">All transactions</label>
       </div>
       <div>
-        <input class="radio" type="radio" id="withdrawal" name="trans" value="withdrawals" />
+        <input class="radio" type="radio" id="withdrawal" name="trans_${id}" value="withdrawals" />
         <label for="trans">Withdrawals</label>
       </div>
       <div>
-        <input class="radio" type="radio" id="deposit" name="trans" value="deposits"/>
+        <input class="radio" type="radio" id="deposit" name="trans_${id}" value="deposits"/>
         <label for="trans">Deposits</label>
       </div>
       </div>`;
@@ -197,16 +208,17 @@ const openTransactions = document.addEventListener("click", function (e) {
       closeTransactions.textContent = "Close transactions information ↑";
 
       //Add transactions info
-      revealTransactions(curUser.transactions, curTarget, curCard);
+      revealTransactions(sortTransactions(curCard.id), curTarget, curCard);
       const curCardID = curCard.id;
-      sortTransactions(curCardID);
+
       const cardTransactionsContainer = curTarget.closest(".total-card__info");
-      const transContainer = curTarget.closest(".sorting-box");
+      const transContainer =
+        cardTransactionsContainer.querySelector(".sorting-box");
       console.log(curTarget);
       console.log(transContainer);
-      const btns = createRadioBtns();
+      const btns = createRadioBtns(curCard.id);
       transContainer.insertAdjacentHTML("afterbegin", btns);
-      const radioBtns = document.getElementsByName("trans");
+      const radioBtns = document.getElementsByName(`trans_${curCard.id}`);
       radioBtns.forEach((btn) =>
         btn.addEventListener("change", function () {
           sortingTrans(curTarget, curCard, btn);
@@ -245,6 +257,7 @@ function radioBtnsDelete(curTarget, curCard) {
     mainPrevDelete(curTarget, curCard);
   transactionsBlock.removeChild(mainBlock);
 }
+
 //Delete prev transactions info
 
 function prevTransDelete(curTarget, curCard) {
@@ -289,27 +302,87 @@ const showSortedOperations = function (curTarget, curCard, type) {
 };
 
 //Create new card
-const getNewCardBtn = document.querySelector(".creation");
-getNewCardBtn.addEventListener("click", function () {
-  const creationBlock = document.querySelector(".creation");
-  creationBlock.classList.add("hidden");
-  const choosePlan = document.querySelector(".register-form");
+
+const getCardInit = document.querySelector(".get-new--card__wrapper");
+const newCardCancel = document.querySelector(".cancel-card--creation");
+const newCardForm = document.querySelector(".card-register-form");
+const creationBlock = document.querySelector(".creation");
+const choosePlan = document.querySelector(".card-register-form");
+const waitingBlock = document.querySelector(".waiting-block");
+const unsuccesfulCardPending = document.querySelector(
+  ".unsuccesful-card--pending"
+);
+const closeMsgBtn = document.querySelector(".close-unsuccesful--msg");
+
+getCardInit.addEventListener("click", function () {
+  getCardInit.classList.add("hidden");
   choosePlan.classList.remove("hidden");
 });
-const getCardBtn = document.querySelector(".register-form");
-getCardBtn.addEventListener("submit", function (e) {
-  e.preventDefault();
-  const plan = document.querySelector(".plan").value;
-  curUser.cards.push(plan);
-  updateCardsContainer(curUser);
+
+//Cancel new card creation
+newCardCancel.addEventListener("click", function (e) {
+  e.stopPropagation();
+  getCardInit.classList.remove("hidden");
+  choosePlan.classList.add("hidden");
 });
 
-//Update cards container
-const updateCardsContainer = function (curUser) {
-  cardsZone.innerHTML = "";
+//Get a card
+newCardForm.addEventListener("submit", function (e) {
+  e.preventDefault();
+  newCardForm.classList.add("hidden");
+  waitingBlock.classList.remove("hidden");
+  setTimeout(checkCardDate, "4000");
+});
+
+//Check latest card date
+function checkCardDate() {
+  const allCardsResult = [];
+  const comparationDate = 30;
+  const today = new Date().getTime();
+  curUser.cards.forEach((c) => {
+    const splitExpirationDate = c.expired.split("-");
+    const creationDate = new Date(
+      Number(splitExpirationDate[2]) - 4,
+      Number(splitExpirationDate[1]) - 1,
+      splitExpirationDate[0]
+    );
+    const comparedStamp = creationDate.getTime();
+    const timeSinceLastCardCreation =
+      (Number(today) - Number(comparedStamp)) / (60 * 60 * 24 * 1000);
+    if (timeSinceLastCardCreation < comparationDate) {
+      allCardsResult.push("false");
+    } else return;
+  });
+  newCardForm.classList.add("hidden");
+  if (allCardsResult.length === 0) {
+    getCardInit.classList.remove("hidden");
+    waitingBlock.classList.add("hidden");
+    const plan = document.querySelector(".new-plan").value;
+    const currency = document.querySelector(".new-currency").value;
+    curUser.createNewCard(plan.toUpperCase(), null, null, currency);
+    updateCardsContainer(curUser);
+    return true;
+  } else {
+    waitingBlock.classList.add("hidden");
+    unsuccesfulCardPending.classList.remove("hidden");
+    return false;
+  }
+}
+
+//Close unsuccsesful message
+closeMsgBtn.addEventListener("click", function () {
+  unsuccesfulCardPending.classList.add("hidden");
+  getCardInit.classList.remove("hidden");
+});
+
+//Update cards containers
+function updateCardsContainer(curUser) {
+  const allCards = document.querySelectorAll(".total-card__info");
+  allCards.forEach((c) => c.remove());
   revealCards(curUser);
-};
-// Reveal Savings
+}
+updateCardsContainer(curUser);
+
 // Sort savings
 const sortSavings = function () {
   return curUser.transactions.filter(function (transaction) {
@@ -319,15 +392,15 @@ const sortSavings = function () {
 
 //Create savings in user interface
 const categoriesSavingsBlock = document.querySelector(".categories-block");
-function createSavingsType(savings) {
-  savings.forEach((s) => {
-    const html = `<div class="category">
-        <img class="saving-category__img" id="${s}" src="../img/${s}-saving.png"/>
-        <p class="saving-category__name">${s.replace("-", " ")}</p>
-      </div>`;
-    categoriesSavingsBlock.insertAdjacentHTML("afterbegin", html);
-  });
-}
+// function createSavingsType(savings) {
+//   savings.forEach((s) => {
+//     const html = `<div class="category">
+//         <img class="saving-category__img" id="${s}" src="../img/${s}-saving.png"/>
+//         <p class="saving-category__name">${s.replace("-", " ")}</p>
+//       </div>`;
+//     categoriesSavingsBlock.insertAdjacentHTML("afterbegin", html);
+//   });
+// }
 
 //Show savings
 const savingsBlock = document.querySelector(".savings-block");
@@ -341,38 +414,38 @@ function showSavings() {
 }
 
 //Reveal savings
-const savingsRevealingBlock = document.getElementById("savings-block");
-function revealSavings(e) {
-  const curSavingsType = e.target.id;
-  savingsRevealingBlock.innerHTML = "";
-  //show balance
-  let balance = 0;
-  let currencySaving = "";
-  sortSavings().forEach((s) => {
-    if (s.savingType === curSavingsType) {
-      const html = `<div class="transaction">
-        <img class="oper-group__img" src="../img/${s.savingType}-saving.png"/>
-        <div class="transaction-name--date__block">
-          <span class="transaction--name">${s.savingType}</span>
-          <span class="transaction--date">Today</span>
-            </div>
-        <div class="transaction-amount">
-          <span class="transaction-currency">${s.currency}</span>
-          <span class="transaction--amount">${s.amount}</span>
-        </div>`;
-      savingsRevealingBlock.insertAdjacentHTML("beforeend", html);
-      balance += +s.amount;
-      currencySaving = s.currency;
-    }
-  });
-  const balanceHtml = `
-        <div class="saving-balance">
-            <h5>Balance:${balance} ${currencySaving} </h5>
-        </div>`;
-  savingsRevealingBlock.insertAdjacentHTML("afterbegin", balanceHtml);
-}
-const savingTypeBtn = document.querySelectorAll(".saving-category__img");
-savingTypeBtn.forEach((btn) => btn.addEventListener("click", revealSavings));
+// const savingsRevealingBlock = document.getElementById("savings-block");
+// function revealSavings(e) {
+//   const curSavingsType = e.target.id;
+//   savingsRevealingBlock.innerHTML = "";
+//   //Show balance
+//   let balance = 0;
+//   let currencySaving = "";
+//   sortSavings().forEach((s) => {
+//     if (s.savingType === curSavingsType) {
+//       const html = `<div class="transaction">
+//         <img class="oper-group__img" src="../img/${s.savingType}-saving.png"/>
+//         <div class="transaction-name--date__block">
+//           <span class="transaction--name">${s.savingType}</span>
+//           <span class="transaction--date">Today</span>
+//             </div>
+//         <div class="transaction-amount">
+//           <span class="transaction-currency">${s.currency}</span>
+//           <span class="transaction--amount">${s.amount}</span>
+//         </div>`;
+//       savingsRevealingBlock.insertAdjacentHTML("beforeend", html);
+//       balance += +s.amount;
+//       currencySaving = s.currency;
+//     }
+//   });
+//   const balanceHtml = `
+//         <div class="saving-balance">
+//             <h5>Balance:${balance} ${currencySaving} </h5>
+//         </div>`;
+//   savingsRevealingBlock.insertAdjacentHTML("afterbegin", balanceHtml);
+// }
+// const savingTypeBtn = document.querySelectorAll(".saving-category__img");
+// savingTypeBtn.forEach((btn) => btn.addEventListener("click", revealSavings));
 
 //Check input info
 // const loanAmountInput = document.querySelector(".inputField_loan");
@@ -398,30 +471,32 @@ function revealNextField(e) {
 const userNavigationBox = document.querySelector(".user-date--time__box");
 let lat, lng;
 
-if (curUser.location.length > 0) {
-  userNavigationBox.textContent =
-    userNavigationBox.textContent = `You are in ${curUser.location[0]}, ${curUser.location[1]}`;
-} else {
-  // Get user coords
-  navigator.geolocation.getCurrentPosition(function (position) {
-    lat = position.coords.latitude;
-    lng = position.coords.longitude;
-    const userPosition = fetch(
-      `http://api.geonames.org/findNearbyPlaceNameJSON?lat=${lat}&lng=${lng}&username=fecony`
-    )
-      .then(function (response) {
-        return response.json();
-      })
-      .then(function (response) {
-        const userCity = response.geonames[0].adminName1;
-        const userCountry = response.geonames[0].countryName;
-        curUser.location = [userCity, userCountry];
-        localStorage.setItem(curUser.email, JSON.stringify(curUser));
-        userNavigationBox.textContent = `You are in ${curUser.location[0]}, ${curUser.location[1]}`;
-      });
-  });
+function showLocation() {
+  if (curUser.location.length > 0) {
+    userNavigationBox.textContent =
+      userNavigationBox.textContent = `You are in ${curUser.location[0]}, ${curUser.location[1]}`;
+  } else {
+    // Get user coords
+    navigator.geolocation.getCurrentPosition(function (position) {
+      lat = position.coords.latitude;
+      lng = position.coords.longitude;
+      const userPosition = fetch(
+        `http://api.geonames.org/findNearbyPlaceNameJSON?lat=${lat}&lng=${lng}&username=fecony`
+      )
+        .then(function (response) {
+          return response.json();
+        })
+        .then(function (response) {
+          const userCity = response.geonames[0].adminName1;
+          const userCountry = response.geonames[0].countryName;
+          curUser.location = [userCity, userCountry];
+          localStorage.setItem(curUser.email, JSON.stringify(curUser));
+          userNavigationBox.textContent = `You are in ${curUser.location[0]}, ${curUser.location[1]}`;
+        });
+    });
+  }
 }
-
+showLocation();
 // Get position from API
 
 //Log out function
