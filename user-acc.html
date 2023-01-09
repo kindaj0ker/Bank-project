@@ -126,18 +126,21 @@
                     <h4>Transfer money to card</h4>
                   </div>
                   </div>
+                  <div class="user-sav--error hidden">
+                    <h4>Sorry, but you don't have money to manage your savings. Please, check your account balance.</h4>
+                  </div>
                 </div>
                   <div class="create-sav--block hidden">
                     <form class="create-new--sav__form">
                       <div class="create-sav--msg">
-                        <h4 id="sav-goal--msg" class="create-sav--goal__msg">Choose a goal of your savings</h4>
-                        <h4 id="sav-card--msg" class="choose-sav--card__msg hidden">Choose your card to transfer from</h4>
+                        <h4 data-msg="1" class="create-sav--goal__msg new-sav__msg">Choose a goal of your savings</h4>
+                        <h4 data-msg="2" class="choose-sav--card__msg new-sav__msg hidden">Choose your card to transfer from</h4>
                       </div>
                       <div class="sav-selection--fields hidden">
-                        <div class="sav-new--goal__selection"></div>
-                        <div class="sav-card__selection"></div>
+                        <div data-content="sav-goal__selection" class="sav-new--goal__selection hidden"></div>
+                        <div data-content="sav-card__selection" class="sav-card__selection hidden"></div>
                       </div>
-                      <div class="sav-amount--cur-wrapper hidden">
+                      <div data-msg="3" class="sav-amount--cur-wrapper hidden">
                         <div class="sav-amount--msg">
                           <label for="sav-amount">Type saving amount</label>
                           <input class="inputField_new_sav" type="text" id="sav-amount" name="sav_amount" />
@@ -150,6 +153,9 @@
                             <option class="sav-cur-option" value="£">£</option>
                           </select>
                         </div>
+                      </div>
+                      <div class="sav-error--block">
+                        <h4>Please, select one element to proceed</h4>
                       </div>
                       <div class="create-sav--btns">
                         <div class="create-sav--btn__continue">
