@@ -472,26 +472,20 @@ select {
   width: 95%;
 }
 
-.loading-spinner::before {
+.loading-spinner {
   width: 40px;
   height: 40px;
   border: solid 5px white;
   border-radius: 50%;
-  content: "";
-  /* position: absolute;
-  top: 10%;
-  left: 10%; */
   border-bottom-color: rgba(0, 0, 0, 0.562);
   animation: linear 1.5s infinite load;
-  animation-play-state: inherit;
   will-change: transform;
-  transform: translate3d(-50%, -50%, 0);
 }
 @keyframes load {
   0% {
-    transform: translate3d(-50%, -50%, 0) rotate(0deg);
+    transform: rotate(0deg);
   }
   100% {
-    transform: translate3d(-50%, -50%, 0) rotate(360deg);
+    transform: rotate(360deg);
   }
 }
