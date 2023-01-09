@@ -110,6 +110,7 @@
                 <button class="next-field__btn" /><img class="request-loan__arrow" src='../img/request-loan__arrow.png'/></button>
               </form>
               </div>
+
               <!-- savings menu -->
             <div id="savings" class="savings-block content-filler content-wrapper hidden">
               <div class="manage-wrapper">
@@ -126,14 +127,54 @@
                   </div>
                   </div>
                 </div>
-                <div class="create-sav--block hidden"></div>
-                <div class="transfer-sav--block hidden"></div>
+                  <div class="create-sav--block hidden">
+                    <form class="create-new--sav__form">
+                      <div class="create-sav--msg">
+                        <h4 id="sav-goal--msg" class="create-sav--goal__msg">Choose a goal of your savings</h4>
+                        <h4 id="sav-card--msg" class="choose-sav--card__msg hidden">Choose your card to transfer from</h4>
+                      </div>
+                      <div class="sav-selection--fields hidden">
+                        <div class="sav-new--goal__selection"></div>
+                        <div class="sav-card__selection"></div>
+                      </div>
+                      <div class="sav-amount--cur-wrapper hidden">
+                        <div class="sav-amount--msg">
+                          <label for="sav-amount">Type saving amount</label>
+                          <input class="inputField_new_sav" type="text" id="sav-amount" name="sav_amount" />
+                        </div>
+                        <div class="sav-currency--msg">
+                          <label for="loan-currency">Select currency</label>
+                          <select class="sav-currency" name="sav-currency" size="1" required>
+                            <option class="sav-cur-option" selected value="$">$</option>
+                            <option class="sav-cur-option" value="€">€</option>
+                            <option class="sav-cur-option" value="£">£</option>
+                          </select>
+                        </div>
+                      </div>
+                      <div class="create-sav--btns">
+                        <div class="create-sav--btn__continue">
+                          <button type="button">Next</button>
+                        </div>
+                        <div class="create-sav--btn__return">
+                          <button type="button">Go back</button>
+                        </div>
+                        <div class="create-sav--btn__cancel">
+                          <button type="button">Cancel</button>
+                        </div>
+                        <div class="create-sav--btn__add hidden">
+                          <button type="submit">Add saving</button>
+                        </div>
+                      </div>
+                    </form>
+                  </div>
+                  <div class="transfer-sav--block hidden"></div>
               </div>
               <div class="categories-block">
                 <div class="all-savings--categories"></div>
               </div>
               <div id="savings-transactions" class="transactions"></div>
             </div>
+
               <!-- transfer menu -->
               <div id="transfer" class="hidden content-filler content-wrapper"><div class="transfer-logic"></div></div>
           </div>
