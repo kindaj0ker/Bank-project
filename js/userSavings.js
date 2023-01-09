@@ -1,9 +1,67 @@
 "use strict";
+import { showBalance } from "./userAcc.js";
+import { sortTransactions } from "./userTransfer.js";
 //New user from registered user
 
 //let curUser=JSON.parse(localStorage.getItem("logedIn"));
 
 let curUser = JSON.parse(localStorage.getItem("peterJ@gmail.com"));
+
+//Manage savings
+const manageSavBtn = document.querySelector(".manage-sav--btn");
+const manageTypes = document.querySelectorAll(".manage-sav");
+const createSavBtn = document.querySelector(".create-sav--btn h4");
+const transferSavBtn = document.querySelector(".transfer-sav--btn h4");
+const manageSavBlock = document.querySelector(".manage-sav--wrapper");
+const createSavBlock = document.querySelector(".create-sav--block");
+const transferSavBlock = document.querySelector(".transfer-sav--block");
+const nextNewSavBtn = document.querySelector(".create-sav--btn__continue");
+const cancelNewSavBtn = document.querySelector(".create-sav--btn__cancel");
+const returnNewSavBtn = document.querySelector(".create-sav--btn__return");
+const addNewSavBtn = document.querySelector(".create-sav--btn__add");
+const inputNewSavAmount = document.querySelector(".inputField_new_sav");
+const allNewSavMsg = Array.from(document.querySelectorAll(".new-sav__msg"));
+const allSavGoals = document.querySelector(".sav-selection--fields");
+const newSavGoalsContainer = document.querySelector(
+  ".sav-new--goal__selection"
+);
+const goalMsg = document.querySelector(".create-sav--goal__msg");
+const userCardsMsg = document.querySelector(".choose-sav--card__msg");
+const newSavForm = document.querySelector(".create-new--sav__form");
+const newSavCardsContainer = document.querySelector(".sav-card__selection");
+const userSavNoMoneyError = document.querySelector(".user-sav--error ");
+const savErrorBlock = document.querySelector(".sav-error--block");
+
+const allSavGoalsList = [
+  "education",
+  "health",
+  "real-estate",
+  "travel",
+  "other",
+];
+
+function checkUserMoney() {
+  return curUser.transactions.reduce((total, cur) => {
+    if (cur.type === "withdrawal") {
+      return (total -= Number(cur.amount));
+    } else return (total += Number(cur.amount));
+  }, 0);
+}
+
+//Manage savings
+function showAllSavGoals() {
+  allSavGoalsList.forEach((s) => {
+    const html = `<div class="sav-goal--category" id=${s}-new--goal>
+        <img class="new-saving--category__img" id="${s}" src="../img/${s}-saving.png"/>
+        <p class="saving-category__name">${s.replace("-", " ")}</p>
+      </div>`;
+    newSavGoalsContainer.insertAdjacentHTML("afterbegin", html);
+  });
+  manageSavBtn.addEventListener("click", function () {
+    manageTypes.forEach((m) => m.classList.toggle("hidden"));
+  });
+}
+showAllSavGoals();
 
 function htmlSaving(s) {
   return `<div class="transaction">
@@ -28,25 +86,25 @@ function sortSavings() {
 let showAllSavBtn, showAllSavText;
 const categoriesBlock = document.querySelector(".categories-block");
 const categoriesTypes = document.querySelector(".all-savings--categories");
-// function createSavingsType(savingsTypes) {
-//   savingsTypes.forEach((s) => {
-//     const htmlSaving = `<div class="category">
-//         <img class="saving-category__img" id="${s}" src="../img/${s}-saving.png"/>
-//         <p class="saving-category__name">${s.replace("-", " ")}</p>
-//       </div>`;
-//     categoriesTypes.insertAdjacentHTML("afterbegin", htmlSaving);
-//   });
-//   const html = `
-//     <div class="show-all-sav--btn toggle-all--sav">
-//       <h4 class="show-sav--text">Show all savings</h4>
-//     </div>`;
-//   categoriesBlock.insertAdjacentHTML("beforeend", html);
-//   showAllSavBtn = document.querySelector(".show-all-sav--btn");
-//   showAllSavText = document.querySelector(".show-sav--text");
-//   showAllSavBtn.addEventListener("click", function () {
-//     showAllSavings();
-//   });
-// }
+function createSavingsType(savingsTypes) {
+  savingsTypes.forEach((s) => {
+    const htmlSaving = `<div class="category">
+        <img class="saving-category__img" id="${s}" src="../img/${s}-saving.png"/>
+        <p class="saving-category__name">${s.replace("-", " ")}</p>
+      </div>`;
+    categoriesTypes.insertAdjacentHTML("afterbegin", htmlSaving);
+  });
+  const html = `
+    <div class="show-all-sav--btn toggle-all--sav">
+      <h4 class="show-sav--text">Show all savings</h4>
+    </div>`;
+  categoriesBlock.insertAdjacentHTML("beforeend", html);
+  showAllSavBtn = document.querySelector(".show-all-sav--btn");
+  showAllSavText = document.querySelector(".show-sav--text");
+  showAllSavBtn.addEventListener("click", function () {
+    showAllSavings();
+  });
+}
 
 //Show total balance
 export function showTotalSavingsBalance() {
@@ -65,13 +123,13 @@ const savingsBlock = document.querySelector(".savings-block");
 //Show user savings types
 function showUserSavTypes() {
   let savingsTypes = new Set();
-  return sortSavings().forEach((saving) => {
+  sortSavings().forEach((saving) => {
     const type = saving.savingType;
     savingsTypes.add(type);
   });
+  return [...savingsTypes];
 }
-const g = showUserSavTypes();
-console.log(g);
+
 function showSavings() {
   const savingsTypes = showUserSavTypes();
   createSavingsType(savingsTypes);
@@ -123,41 +181,35 @@ function revealSavings(e) {
 const savingTypeBtn = document.querySelectorAll(".saving-category__img");
 savingTypeBtn.forEach((btn) => btn.addEventListener("click", revealSavings));
 
-//Manage savings
-const manageSavBtn = document.querySelector(".manage-sav--btn");
-const manageTypes = document.querySelectorAll(".manage-sav");
-const createSavBtn = document.querySelector(".create-sav--btn h4");
-const transferSavBtn = document.querySelector(".transfer-sav--btn h4");
-const manageSavBlock = document.querySelector(".manage-sav--wrapper");
-const createSavBlock = document.querySelector(".create-sav--block");
-const transferSavBlock = document.querySelector(".transfer-sav--block");
-
-manageSavBtn.addEventListener("click", function () {
-  manageTypes.forEach((m) => m.classList.toggle("hidden"));
-});
-
 //Create/transfer new saving
+
 manageTypes.forEach((t) => {
   t.addEventListener("click", function (e) {
-    if (e.target === createSavBtn) {
-      categoriesBlock.remove();
-      manageSavBlock.classList.add("hidden");
-      createSavBlock.classList.remove("hidden");
-    }
-    if (e.target === transferSavBtn) {
-      categoriesBlock.classList.remove("hidden");
-      manageSavBlock.classList.add("hidden");
-      transferSavBlock.classList.remove("hidden");
+    savingsRevealingBlock.innerHTML = "";
+    if (checkUserMoney() < 0) {
+      userSavNoMoneyError.classList.remove("hidden");
+    } else {
+      if (e.target === createSavBtn) {
+        categoriesBlock.classList.add("hidden");
+        manageSavBlock.classList.add("hidden");
+        createSavBlock.classList.remove("hidden");
+        allSavGoals.classList.remove("hidden");
+        const msgEl = allNewSavMsg.find(
+          (el) => el.classList.contains("hidden") !== "false"
+        );
+        const msg = msgEl.dataset.msg;
+        showContentOnMsg(msg);
+      }
+      if (e.target === transferSavBtn) {
+        categoriesBlock.classList.remove("hidden");
+        manageSavBlock.classList.add("hidden");
+        transferSavBlock.classList.remove("hidden");
+      }
     }
   });
 });
 
 // Create new saving
-const nextNewSavBtn = document.querySelector(".create-sav--btn__continue");
-const cancelNewSavBtn = document.querySelector(".create-sav--btn__cancel");
-const returnNewSavBtn = document.querySelector(".create-sav--btn__return");
-const addNewSavBtn = document.querySelector(".create-sav--btn__add");
-const inputNewSavAmount = document.querySelector(".inputField_new_sav");
 
 //Cancel new saving creation
 cancelNewSavBtn.addEventListener("click", function () {
@@ -165,11 +217,87 @@ cancelNewSavBtn.addEventListener("click", function () {
   createSavBlock.classList.add("hidden");
   categoriesBlock.classList.remove("hidden");
   manageSavBlock.classList.remove("hidden");
-  createSavingsType(savings);
 });
 
-//Go back in saving creation
+//Show content depending on msg
+function showContentOnMsg(msg) {
+  if (msg === "1") {
+    newSavCardsContainer.classList.toggle("hidden");
+    newSavForm.classList.toggle("hidden");
+    userCardsMsg.classList.toggle("hidden");
+  }
+  if (msg === "2") {
+    newSavCardsContainer.classList.remove("hidden");
+    newSavGoalsContainer.classList.add("hidden");
+    newSavForm.classList.add("hidden");
+    goalMsg.classList.add("hidden");
+    userCardsMsg.classList.remove("hidden");
+  }
+  if (msg === "3") {
+    newSavForm.classList.remove("hidden");
+    newSavCardsContainer.classList.add("hidden");
+    newSavGoalsContainer.classList.add("hidden");
+    userCardsMsg.classList.add("hidden");
+  }
+}
+let newSavGoal;
 
+// Show all savings goals
+
+const allSav = document.querySelectorAll(".sav-goal--category");
+allSav.forEach((s) => {
+  s.addEventListener("click", function () {
+    s.children[0].classList.toggle("selected-sav--goal");
+    newSavGoal = s.id.split("-")[0];
+    console.log(newSavGoal);
+  });
+});
+
+//Next button
+function showNextContent(msg) {
+  msg++;
+}
+
+//Go back button
+function goBack(msg) {
+  msg--;
+}
+
+function showAllUserCards() {
+  if (curUser.cards.length !== 0) {
+    curUser.cards.forEach((c) => {
+      let html = `
+      <div>
+        <div class="card-wrapper">
+          <img class="user-card__img" src="../img/${c.plan.toUpperCase()}.png" />
+        </div>
+        <h4>Balance ${showBalance(sortTransactions(c))}</h4>
+      </div>`;
+      newSavCardsContainer.insertAdjacentHTML("afterbegin", html);
+    });
+  }
+}
+showAllUserCards();
+
+//Check user input
+const onlyNumbers = function () {
+  let regex = /a-zA-Z/g;
+  this.value = this.value.replace(regex, "");
+};
+inputNewSavAmount.addEventListener("input", onlyNumbers);
+
+// function showSavMsg(msg) {
+//   if (msg.dataset.msg === "sav-goal--msg")
+//     const allSavGoals = document.querySelectorAll(".sav-goal--category");
+//     allGoals.forEach((g) => {
+//       g.addEventListener("click", function () {
+//         newSavGoal = e.target.id.split("-")[0];
+//       });
+//     });
+//   }
+// }
+//Go back in saving creation
+// returnNewSavBtn.addEventListener("click", function () {});
 //Next in saving creation
 
 //Check saving amount input field

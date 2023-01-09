@@ -8,7 +8,7 @@ import { showBalance } from "./userAcc.js";
 let curUser = JSON.parse(localStorage.getItem("peterJ@gmail.com"));
 
 //Sort transactions
-const sortTransfer = function (c) {
+export const sortTransactions = function (c) {
   return curUser.transactions.filter((t) => t.cardID === c.id);
 };
 
@@ -24,7 +24,7 @@ export function showAllUserCards(curUser) {
         <div class="card-wrapper">
           <img class="user-card__img transfer-card" src="../img/${c.plan.toUpperCase()}.png" />
         </div>
-        <h4>Balance ${showBalance(sortTransfer(c))}</h4>
+        <h4>Balance ${showBalance(sortTransactions(c))}</h4>
       </div>`;
       transferBlock.insertAdjacentHTML("afterbegin", html);
     });

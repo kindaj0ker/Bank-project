@@ -80,7 +80,7 @@ function showContent() {
         // createSavingsType();
       }
       if (curId === "transfer") {
-        showAllUserCards(curUser);
+        showAllUserTransferCards(curUser);
       }
     } else return;
   });
@@ -118,7 +118,7 @@ function revealCards(curUser) {
     <div class="total-card__info">
       <div class="user-card" id=${card.id}>
         <div class="card-wrapper">
-          <img class="user-card__img" src="../img/${card.plan.toUpperCase()}.png" />
+          <img class="user-card__img" src="../img/${card.cardPlan.toUpperCase()}.png" />
         </div>
         <div class="card-info__block">
           <p class="card-number">#1 card</p>

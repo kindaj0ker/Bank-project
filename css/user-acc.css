@@ -416,7 +416,33 @@ select {
   color: var(--orange-color);
   cursor: pointer;
 }
-
+/* create new saving */
+.new-saving--category__img {
+  margin: 0.3rem;
+  width: 4rem;
+  background-color: aliceblue;
+  border: 0.2rem solid black;
+  border-radius: 10px;
+}
+.create-new--sav__form {
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+  margin: 0.5rem;
+}
+.sav-new--goal__selection {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+.create-sav--btns {
+  display: flex;
+  flex-direction: row;
+  margin: 0.5rem;
+}
+.selected-sav--goal {
+  border: 0.2rem solid orange;
+}
 /* request loan */
 .request-loan__block {
   display: flex;
