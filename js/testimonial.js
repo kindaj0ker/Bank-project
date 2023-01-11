@@ -1,11 +1,21 @@
 "use strict";
 
-// Slider;
-
 const btnSliderLeft = document.querySelector(".arrow-left--slider");
 const btnSliderRight = document.querySelector(".arrow-right--slider");
 const slides = document.querySelectorAll(".slide");
+const allDebitCardsContainer = document.querySelector("debit-cards");
 
+const allCardsTypes = ["STANDART", "PLUS", "VIP", "PREMIUM"];
+
+//Add all debit cards
+function allDebitCards() {
+  allCardsTypes.forEach((t)=>{
+  const html=
+  }
+  allDebitCardsContainer.insertAdjacentHTML("aftebegin", html))
+}
+
+// Slider;
 let curSlide = 0;
 const maxSlide = slides.length;
 

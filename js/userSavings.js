@@ -21,7 +21,10 @@ const returnNewSavBtn = document.querySelector(".create-sav--btn__return");
 const addNewSavBtn = document.querySelector(".create-sav--btn__add");
 const inputNewSavAmount = document.querySelector(".inputField_new_sav");
 const allNewSavMsg = Array.from(document.querySelectorAll(".new-sav__msg"));
-const allSavGoals = document.querySelector(".sav-selection--fields");
+const savGoalsWrapper = document.querySelector(".create-sav--goal__wrapper");
+const savCardWrapper = document.querySelector(".create-sav--card__wrapper");
+const savAmountCurWrapper = document.querySelector(".sav-amount--cur-wrapper");
+const savWrappers = document.querySelectorAll("[data-step]");
 const newSavGoalsContainer = document.querySelector(
   ".sav-new--goal__selection"
 );
@@ -31,6 +34,10 @@ const newSavForm = document.querySelector(".create-new--sav__form");
 const newSavCardsContainer = document.querySelector(".sav-card__selection");
 const userSavNoMoneyError = document.querySelector(".user-sav--error ");
 const savErrorBlock = document.querySelector(".sav-error--block");
+const nothingSelectedNewSavBlock = document.querySelector(
+  ".no-selected--block"
+);
+const notEnoughMoneyBlock = document.querySelector(".not-enough--money");
 
 const allSavGoalsList = [
   "education",
@@ -52,8 +59,10 @@ function checkUserMoney() {
 function showAllSavGoals() {
   allSavGoalsList.forEach((s) => {
     const html = `<div class="sav-goal--category" id=${s}-new--goal>
-        <img class="new-saving--category__img" id="${s}" src="../img/${s}-saving.png"/>
-        <p class="saving-category__name">${s.replace("-", " ")}</p>
+      <label>
+      <input type="radio" id="html" name="sav-cat" value="${s}"></input>
+      <img class="new-saving--category__img" id="${s}" src="../img/${s}-saving.png"/>
+      <p class="saving-category__name">${s.replace("-", " ")}</p></label>
       </div>`;
     newSavGoalsContainer.insertAdjacentHTML("afterbegin", html);
   });
@@ -80,6 +89,14 @@ function sortSavings() {
   return curUser.transactions.filter(function (transaction) {
     return transaction.group === "savings";
   });
+}
+//Card balance
+function cardBalance(c) {
+  const tr = curUser.transactions.filter(function (transaction) {
+    return transaction.cardID === c;
+  });
+  console.log(tr);
+  showBalance(tr);
 }
 
 //Create savings in user interface
@@ -182,6 +199,7 @@ const savingTypeBtn = document.querySelectorAll(".saving-category__img");
 savingTypeBtn.forEach((btn) => btn.addEventListener("click", revealSavings));
 
 //Create/transfer new saving
+let curStep = 1;
 
 manageTypes.forEach((t) => {
   t.addEventListener("click", function (e) {
@@ -193,11 +211,11 @@ manageTypes.forEach((t) => {
         categoriesBlock.classList.add("hidden");
         manageSavBlock.classList.add("hidden");
         createSavBlock.classList.remove("hidden");
-        allSavGoals.classList.remove("hidden");
-        const msgEl = allNewSavMsg.find(
-          (el) => el.classList.contains("hidden") !== "false"
-        );
-        const msg = msgEl.dataset.msg;
+        // const msgEl = allNewSavMsg.find(
+        //   (el) => el.classList.contains("hidden") !== "false"
+        // );
+        // msg = msgEl.dataset.msg;
+        // console.log(msg);
         showContentOnMsg(msg);
       }
       if (e.target === transferSavBtn) {
@@ -220,25 +238,12 @@ cancelNewSavBtn.addEventListener("click", function () {
 });
 
 //Show content depending on msg
-function showContentOnMsg(msg) {
-  if (msg === "1") {
-    newSavCardsContainer.classList.toggle("hidden");
-    newSavForm.classList.toggle("hidden");
-    userCardsMsg.classList.toggle("hidden");
-  }
-  if (msg === "2") {
-    newSavCardsContainer.classList.remove("hidden");
-    newSavGoalsContainer.classList.add("hidden");
-    newSavForm.classList.add("hidden");
-    goalMsg.classList.add("hidden");
-    userCardsMsg.classList.remove("hidden");
-  }
-  if (msg === "3") {
-    newSavForm.classList.remove("hidden");
-    newSavCardsContainer.classList.add("hidden");
-    newSavGoalsContainer.classList.add("hidden");
-    userCardsMsg.classList.add("hidden");
-  }
+function showContentOnStep() {
+  savWrappers.forEach(
+    (w) => w.classList.contains("hidden") ?? w.classList.add("hidden")
+  );
+  const curEl = savWrappers.find((el) => el.dataset.step === curStep);
+  curEl.classList.remove("hidden");
 }
 let newSavGoal;
 
@@ -253,23 +258,17 @@ allSav.forEach((s) => {
   });
 });
 
-//Next button
-function showNextContent(msg) {
-  msg++;
-}
-
-//Go back button
-function goBack(msg) {
-  msg--;
-}
-
-function showAllUserCards() {
+//Check new savings goals
+//Check new savings cards
+function showAllUserSavCards() {
   if (curUser.cards.length !== 0) {
     curUser.cards.forEach((c) => {
       let html = `
       <div>
         <div class="card-wrapper">
-          <img class="user-card__img" src="../img/${c.plan.toUpperCase()}.png" />
+          <label>
+            <input type="radio" id="html" name="new-sav--card" value="${c}"></input>
+            <img class="user-card__img" src="../img/${c.plan.toUpperCase()}.png" /></label>
         </div>
         <h4>Balance ${showBalance(sortTransactions(c))}</h4>
       </div>`;
@@ -277,32 +276,70 @@ function showAllUserCards() {
     });
   }
 }
-showAllUserCards();
+showAllUserSavCards();
 
-//Check user input
-const onlyNumbers = function () {
+//Check new savings input
+function onlyNumbers() {
   let regex = /a-zA-Z/g;
   this.value = this.value.replace(regex, "");
-};
+}
 inputNewSavAmount.addEventListener("input", onlyNumbers);
 
-// function showSavMsg(msg) {
-//   if (msg.dataset.msg === "sav-goal--msg")
-//     const allSavGoals = document.querySelectorAll(".sav-goal--category");
-//     allGoals.forEach((g) => {
-//       g.addEventListener("click", function () {
-//         newSavGoal = e.target.id.split("-")[0];
-//       });
-//     });
-//   }
-// }
-//Go back in saving creation
-// returnNewSavBtn.addEventListener("click", function () {});
-//Next in saving creation
+//Check user savings balance
+let curNewSavCard, curNewSavGoal, curNewSavAmount, curNewSavCurrency;
+function checkUserSavBalance(c) {
+  cardBalance(c);
+}
 
-//Check saving amount input field
-// function checkNewSavAmount() {
-//   const insertedAmount = inputNewSavAmount.value;
-// }
+//Validation savings block
+const validationSteps = {
+  1: () => {
+    const checked = document.querySelector(
+      'input[name="sav-cat"]:checked'
+    ).value;
+    if (checked === null) {
+      savErrorBlock.classList.remove("hidden");
+      nothingSelectedNewSavBlock.remove("hidden");
+    }
+  },
+  2: () => {
+    const checked = document.querySelector(
+      'input[name="new-sav--card"]:checked'
+    ).value;
+    if (checked === null) {
+      savErrorBlock.classList.remove("hidden");
+      nothingSelectedNewSavBlock.remove("hidden");
+    }
+  },
+  3: (c) => {
+    if (inputNewSavAmount.value < 0) return false;
+    if (inputNewSavAmount.value > 0) {
+      if (cardBalance(c) < inputNewSavAmount.value) {
+        savErrorBlock.classList.remove("hidden");
+        notEnoughMoneyBlock.classList.remove("hidden");
+        return false;
+      } else return true;
+    }
+  },
+};
 
-//Finish saving creation
+//Validation steps funcion
+function validationCreateSavSteps(curStep) {
+  validationSteps[curStep]();
+}
+
+const currentStep = 4;
+validationSteps[currentStep]();
+//Next button
+function showNextContent() {
+  validationCreateSavSteps(curStep);
+  curStep++;
+}
+
+//Go back button
+function goBack() {
+  validationCreateSavSteps(curStep);
+  curStep--;
+}
+nextNewSavBtn.addEventListener("click", showNextContent);
+returnNewSavBtn.addEventListener("click", goBack);

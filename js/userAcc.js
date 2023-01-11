@@ -118,7 +118,7 @@ function revealCards(curUser) {
     <div class="total-card__info">
       <div class="user-card" id=${card.id}>
         <div class="card-wrapper">
-          <img class="user-card__img" src="../img/${card.cardPlan.toUpperCase()}.png" />
+          <img class="user-card__img" src="../img/${card.plan.toUpperCase()}.png" />
         </div>
         <div class="card-info__block">
           <p class="card-number">#1 card</p>
@@ -127,7 +127,7 @@ function revealCards(curUser) {
           <p class="transactions-init">Show transactions↓</p>
         </div>
         <div class="balance-info__block">
-          <h3>Balance</h3>
+          <h3>Balance</h3>q
           <p class="balance">${balance + " " + card.currency}</p>
         </div>
       </div>

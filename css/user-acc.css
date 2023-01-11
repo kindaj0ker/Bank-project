@@ -440,7 +440,7 @@ select {
   flex-direction: row;
   margin: 0.5rem;
 }
-.selected-sav--goal {
+[type="radio"]:checked + img {
   border: 0.2rem solid orange;
 }
 /* request loan */
