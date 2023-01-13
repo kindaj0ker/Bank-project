@@ -387,8 +387,9 @@ userPeter.createNewTransaction(
   "11-02-2020",
   "travel"
 );
-
-localStorage.setItem("peterJ@gmail.com", JSON.stringify(userPeter));
+if (localStorage.getItem("peterJ@gmail.com") === null) {
+  localStorage.setItem("peterJ@gmail.com", JSON.stringify(userPeter));
+}
 
 //Fake Anna class
 
@@ -777,4 +778,6 @@ userAnna.createNewTransaction(
   "travel"
 );
 
-localStorage.setItem("AnnaB@gmail.com", JSON.stringify(userAnna));
+if (localStorage.getItem("AnnaB@gmail.com") === null) {
+  localStorage.setItem("AnnaB@gmail.com", JSON.stringify(userAnna));
+}

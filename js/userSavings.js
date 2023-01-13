@@ -1,11 +1,23 @@
 "use strict";
 import { showBalance } from "./userAcc.js";
+import { User } from "./creatUser.js";
 import { sortTransactions } from "./userTransfer.js";
 //New user from registered user
 
 //let curUser=JSON.parse(localStorage.getItem("logedIn"));
 
-let curUser = JSON.parse(localStorage.getItem("peterJ@gmail.com"));
+let { fName, lName, bDay, email, password, cards, transactions, location } =
+  JSON.parse(localStorage.getItem("peterJ@gmail.com"));
+const curUser = new User(
+  fName,
+  lName,
+  bDay,
+  email,
+  password,
+  cards,
+  transactions,
+  location
+);
 
 //Manage savings
 const manageSavBtn = document.querySelector(".manage-sav--btn");
@@ -20,7 +32,7 @@ const cancelNewSavBtn = document.querySelector(".create-sav--btn__cancel");
 const returnNewSavBtn = document.querySelector(".create-sav--btn__return");
 const addNewSavBtn = document.querySelector(".create-sav--btn__add");
 const inputNewSavAmount = document.querySelector(".inputField_new_sav");
-const allNewSavMsg = Array.from(document.querySelectorAll(".new-sav__msg"));
+const inputNewSavCurr = document.querySelector(".sav-currency");
 const savGoalsWrapper = document.querySelector(".create-sav--goal__wrapper");
 const savCardWrapper = document.querySelector(".create-sav--card__wrapper");
 const savAmountCurWrapper = document.querySelector(".sav-amount--cur-wrapper");
@@ -28,8 +40,6 @@ const savWrappers = document.querySelectorAll("[data-step]");
 const newSavGoalsContainer = document.querySelector(
   ".sav-new--goal__selection"
 );
-const goalMsg = document.querySelector(".create-sav--goal__msg");
-const userCardsMsg = document.querySelector(".choose-sav--card__msg");
 const newSavForm = document.querySelector(".create-new--sav__form");
 const newSavCardsContainer = document.querySelector(".sav-card__selection");
 const userSavNoMoneyError = document.querySelector(".user-sav--error ");
@@ -37,7 +47,9 @@ const savErrorBlock = document.querySelector(".sav-error--block");
 const nothingSelectedNewSavBlock = document.querySelector(
   ".no-selected--block"
 );
+const positiveNewSavBlock = document.querySelector(".positive-new--sav");
 const notEnoughMoneyBlock = document.querySelector(".not-enough--money");
+const successfulSavMsg = document.querySelector(".successful-sav--msg");
 
 const allSavGoalsList = [
   "education",
@@ -57,6 +69,7 @@ function checkUserMoney() {
 
 //Manage savings
 function showAllSavGoals() {
+  newSavGoalsContainer.innerHTML = "";
   allSavGoalsList.forEach((s) => {
     const html = `<div class="sav-goal--category" id=${s}-new--goal>
       <label>
@@ -95,8 +108,8 @@ function cardBalance(c) {
   const tr = curUser.transactions.filter(function (transaction) {
     return transaction.cardID === c;
   });
-  console.log(tr);
-  showBalance(tr);
+  console.log(c, tr, showBalance(tr));
+  return showBalance(tr);
 }
 
 //Create savings in user interface
@@ -125,6 +138,10 @@ function createSavingsType(savingsTypes) {
 
 //Show total balance
 export function showTotalSavingsBalance() {
+  const el = document.querySelector(".total-savings--balance--wrapper");
+  if (el) {
+    el.remove();
+  }
   const totalSavSum = sortSavings().reduce(
     (acc, curr) => acc + Number(curr.amount),
     0
@@ -199,7 +216,7 @@ const savingTypeBtn = document.querySelectorAll(".saving-category__img");
 savingTypeBtn.forEach((btn) => btn.addEventListener("click", revealSavings));
 
 //Create/transfer new saving
-let curStep = 1;
+let curNewSavStep = 1;
 
 manageTypes.forEach((t) => {
   t.addEventListener("click", function (e) {
@@ -211,12 +228,6 @@ manageTypes.forEach((t) => {
         categoriesBlock.classList.add("hidden");
         manageSavBlock.classList.add("hidden");
         createSavBlock.classList.remove("hidden");
-        // const msgEl = allNewSavMsg.find(
-        //   (el) => el.classList.contains("hidden") !== "false"
-        // );
-        // msg = msgEl.dataset.msg;
-        // console.log(msg);
-        showContentOnMsg(msg);
       }
       if (e.target === transferSavBtn) {
         categoriesBlock.classList.remove("hidden");
@@ -227,38 +238,35 @@ manageTypes.forEach((t) => {
   });
 });
 
+//Show content depending on msg
+function showContentOnStep() {
+  savWrappers.forEach((w) => w.classList.add("hidden"));
+  const curEl = Array.from(savWrappers).find(
+    (el) => Number(el.dataset.step) === curNewSavStep
+  );
+  curEl.classList.remove("hidden");
+}
 // Create new saving
 
 //Cancel new saving creation
 cancelNewSavBtn.addEventListener("click", function () {
+  curNewSavStep = 1;
   manageTypes.forEach((t) => t.classList.add("hidden"));
   createSavBlock.classList.add("hidden");
   categoriesBlock.classList.remove("hidden");
   manageSavBlock.classList.remove("hidden");
 });
 
-//Show content depending on msg
-function showContentOnStep() {
-  savWrappers.forEach(
-    (w) => w.classList.contains("hidden") ?? w.classList.add("hidden")
-  );
-  const curEl = savWrappers.find((el) => el.dataset.step === curStep);
-  curEl.classList.remove("hidden");
-}
-let newSavGoal;
-
 // Show all savings goals
 
-const allSav = document.querySelectorAll(".sav-goal--category");
-allSav.forEach((s) => {
-  s.addEventListener("click", function () {
-    s.children[0].classList.toggle("selected-sav--goal");
-    newSavGoal = s.id.split("-")[0];
-    console.log(newSavGoal);
-  });
-});
+// const allSav = document.querySelectorAll(".sav-goal--category");
+// allSav.forEach((s) => {
+//   s.addEventListener("click", function () {
+//     s.children[0].classList.toggle("selected-sav--goal");
+//     newSavGoal = s.id.split("-")[0];
+//   });
+// });
 
-//Check new savings goals
 //Check new savings cards
 function showAllUserSavCards() {
   if (curUser.cards.length !== 0) {
@@ -267,7 +275,9 @@ function showAllUserSavCards() {
       <div>
         <div class="card-wrapper">
           <label>
-            <input type="radio" id="html" name="new-sav--card" value="${c}"></input>
+            <input type="radio" id="html" name="new-sav--card" value="${
+              c.id
+            }"></input>
             <img class="user-card__img" src="../img/${c.plan.toUpperCase()}.png" /></label>
         </div>
         <h4>Balance ${showBalance(sortTransactions(c))}</h4>
@@ -280,10 +290,17 @@ showAllUserSavCards();
 
 //Check new savings input
 function onlyNumbers() {
-  let regex = /a-zA-Z/g;
+  let regex = /[a-zA-Z]/g;
   this.value = this.value.replace(regex, "");
 }
 inputNewSavAmount.addEventListener("input", onlyNumbers);
+
+inputNewSavAmount.addEventListener("keyup", function () {
+  inputNewSavAmount.value = inputNewSavAmount.value.replace(
+    /(\.\d{2})\d+/g,
+    "$1"
+  );
+});
 
 //Check user savings balance
 let curNewSavCard, curNewSavGoal, curNewSavAmount, curNewSavCurrency;
@@ -294,52 +311,103 @@ function checkUserSavBalance(c) {
 //Validation savings block
 const validationSteps = {
   1: () => {
-    const checked = document.querySelector(
-      'input[name="sav-cat"]:checked'
-    ).value;
-    if (checked === null) {
+    const checked = Array.from(
+      document.querySelectorAll('input[name="sav-cat"]:checked')
+    );
+    if (checked.length === 0) {
       savErrorBlock.classList.remove("hidden");
-      nothingSelectedNewSavBlock.remove("hidden");
+      nothingSelectedNewSavBlock.classList.remove("hidden");
+      return false;
+    } else {
+      console.log("bdnmcx");
+      savErrorBlock.classList.add("hidden");
+      curNewSavGoal = checked[0].value;
+      return true;
     }
   },
   2: () => {
-    const checked = document.querySelector(
-      'input[name="new-sav--card"]:checked'
-    ).value;
-    if (checked === null) {
+    const checked = Array.from(
+      document.querySelectorAll('input[name="new-sav--card"]:checked')
+    );
+    if (checked.length === 0) {
       savErrorBlock.classList.remove("hidden");
       nothingSelectedNewSavBlock.remove("hidden");
+      return false;
+    } else {
+      savErrorBlock.classList.add("hidden");
+      curNewSavCard = checked[0].value;
+      return true;
     }
   },
-  3: (c) => {
-    if (inputNewSavAmount.value < 0) return false;
+  3: () => {
+    addNewSavBtn.classList.remove("hidden");
+    if (inputNewSavAmount.value < 0) {
+      savErrorBlock.classList.remove("hidden");
+      positiveNewSavBlock.classList.remove("hidden");
+      return false;
+    }
     if (inputNewSavAmount.value > 0) {
-      if (cardBalance(c) < inputNewSavAmount.value) {
+      console.log(cardBalance(curNewSavCard), inputNewSavAmount.value);
+      if (cardBalance(curNewSavCard) < inputNewSavAmount.value) {
         savErrorBlock.classList.remove("hidden");
         notEnoughMoneyBlock.classList.remove("hidden");
         return false;
-      } else return true;
+      } else {
+        savErrorBlock.classList.add("hidden");
+        notEnoughMoneyBlock.classList.add("hidden");
+        curNewSavAmount = inputNewSavAmount.value;
+        curNewSavCurrency = inputNewSavCurr.value;
+        return true;
+      }
     }
   },
 };
 
 //Validation steps funcion
-function validationCreateSavSteps(curStep) {
-  validationSteps[curStep]();
+function validationCreateSavSteps() {
+  return validationSteps[curNewSavStep]();
 }
 
-const currentStep = 4;
-validationSteps[currentStep]();
 //Next button
 function showNextContent() {
-  validationCreateSavSteps(curStep);
-  curStep++;
+  if (validationCreateSavSteps() === true) {
+    curNewSavStep++;
+    showContentOnStep();
+  }
 }
 
 //Go back button
 function goBack() {
-  validationCreateSavSteps(curStep);
-  curStep--;
+  curNewSavStep--;
+  showContentOnStep();
 }
 nextNewSavBtn.addEventListener("click", showNextContent);
 returnNewSavBtn.addEventListener("click", goBack);
+
+//Submit new saving creation
+newSavForm.addEventListener("submit", function (e) {
+  e.preventDefault();
+  curNewSavStep = "1";
+  curUser.createNewTransaction(
+    "savings",
+    curNewSavCard,
+    null,
+    curNewSavAmount,
+    curNewSavCurrency,
+    "withdrawal",
+    null,
+    curNewSavGoal
+  );
+  localStorage.setItem(curUser.email, JSON.stringify(curUser));
+  successfulSavMsg.classList.remove("hidden");
+  setTimeout(function () {
+    successfulSavMsg.classList.add("hidden");
+    categoriesBlock.classList.remove("hidden");
+    manageSavBlock.classList.remove("hidden");
+    createSavBlock.classList.add("hidden");
+    showAllSavGoals();
+    showTotalSavingsBalance();
+  }, 3000);
+});
+
+// кнопка гоубэк показывается на втором степе ryjgrb

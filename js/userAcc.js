@@ -1,6 +1,6 @@
 "use strict";
 import { showTotalSavingsBalance } from "./userSavings.js";
-import { showAllUserCards } from "./userTransfer.js";
+import { showAllUserTransferCards } from "./userTransfer.js";
 const uniqid = new ShortUniqueId();
 import { User } from "./creatUser.js";
 //New user from registered user
@@ -127,7 +127,7 @@ function revealCards(curUser) {
           <p class="transactions-init">Show transactions↓</p>
         </div>
         <div class="balance-info__block">
-          <h3>Balance</h3>q
+          <h3>Balance</h3>
           <p class="balance">${balance + " " + card.currency}</p>
         </div>
       </div>

@@ -13,7 +13,7 @@ export const sortTransactions = function (c) {
 };
 
 //Show all user cards
-export function showAllUserCards(curUser) {
+export function showAllUserTransferCards(curUser) {
   const transferBlock = document.querySelector(".transfer-logic");
   transferBlock.innerHTML = "";
   if (curUser.cards.length !== 0) {
