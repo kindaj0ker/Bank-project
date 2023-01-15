@@ -33,9 +33,6 @@ const returnNewSavBtn = document.querySelector(".create-sav--btn__return");
 const addNewSavBtn = document.querySelector(".create-sav--btn__add");
 const inputNewSavAmount = document.querySelector(".inputField_new_sav");
 const inputNewSavCurr = document.querySelector(".sav-currency");
-const savGoalsWrapper = document.querySelector(".create-sav--goal__wrapper");
-const savCardWrapper = document.querySelector(".create-sav--card__wrapper");
-const savAmountCurWrapper = document.querySelector(".sav-amount--cur-wrapper");
 const savWrappers = document.querySelectorAll("[data-step]");
 const newSavGoalsContainer = document.querySelector(
   ".sav-new--goal__selection"
@@ -50,7 +47,44 @@ const nothingSelectedNewSavBlock = document.querySelector(
 const positiveNewSavBlock = document.querySelector(".positive-new--sav");
 const notEnoughMoneyBlock = document.querySelector(".not-enough--money");
 const successfulSavMsg = document.querySelector(".successful-sav--msg");
-
+//Transfer selectors
+const transferWrappers = document.querySelectorAll("[data-transf]");
+const nextTransferSavBtn = document.querySelector(
+  ".transfer-sav--btn__continue"
+);
+const cancelTransferSavBtn = document.querySelector(
+  ".transfer-sav--btn__cancel"
+);
+const returnTransferSavBtn = document.querySelector(
+  ".transfer-sav--btn__return"
+);
+const addTransferSavBtn = document.querySelector(".transfer-sav--btn__add");
+const inputTransferSavAmount = document.querySelector(
+  ".inputField_sav__transfer"
+);
+const inputTransferSavCurr = document.querySelector(".transfer-sav-currency");
+const transferGoalsContainer = document.querySelector(
+  ".transfer-sav--goal__selection"
+);
+const transferForm = document.querySelector(".transfer-sav--card__form");
+const transferCardsContainer = document.querySelector(
+  ".transfer-card__selection"
+);
+const userTransferNoMoneyError = document.querySelector(
+  ".transfer-sav-not-enough--money  "
+);
+const transferErrorBlock = document.querySelector(
+  ".transfer-sav--error--block"
+);
+const nothingSelectedTransferSavBlock = document.querySelector(
+  ".transfer-sav--no-selected--block"
+);
+const positiveTransferSavBlock = document.querySelector(
+  ".transfer-sav-positive"
+);
+const notEnoughMoneyTransferBlock = document.querySelector(
+  ".transfer-sav-not-enough--money"
+);
 const allSavGoalsList = [
   "education",
   "health",
@@ -151,9 +185,6 @@ export function showTotalSavingsBalance() {
   categoriesBlock.insertAdjacentHTML("afterbegin", html);
 }
 
-//Show savings
-const savingsBlock = document.querySelector(".savings-block");
-
 //Show user savings types
 function showUserSavTypes() {
   let savingsTypes = new Set();
@@ -200,7 +231,10 @@ function revealSavings(e) {
     if (s.savingType === curSavingsType) {
       const html = htmlSaving(s);
       savingsRevealingBlock.insertAdjacentHTML("beforeend", html);
-      balance += +s.amount;
+      balance =
+        s.type === "deposit"
+          ? (balance += Number(s.amount))
+          : (balance -= Number(s.amount));
       currencySaving = s.currency;
     }
   });
@@ -224,21 +258,21 @@ manageTypes.forEach((t) => {
     if (checkUserMoney() < 0) {
       userSavNoMoneyError.classList.remove("hidden");
     } else {
+      manageSavBlock.classList.add("hidden");
+      manageTypes.forEach((t) => t.classList.toggle("hidden"));
       if (e.target === createSavBtn) {
         categoriesBlock.classList.add("hidden");
-        manageSavBlock.classList.add("hidden");
         createSavBlock.classList.remove("hidden");
       }
       if (e.target === transferSavBtn) {
         categoriesBlock.classList.remove("hidden");
-        manageSavBlock.classList.add("hidden");
         transferSavBlock.classList.remove("hidden");
       }
     }
   });
 });
 
-//Show content depending on msg
+//Show content depending on step
 function showContentOnStep() {
   savWrappers.forEach((w) => w.classList.add("hidden"));
   const curEl = Array.from(savWrappers).find(
@@ -257,17 +291,8 @@ cancelNewSavBtn.addEventListener("click", function () {
   manageSavBlock.classList.remove("hidden");
 });
 
-// Show all savings goals
-
-// const allSav = document.querySelectorAll(".sav-goal--category");
-// allSav.forEach((s) => {
-//   s.addEventListener("click", function () {
-//     s.children[0].classList.toggle("selected-sav--goal");
-//     newSavGoal = s.id.split("-")[0];
-//   });
-// });
-
 //Check new savings cards
+
 function showAllUserSavCards() {
   if (curUser.cards.length !== 0) {
     curUser.cards.forEach((c) => {
@@ -283,6 +308,7 @@ function showAllUserSavCards() {
         <h4>Balance ${showBalance(sortTransactions(c))}</h4>
       </div>`;
       newSavCardsContainer.insertAdjacentHTML("afterbegin", html);
+      transferCardsContainer.insertAdjacentHTML("afterbegin", html);
     });
   }
 }
@@ -293,20 +319,15 @@ function onlyNumbers() {
   let regex = /[a-zA-Z]/g;
   this.value = this.value.replace(regex, "");
 }
-inputNewSavAmount.addEventListener("input", onlyNumbers);
+function digitsRestriction() {
+  this.value = this.value.replace(/(\.\d{2})\d+/g, "$1");
+}
 
-inputNewSavAmount.addEventListener("keyup", function () {
-  inputNewSavAmount.value = inputNewSavAmount.value.replace(
-    /(\.\d{2})\d+/g,
-    "$1"
-  );
-});
+inputNewSavAmount.addEventListener("input", onlyNumbers);
+inputNewSavAmount.addEventListener("keyup", digitsRestriction);
 
 //Check user savings balance
 let curNewSavCard, curNewSavGoal, curNewSavAmount, curNewSavCurrency;
-function checkUserSavBalance(c) {
-  cardBalance(c);
-}
 
 //Validation savings block
 const validationSteps = {
@@ -319,9 +340,10 @@ const validationSteps = {
       nothingSelectedNewSavBlock.classList.remove("hidden");
       return false;
     } else {
-      console.log("bdnmcx");
       savErrorBlock.classList.add("hidden");
       curNewSavGoal = checked[0].value;
+      returnNewSavBtn.classList.remove("hidden");
+      nothingSelectedNewSavBlock.classList.add("hidden");
       return true;
     }
   },
@@ -335,12 +357,14 @@ const validationSteps = {
       return false;
     } else {
       savErrorBlock.classList.add("hidden");
+      nothingSelectedNewSavBlock.classList.add("hidden");
       curNewSavCard = checked[0].value;
+      addNewSavBtn.classList.remove("hidden");
+      nextNewSavBtn.classList.add("hidden");
       return true;
     }
   },
   3: () => {
-    addNewSavBtn.classList.remove("hidden");
     if (inputNewSavAmount.value < 0) {
       savErrorBlock.classList.remove("hidden");
       positiveNewSavBlock.classList.remove("hidden");
@@ -354,6 +378,7 @@ const validationSteps = {
         return false;
       } else {
         savErrorBlock.classList.add("hidden");
+        nothingSelectedNewSavBlock.classList.add("hidden");
         notEnoughMoneyBlock.classList.add("hidden");
         curNewSavAmount = inputNewSavAmount.value;
         curNewSavCurrency = inputNewSavCurr.value;
@@ -387,27 +412,234 @@ returnNewSavBtn.addEventListener("click", goBack);
 //Submit new saving creation
 newSavForm.addEventListener("submit", function (e) {
   e.preventDefault();
-  curNewSavStep = "1";
-  curUser.createNewTransaction(
-    "savings",
-    curNewSavCard,
-    null,
-    curNewSavAmount,
-    curNewSavCurrency,
-    "withdrawal",
-    null,
-    curNewSavGoal
-  );
-  localStorage.setItem(curUser.email, JSON.stringify(curUser));
-  successfulSavMsg.classList.remove("hidden");
-  setTimeout(function () {
-    successfulSavMsg.classList.add("hidden");
-    categoriesBlock.classList.remove("hidden");
-    manageSavBlock.classList.remove("hidden");
-    createSavBlock.classList.add("hidden");
-    showAllSavGoals();
-    showTotalSavingsBalance();
-  }, 3000);
+  if (validationCreateSavSteps() === true) {
+    newSavForm.classList.add("hidden");
+    newSavForm.reset();
+    curNewSavStep = "1";
+    returnNewSavBtn.classList.add("hidden");
+    nextNewSavBtn.classList.remove("hidden");
+    addNewSavBtn.classList.add("hidden");
+    curUser.createNewTransaction(
+      "savings",
+      curNewSavCard,
+      null,
+      curNewSavAmount,
+      curNewSavCurrency,
+      "withdrawal",
+      null,
+      curNewSavGoal
+    );
+    localStorage.setItem(curUser.email, JSON.stringify(curUser));
+    successfulSavMsg.classList.remove("hidden");
+    setTimeout(function () {
+      successfulSavMsg.classList.add("hidden");
+      categoriesBlock.classList.remove("hidden");
+      manageSavBlock.classList.remove("hidden");
+      createSavBlock.classList.add("hidden");
+      showAllSavGoals();
+      showTotalSavingsBalance();
+    }, 3000);
+  }
 });
 
-// кнопка гоубэк показывается на втором степе ryjgrb
+//TRANSFER SAVING BACK TO CARD
+
+//Show goals depending on user savings different types
+function savTransferGoals() {
+  const userGoals = new Set(sortSavings().map((s) => s.savingType));
+  userGoals.forEach((s) => {
+    const html = `<div class="sav-goal--category" id=${s}-new--goal>
+      <label>
+      <input type="radio" id="html" name="sav-cat" value="${s}"></input>
+      <img class="new-saving--category__img" id="${s}" src="../img/${s}-saving.png"/>
+      <p class="saving-category__name">${s.replace("-", " ")}</p></label>
+      </div>`;
+    transferGoalsContainer.insertAdjacentHTML("afterbegin", html);
+  });
+}
+savTransferGoals();
+
+//Check if there's enough money on current saving
+function checkSavTypeMoney() {
+  const allCurSav = sortSavings().filter(
+    (s) => s.savingType === curTransferSavGoal
+  );
+  return allCurSav.reduce((total, cur) => {
+    return (total += Number(cur.amount));
+  }, 0);
+}
+
+let curTransferSavStep = 1;
+
+//Show content depending on step
+function showContentOnTransferStep() {
+  transferWrappers.forEach((w) => w.classList.add("hidden"));
+  const curEl = Array.from(transferWrappers).find(
+    (el) => Number(el.dataset.transf) === curTransferSavStep
+  );
+  curEl.classList.remove("hidden");
+}
+
+//Cancel transfer money from saving
+cancelTransferSavBtn.addEventListener("click", function () {
+  curTransferSavStep = 1;
+  manageTypes.forEach((t) => t.classList.add("hidden"));
+  transferSavBlock.classList.add("hidden");
+  categoriesBlock.classList.remove("hidden");
+  manageSavBlock.classList.remove("hidden");
+});
+
+//Check transfer savings cards
+function showAllUserTrCards() {
+  if (curUser.cards.length !== 0) {
+    curUser.cards.forEach((c) => {
+      let html = `
+      <div>
+        <div class="card-wrapper">
+          <label>
+            <input type="radio" id="html" name="new-sav--card" value="${
+              c.id
+            }"></input>
+            <img class="user-card__img" src="../img/${c.plan.toUpperCase()}.png" /></label>
+        </div>
+        <h4>Balance ${showBalance(sortTransactions(c))}</h4>
+      </div>`;
+      transferCardsContainer.insertAdjacentHTML("afterbegin", html);
+    });
+  }
+}
+showAllUserTrCards();
+
+//Check new savings input
+
+inputTransferSavAmount.addEventListener("input", onlyNumbers);
+inputTransferSavAmount.addEventListener("keyup", digitsRestriction);
+
+//Check user savings balance
+let curTransferSavCard,
+  curTransferSavGoal,
+  curTransferSavAmount,
+  curTransferSavCurrency;
+
+//Validation transfer savings block
+const validationTransferSteps = {
+  1: () => {
+    const checked = Array.from(
+      document.querySelectorAll('input[name="sav-cat"]:checked')
+    );
+    if (checked.length === 0) {
+      transferErrorBlock.classList.remove("hidden");
+      nothingSelectedTransferSavBlock.classList.remove("hidden");
+      return false;
+    } else {
+      transferErrorBlock.classList.add("hidden");
+      curTransferSavGoal = checked[0].value;
+      returnTransferSavBtn.classList.remove("hidden");
+      nothingSelectedTransferSavBlock.classList.add("hidden");
+      return true;
+    }
+  },
+  2: () => {
+    const checked = Array.from(
+      document.querySelectorAll('input[name="new-sav--card"]:checked')
+    );
+    if (checked.length === 0) {
+      transferErrorBlock.classList.remove("hidden");
+      nothingSelectedTransferSavBlock.remove("hidden");
+      return false;
+    } else {
+      transferErrorBlock.classList.add("hidden");
+      nothingSelectedTransferSavBlock.classList.add("hidden");
+      curTransferSavCard = checked[0].value;
+      addTransferSavBtn.classList.remove("hidden");
+      nextTransferSavBtn.classList.add("hidden");
+      return true;
+    }
+  },
+  3: () => {
+    console.log(checkSavTypeMoney());
+    if (inputTransferSavAmount.value < 0) {
+      transferErrorBlock.classList.remove("hidden");
+      positiveTransferSavBlock.classList.remove("hidden");
+      return false;
+    }
+    if (inputTransferSavAmount.value > 0) {
+      if (checkSavTypeMoney() < inputTransferSavAmount.value) {
+        transferErrorBlock.classList.remove("hidden");
+        notEnoughMoneyTransferBlock.classList.remove("hidden");
+        return false;
+      } else {
+        transferErrorBlock.classList.add("hidden");
+        nothingSelectedTransferSavBlock.classList.add("hidden");
+        notEnoughMoneyTransferBlock.classList.add("hidden");
+        curTransferSavAmount = inputTransferSavAmount.value;
+        curTransferSavCurrency = inputTransferSavAmount.value;
+        return true;
+      }
+    }
+  },
+};
+
+//Validation transfer steps function
+function validationTransferSavSteps() {
+  return validationTransferSteps[curTransferSavStep]();
+}
+
+//Next button
+function showNextContentTransfer() {
+  if (validationTransferSavSteps() === true) {
+    curTransferSavStep++;
+    showContentOnTransferStep();
+  }
+}
+
+//Go back button
+function goBackTransfer() {
+  curTransferSavStep--;
+  showContentOnTransferStep();
+}
+nextTransferSavBtn.addEventListener("click", showNextContentTransfer);
+returnTransferSavBtn.addEventListener("click", goBackTransfer);
+
+//Submit transfer money froms savings
+transferForm.addEventListener("submit", function (e) {
+  e.preventDefault();
+  if (validationTransferSavSteps() === true) {
+    transferForm.classList.add("hidden");
+    transferForm.reset();
+    curTransferSavStep = "1";
+    returnTransferSavBtn.classList.add("hidden");
+    nextTransferSavBtn.classList.remove("hidden");
+    addNewSavBtn.classList.add("hidden");
+    curUser.createNewTransaction(
+      "recieve",
+      curTransferSavCard,
+      null,
+      curTransferSavAmount,
+      curTransferSavCurrency,
+      "deposit",
+      null,
+      null
+    );
+    curUser.createNewTransaction(
+      "savings",
+      curTransferSavCard,
+      null,
+      curTransferSavAmount,
+      curTransferSavCurrency,
+      "withdrawal",
+      null,
+      curTransferSavGoal
+    );
+    localStorage.setItem(curUser.email, JSON.stringify(curUser));
+    successfulSavMsg.classList.remove("hidden");
+    setTimeout(function () {
+      successfulSavMsg.classList.add("hidden");
+      categoriesBlock.classList.remove("hidden");
+      manageSavBlock.classList.remove("hidden");
+      createSavBlock.classList.add("hidden");
+      showAllSavGoals();
+      showTotalSavingsBalance();
+    }, 3000);
+  }
+});

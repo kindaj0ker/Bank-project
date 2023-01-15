@@ -392,15 +392,6 @@ const sortSavings = function () {
 
 //Create savings in user interface
 const categoriesSavingsBlock = document.querySelector(".categories-block");
-// function createSavingsType(savings) {
-//   savings.forEach((s) => {
-//     const html = `<div class="category">
-//         <img class="saving-category__img" id="${s}" src="../img/${s}-saving.png"/>
-//         <p class="saving-category__name">${s.replace("-", " ")}</p>
-//       </div>`;
-//     categoriesSavingsBlock.insertAdjacentHTML("afterbegin", html);
-//   });
-// }
 
 //Show savings
 const savingsBlock = document.querySelector(".savings-block");
