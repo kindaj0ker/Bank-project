@@ -143,7 +143,7 @@
                       <div data-step="3" class="sav-amount--cur-wrapper hidden">
                         <div class="sav-amount--msg">
                           <label for="sav-amount">Type saving amount</label>
-                          <input class="inputField_new_sav" type="text" id="sav-amount" name="sav_amount" />
+                          <input class="inputField_new_sav" type="number" id="sav-amount" name="sav_amount" />
                         </div>
                         <div class="sav-currency--msg">
                           <label for="loan-currency">Select currency</label>
@@ -169,7 +169,7 @@
                         <div class="create-sav--btn__continue">
                           <button type="button">Next</button>
                         </div>
-                        <div class="create-sav--btn__return">
+                        <div class="create-sav--btn__return hidden">
                           <button type="button">Go back</button>
                         </div>
                         <div class="create-sav--btn__cancel">
@@ -181,7 +181,57 @@
                       </div>
                     </form>
                   </div>
-                  <div class="transfer-sav--block hidden"></div>
+                  <div class="transfer-sav--block hidden">
+                    <form class="transfer-sav--card__form">
+                      <div data-transf="1" class="transfer-sav--goal__wrapper">
+                        <h4  class="transfer-sav--goal__msg transfer-sav__msg">Choose a goal of your savings to transfer money from</h4>
+                        <div class="transfer-sav--goal__selection"></div>
+                      </div>
+                      <div data-transf="2" class="transfer-sav--card__wrapper hidden">
+                        <h4  class="transfer-sav--card__msg transfer-sav__msg">Choose your card to transfer from</h4>
+                        <div class="transfer-card__selection"></div>
+                      </div>
+                      <div data-transf="3" class="transfer-sav-amount--cur-wrapper hidden">
+                        <div class="transfer-sav-amount--msg">
+                          <label for="transfer-sav-amount">Type saving amount</label>
+                          <input class="inputField_sav__transfer" type="number" id="transfer-sav--amount" name="tr_amount" />
+                        </div>
+                        <div class="transfer-sav-currency--msg">
+                          <label for="transfer-sav--curr">Select currency</label>
+                          <select class="transfer-sav-currency" name="sav-currency" size="1" required>
+                            <option class="transfer-sav--option" selected value="$">$</option>
+                            <option class="transfer-sav--option" value="€">€</option>
+                            <option class="transfer-sav--option" value="£">£</option>
+                          </select>
+                        </div>
+                      </div>
+                      <div class="transfer-sav--error--block hidden">
+                        <div class="transfer-sav--no-selected--block hidden">
+                          <h4>Please, select one element to proceed.</h4>
+                        </div>
+                        <div class="transfer-sav-positive hidden">
+                          <h4>Please, enter positive transfer amount.</h4>
+                        </div>
+                        <div class="transfer-sav-not-enough--money hidden">
+                          <h4>You don't have enough money on this saving.</h4>
+                        </div>
+                      </div>
+                      <div class="transfer-sav--btns">
+                        <div class="transfer-sav--btn__continue">
+                          <button type="button">Next</button>
+                        </div>
+                        <div class="transfer-sav--btn__return hidden">
+                          <button type="button">Go back</button>
+                        </div>
+                        <div class="transfer-sav--btn__cancel">
+                          <button type="button">Cancel</button>
+                        </div>
+                        <div class="transfer-sav--btn__add hidden">
+                          <button type="submit">Add saving</button>
+                        </div>
+                      </div>
+                    </form>
+                  </div>
                   <div class="successful-sav--msg hidden">
                    <h4>Operation successfully completed</h4> 
                   </div>
