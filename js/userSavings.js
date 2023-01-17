@@ -93,7 +93,7 @@ const allSavGoalsList = [
   "other",
 ];
 
-function checkUserMoney() {
+export function checkUserMoney() {
   return curUser.transactions.reduce((total, cur) => {
     if (cur.type === "withdrawal") {
       return (total -= Number(cur.amount));
@@ -315,11 +315,11 @@ function showAllUserSavCards() {
 showAllUserSavCards();
 
 //Check new savings input
-function onlyNumbers() {
+export function onlyNumbers() {
   let regex = /[a-zA-Z]/g;
   this.value = this.value.replace(regex, "");
 }
-function digitsRestriction() {
+export function digitsRestriction() {
   this.value = this.value.replace(/(\.\d{2})\d+/g, "$1");
 }
 
@@ -488,27 +488,6 @@ cancelTransferSavBtn.addEventListener("click", function () {
   categoriesBlock.classList.remove("hidden");
   manageSavBlock.classList.remove("hidden");
 });
-
-//Check transfer savings cards
-function showAllUserTrCards() {
-  if (curUser.cards.length !== 0) {
-    curUser.cards.forEach((c) => {
-      let html = `
-      <div>
-        <div class="card-wrapper">
-          <label>
-            <input type="radio" id="html" name="new-sav--card" value="${
-              c.id
-            }"></input>
-            <img class="user-card__img" src="../img/${c.plan.toUpperCase()}.png" /></label>
-        </div>
-        <h4>Balance ${showBalance(sortTransactions(c))}</h4>
-      </div>`;
-      transferCardsContainer.insertAdjacentHTML("afterbegin", html);
-    });
-  }
-}
-showAllUserTrCards();
 
 //Check new savings input
 

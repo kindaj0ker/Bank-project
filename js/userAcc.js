@@ -77,10 +77,9 @@ function showContent() {
         revealHome();
       }
       if (curId === "savings") {
-        // createSavingsType();
       }
       if (curId === "transfer") {
-        showAllUserTransferCards(curUser);
+        showAllUserTransferCards();
       }
     } else return;
   });
@@ -446,15 +445,6 @@ function showSavings() {
 // };
 
 // loanAmountInput.addEventListener("input", onlyPositiveNumbers);
-
-//Request a loan
-const nextFieldBtn = document.querySelector(".loan-form");
-const fieldsWrapper = document.querySelector(".amount-loan__info");
-nextFieldBtn.addEventListener("submit", revealNextField);
-function revealNextField(e) {
-  e.preventDefault();
-  fieldsWrapper.classList.add("hidden");
-}
 
 // Currency info-box
 

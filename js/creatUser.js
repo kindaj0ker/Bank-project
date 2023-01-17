@@ -41,22 +41,25 @@ export class User {
   createNewTransaction(
     group,
     cardID,
-    transactionID = `${uniqid()}`,
+    transactionID,
     amount,
     currency,
     type,
-    date = `${new Date().toISOString().split("T")[0]}`,
+    date,
     savingType = "other"
   ) {
+    const day = new Date().getDate().toString().padStart(2, "0");
+    const month = (new Date().getMonth() + 1).toString().padStart(2, "0");
+    const year = new Date().getFullYear() + 4;
     const data = new Map([
       ["group", `${group}`],
       ["cardID", `${cardID}`],
-      ["transactionID", `${transactionID}`],
+      ["transactionID", transactionID ?? `${uniqid()}`],
       ["amount", `${amount}`],
       ["currency", `${currency}`],
       ["type", `${type}`],
       ["savingType", `${savingType}`],
-      ["date", `${date}`],
+      ["date", date ?? `${day + "-" + month + "-" + year}`],
     ]);
     const transaction = Object.fromEntries(data);
     this.transactions.push(transaction);
