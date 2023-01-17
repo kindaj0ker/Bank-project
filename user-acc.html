@@ -92,25 +92,64 @@
               <!-- loan menu -->
             <div id="loan" class="request-loan__block content-filler content-wrapper hidden">
               <h5>Fill the form to request a bank loan and wait for the result</h5>
-              <form class="loan-form">
               <div class="loan-field__wrapper">
-                <div class="loan-field amount-loan__info">
-                  <label for="loan-amount">Type loan amount</label>
-                  <input class="inputField_loan" type="text" id="loan-amount" name="loan_amount" />
-                </div>
-              <div class="loan-field">
-                <label for="loan-currency">Select currency</label>
-                  <select class="loan-currency" name="loan-currency" size="1" required>
-                    <option class="loan-option" value="$">$</option>
-                    <option class="loan-option" selected value="€">€</option>
-                    <option class="loan-option" value="£">£</option>
-                  </select>
-               </div> 
+                    <form class="loan-form">
+                      <div class="loan-details--wrapper">
+                        <div class="loan-amount--msg">
+                          <label for="loan-amount">Type requested loan amount</label>
+                          <input class="inputField_loan" type="number" id="loan-amount" name="loan_amount" />
+                        </div>
+                        <div class="loan-currency--msg">
+                          <label for="loan--curr">Select currency</label>
+                          <select class="loan-currency" name="loan-currency" size="1" required>
+                            <option class="loan-cur--option" selected value="$">$</option>
+                            <option class="loan-cur--option" value="€">€</option>
+                            <option class="loan-cur--option" value="£">£</option>
+                          </select>
+                        </div>
+                        <h4  class="loan-card__msg">Choose one of your cards</h4>
+                        <div class="loan-card__selection"></div>
+                      </div>
+                      <div class="loan--error--block hidden">
+                        <div class="loan-no-selected--block hidden">
+                          <h4>Please, select one element to proceed.</h4>
+                        </div>
+                        <div class="loan-positive hidden">
+                          <h4>Please, enter positive loan amount.</h4>
+                        </div>
+                      </div>
+                      <div class="loan--btns">
+                        <div class="loan-btn__request">
+                          <button type="submit">Request</button>
+                        </div>
+                        <div class="loan--btn__cancel">
+                          <button type="button">Cancel</button>
+                        </div>
+                          <div class="loan-btn__try-again hidden">
+                          <button type="button">Try again</button>
+                        </div>
+                      </div>
+                    </form>
+                    <div class="waiting-loan--block hidden">
+                    <h5 class="waiting-sign">Waiting for bank approval</h5><div class="loading-spinner"></div>
+                  </div>
+                    <div class="loan-result--msgs hidden">
+                      <div class="successful-loan--msg hidden">
+                    <h4>Operation successfully completed.</h4>
+                    <div class="loan-okay--btn">
+                      <button type="button">Ok</button>
+                    </div> 
+                      </div>
+                      <div class="often-loan--msg hidden">
+                        <h4>You can't request a loan more than once a month. Try again later!</h4> 
+                      </div>
+                      <div class="limit-loan--msg hidden">
+                        <h4>Requested amount is above the limit. Try again!</h4> 
+                    </div>
+                  </div>
+                </div> 
               </div>
-                <button class="next-field__btn" /><img class="request-loan__arrow" src='../img/request-loan__arrow.png'/></button>
-              </form>
               </div>
-
               <!-- savings menu -->
             <div id="savings" class="savings-block content-filler content-wrapper hidden">
               <div class="manage-wrapper">
@@ -243,7 +282,80 @@
             </div>
 
               <!-- transfer menu -->
-              <div id="transfer" class="hidden content-filler content-wrapper"><div class="transfer-logic"></div></div>
+              <div id="transfer" class="hidden content-filler content-wrapper">
+                <h5>Fill the form to transfer money to another person.</h5>
+                <div class="transfer-logic">
+                  <form class="transfer-form">
+                    <div data-transfer="1" class="transfer-person-block">
+                      <label for="transfer-card--id">Type user email.
+                      </label>
+                        <input class="inputField_id-card--transfer" type="number" id="transfer-amount" name="transfer_amount" />
+                    </div>
+                    <div data-transfer="2" class="transfer-details--wrapper">
+                        <h5>Specify the details about your transfer.</h5>
+                        <h4  class="transfer-card__msg">Choose one of your cards</h4>
+                        <div class="transfer-card__selection"></div>
+                        <div class="transfer-amount--msg">
+                          <label for="transfer-amount">Type transfer amount</label>
+                          <input class="inputField_transfer" type="number" id="transfer-amount" name="transfer_amount" />
+                        </div>
+                        <div class="transfer-currency--msg">
+                          <label for="transfer--curr">Select currency</label>
+                          <select class="transfer-currency" name="transfer-currency" size="1" required>
+                            <option class="transfer-cur--option" selected value="$">$</option>
+                            <option class="transfer-cur--option" value="€">€</option>
+                            <option class="transfer-cur--option" value="£">£</option>
+                          </select>
+                        </div>
+                      </div>
+                      <div class="transfer--error--block hidden">
+                        <div class="transfer-no-selected--block hidden">
+                          <h4>Please, fill the form to proceed.</h4>
+                        </div>
+                        <div class="no-user hidden">
+                          <h4>No user found. Please check the email or try again later.</h4>
+                        </div>
+                        <div class="transfer-positive hidden">
+                          <h4>Please, enter positive transfer amount.</h4>
+                        </div>
+                        <div class="transfer-not--enough_money hidden">
+                          <h4>You've reached your card's limit.</h4>
+                        </div>
+                      </div>
+                      <div class="transfer--btns">
+                        <div class="transfer--btn__continue">
+                          <button type="button">Next</button>
+                        </div>
+                        <div class="transfer--btn__return hidden">
+                          <button type="button">Go back</button>
+                        </div>
+                        <div class="transfer--btn__cancel">
+                          <button type="button">Cancel</button>
+                        </div>
+                        <div class="transfer--btn__transfer hidden">
+                          <button type="submit">Transfer</button>
+                        </div>
+                      </div>
+                    </form>
+                    <div class="waiting-transfer--block hidden">
+                    <h5 class="waiting-sign">Pending</h5><div class="loading-spinner"></div>
+                  </div>
+                    <div class="transfer-result--msgs hidden">
+                      <div class="successful-transfer--msg hidden">
+                    <h4>Operation successfully completed.</h4>
+                    <div class="transfer-okay--btn">
+                      <button type="button">Ok</button>
+                    </div> 
+                      </div>
+                      <div class="often-transfer--msg hidden">
+                        <h4>You can't request a loan more than once a month. Try again later!</h4> 
+                      </div>
+                      <div class="limit-transfer--msg hidden">
+                        <h4>Requested amount is above the limit. Try again!</h4> 
+                    </div>
+                  </div>
+                </div>
+              </div>
           </div>
           <div class="user-info">
             <div class="currency-info--box info-box box-style"></div>
@@ -261,7 +373,8 @@
     <script src="https://cdn.jsdelivr.net/npm/short-unique-id@latest/dist/short-unique-id.min.js"></script>
     <script defer type="module" src="../js/userAcc.js"></script>
     <script defer type="module" src="../js/fakeData.js"></script>
+    <script defer type="module" src="../js/userLoan.js"></script>
     <script defer type="module" src="../js/userSavings.js"></script>
-     <script defer type="module" src="../js/userTransfer.js"></script>
+    <script defer type="module" src="../js/userTransfer.js"></script>
   </body>
 </html>
