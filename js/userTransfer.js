@@ -1,9 +1,9 @@
 "use strict";
 import { showBalance } from "./userAcc.js";
-import { onlyNumbers, digitsRestriction } from "./userSavings.js";
+import { onlyNumbers, digitsRestriction, cardBalance } from "./userSavings.js";
 
 const transferBlock = document.querySelector(".transfer-logic");
-const transferForm = document.querySelector(".transfer-form");
+const transferMoneyForm = document.querySelector(".transfer-form");
 const transferFieldsWrapper = document.querySelector(
   ".transfer-details--wrapper"
 );
@@ -12,13 +12,13 @@ const transferToId = document.querySelector(".inputField_id-card--transfer");
 const transferAmount = document.querySelector(".inputField_transfer");
 const transferCurrency = document.querySelector(".transfer-currency");
 const transferBtnCancel = document.querySelector(".transfer--btn__cancel");
-const transferBtnRequest = document.querySelector(".transfer-btn__request");
+const transferBtnTransfer = document.querySelector(".transfer--btn__transfer");
 const transferBtnContinue = document.querySelector(".transfer--btn__continue");
 const transferBtnReturn = document.querySelector(".transfer--btn__return");
 const transferBtnTryAgain = document.querySelector(".transfer-btn__try-again");
 const transferOkBtn = document.querySelector(".transfer-okay--btn");
 const transferCardsContainer = document.querySelector(
-  ".transfer-card__selection"
+  ".transfer-money--card__selection"
 );
 const transferErrorBlock = document.querySelector(".transfer--error--block");
 const transferErrorNothingSelected = document.querySelector(
@@ -36,7 +36,11 @@ const transferApproved = document.querySelector(".successful-transfer--msg");
 const waitingTransferBlock = document.querySelector(".waiting-transfer--block");
 const transferBtns = document.querySelector(".transfer--btns");
 
-let transferMoneyAmount, transferMoneyCur, transferMoneyFrom, transferMoneyTo;
+let transferMoneyAmount,
+  transferMoneyCur,
+  transferMoneyFrom,
+  transferMoneyTo,
+  receiverAcc;
 let curTransferMoneyStep = 1;
 
 //New user from registered user
@@ -53,16 +57,10 @@ transferAmount.addEventListener("keyup", digitsRestriction);
 export function sortTransactions(c) {
   return curUser.transactions.filter((t) => t.cardID === c.id);
 }
-function checkCardBalance(c) {
-  return c.transactions.reduce((total, cur) => {
-    if (cur.type === "withdrawal") {
-      return (total -= Number(cur.amount));
-    } else return (total += Number(cur.amount));
-  }, 0);
-}
+
 //Show all user cards
 export function showAllUserTransferCards() {
-  transferBlock.innerHTML = "";
+  transferCardsContainer.innerHTML = "";
   if (curUser.cards.length !== 0) {
     curUser.cards.forEach((c) => {
       let html = `
@@ -76,7 +74,7 @@ export function showAllUserTransferCards() {
         </div>
         <h4>Balance ${showBalance(sortTransactions(c))}</h4>
       </div>`;
-      transferBlock.insertAdjacentHTML("afterbegin", html);
+      transferCardsContainer.insertAdjacentHTML("afterbegin", html);
     });
     const allCards = document.querySelectorAll(".transfer-card");
     allCards.forEach((c) => c.addEventListener("click"));
@@ -92,20 +90,23 @@ export function showAllUserTransferCards() {
 const validationTransfer = {
   1: () => {
     const input = transferToId.value;
+    receiverAcc = localStorage.getItem(input);
     if (input === null) {
       transferErrorBlock.classList.remove("hidden");
       transferErrorNothingSelected.classList.remove("hidden");
       return false;
     } else {
-      if (localStorage.getItem("input") === null) {
+      if (receiverAcc === null) {
         transferErrorBlock.classList.remove("hidden");
         noUserError.classList.remove("hidden");
         return false;
       }
-      if (localStorage.getItem("input") !== null) {
+      if (receiverAcc !== null) {
         transferErrorBlock.classList.add("hidden");
         noUserError.classList.add("hidden");
         transferErrorNothingSelected.classList.add("hidden");
+        transferBtnTransfer.classList.remove("hidden");
+        transferBtnContinue.classList.add("hidden");
         transferMoneyTo = input;
         return true;
       }
@@ -113,15 +114,16 @@ const validationTransfer = {
   },
   2: () => {
     const checkedCard = Array.from(
-      document.querySelectorAll('input[class="transfer-card"]:checked')
-    );
+      document.querySelectorAll('input[name="transfer-card"]:checked')
+    )[0];
+    console.log(checkedCard.value, checkedCard);
     const inputAmount = Number(transferAmount.value);
     if (checkedCard.length === 0) {
       transferErrorBlock.classList.remove("hidden");
       transferErrorNothingSelected.classList.remove("hidden");
       return false;
     }
-    if (inputAmount > checkCardBalance(checkedCard)) {
+    if (inputAmount > cardBalance(checkedCard.value)) {
       transferErrorBlock.classList.remove("hidden");
       transferNotEnoughMoney.classList.remove("hidden");
       return false;
@@ -134,7 +136,7 @@ const validationTransfer = {
       transferErrorBlock.classList.add("hidden");
       transferErrorNothingSelected.classList.add("hidden");
       transferErrorPositiveAmount.classList.add("hidden");
-      transferNotEoughMoney.classList.add("hidden");
+      transferNotEnoughMoney.classList.add("hidden");
       transferMoneyAmount = inputAmount;
       transferMoneyCur = transferCurrency;
       transferMoneyFrom = checkedCard.id;
@@ -151,7 +153,7 @@ function validateMoneyTransfer() {
 // Show content on different steps
 function showTransferFields() {
   transferMoneyBlocks.forEach((b) => b.classList.add("hidden"));
-  const curEl = Array.from(transferMoneyBlock).find(
+  const curEl = Array.from(transferMoneyBlocks).find(
     (el) => Number(el.dataset.transfer) === curTransferMoneyStep
   );
   curEl.classList.remove("hidden");
@@ -173,8 +175,29 @@ function prevTransfField() {
 transferBtnContinue.addEventListener("click", nextTransfField);
 transferBtnReturn.addEventListener("click", prevTransfField);
 
-//Submit form
-// transferForm.addEventListener("sumbit", function (e) {
-//   e.preventDefault();
-//   transferForm.classList.add("hidden");
-// })
+// Submit form
+transferMoneyForm.addEventListener("sumbit", function (e) {
+  console.log("d");
+  e.preventDefault();
+  if (validateMoneyTransfer() === true) {
+    transferMoneyForm.classList.add("hidden");
+    transferMoneyForm.reset();
+    waitingTransferBlock.classList.remove("hidden");
+    curUser.createNewTransaction(
+      "send",
+      transferMoneyFrom,
+      null,
+      transferMoneyAmount,
+      transferMoneyCur,
+      "withdrawal",
+      null,
+      null
+    );
+    localStorage.setItem(curUser.email, JSON.stringify(curUser));
+    setTimeout(function () {
+      transferMoneyForm.classList.remove("hidden");
+      transferApproved.classList.remove("hidden");
+      waitingTransferBlock.classList.add("hidden");
+    }, 3000);
+  }
+});

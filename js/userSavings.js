@@ -138,7 +138,7 @@ function sortSavings() {
   });
 }
 //Card balance
-function cardBalance(c) {
+export function cardBalance(c) {
   const tr = curUser.transactions.filter(function (transaction) {
     return transaction.cardID === c;
   });

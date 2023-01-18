@@ -472,7 +472,9 @@ select {
   width: 70%;
 }
 /* transfer */
-
+.transfer-logic {
+  background-color: white;
+}
 /* estra classes */
 .orange-text {
   color: var(--orange-color);
