@@ -107,7 +107,7 @@ function showAllSavGoals() {
   allSavGoalsList.forEach((s) => {
     const html = `<div class="sav-goal--category" id=${s}-new--goal>
       <label>
-      <input type="radio" id="html" name="sav-cat" value="${s}"></input>
+      <input class="cards-types--form" type="radio" id="html" name="sav-cat" value="${s}"></input>
       <img class="new-saving--category__img" id="${s}" src="../img/${s}-saving.png"/>
       <p class="saving-category__name">${s.replace("-", " ")}</p></label>
       </div>`;
@@ -285,10 +285,17 @@ function showContentOnStep() {
 //Cancel new saving creation
 cancelNewSavBtn.addEventListener("click", function () {
   curNewSavStep = 1;
+  if (curNewSavStep === 1) {
+    addNewSavBtn.classList.add("hidden");
+    nextNewSavBtn.classList.remove("hidden");
+    returnNewSavBtn.classList.add("hidden");
+  }
   manageTypes.forEach((t) => t.classList.add("hidden"));
   createSavBlock.classList.add("hidden");
   categoriesBlock.classList.remove("hidden");
   manageSavBlock.classList.remove("hidden");
+  newSavForm.reset();
+  showContentOnStep();
 });
 
 //Check new savings cards
@@ -300,7 +307,7 @@ function showAllUserSavCards() {
       <div>
         <div class="card-wrapper">
           <label>
-            <input type="radio" id="html" name="new-sav--card" value="${
+            <input  class="cards-types--form" type="radio" id="html" name="new-sav--card" value="${
               c.id
             }"></input>
             <img class="user-card__img" src="../img/${c.plan.toUpperCase()}.png" /></label>
@@ -353,7 +360,7 @@ const validationSteps = {
     );
     if (checked.length === 0) {
       savErrorBlock.classList.remove("hidden");
-      nothingSelectedNewSavBlock.remove("hidden");
+      nothingSelectedNewSavBlock.classList.remove("hidden");
       return false;
     } else {
       savErrorBlock.classList.add("hidden");
@@ -405,6 +412,11 @@ function showNextContent() {
 function goBack() {
   curNewSavStep--;
   showContentOnStep();
+  if (curNewSavStep === 1) {
+    addNewSavBtn.classList.add("hidden");
+    nextNewSavBtn.classList.remove("hidden");
+    returnNewSavBtn.classList.add("hidden");
+  }
 }
 nextNewSavBtn.addEventListener("click", showNextContent);
 returnNewSavBtn.addEventListener("click", goBack);
@@ -450,7 +462,7 @@ function savTransferGoals() {
   userGoals.forEach((s) => {
     const html = `<div class="sav-goal--category" id=${s}-new--goal>
       <label>
-      <input type="radio" id="html" name="sav-cat" value="${s}"></input>
+      <input class="cards-types--form" type="radio" id="html" name="sav-cat" value="${s}"></input>
       <img class="new-saving--category__img" id="${s}" src="../img/${s}-saving.png"/>
       <p class="saving-category__name">${s.replace("-", " ")}</p></label>
       </div>`;
@@ -483,10 +495,17 @@ function showContentOnTransferStep() {
 //Cancel transfer money from saving
 cancelTransferSavBtn.addEventListener("click", function () {
   curTransferSavStep = 1;
+  if (curTransferSavStep === 1) {
+    addTransferSavBtn.classList.add("hidden");
+    nextTransferSavBtn.classList.remove("hidden");
+    returnTransferSavBtn.classList.add("hidden");
+  }
   manageTypes.forEach((t) => t.classList.add("hidden"));
   transferSavBlock.classList.add("hidden");
   categoriesBlock.classList.remove("hidden");
   manageSavBlock.classList.remove("hidden");
+  transferForm.reset();
+  validationTransferSavSteps();
 });
 
 //Check new savings input
@@ -575,6 +594,11 @@ function showNextContentTransfer() {
 //Go back button
 function goBackTransfer() {
   curTransferSavStep--;
+  if (curTransferSavStep === 1) {
+    addTransferSavBtn.classList.add("hidden");
+    nextTransferSavBtn.classList.remove("hidden");
+    returnTransferSavBtn.classList.add("hidden");
+  }
   showContentOnTransferStep();
 }
 nextTransferSavBtn.addEventListener("click", showNextContentTransfer);

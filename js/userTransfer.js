@@ -1,4 +1,5 @@
 "use strict";
+import { User } from "./creatUser.js";
 import { showBalance } from "./userAcc.js";
 import { onlyNumbers, digitsRestriction, cardBalance } from "./userSavings.js";
 
@@ -47,7 +48,19 @@ let curTransferMoneyStep = 1;
 
 //let curUser=JSON.parse(localStorage.getItem("logedIn"));
 
-let curUser = JSON.parse(localStorage.getItem("peterJ@gmail.com"));
+// let curUser = JSON.parse(localStorage.getItem("peterJ@gmail.com"));
+let { fName, lName, bDay, email, password, cards, transactions, location } =
+  JSON.parse(localStorage.getItem("peterJ@gmail.com"));
+const curUser = new User(
+  fName,
+  lName,
+  bDay,
+  email,
+  password,
+  cards,
+  transactions,
+  location
+);
 
 //Input amount check
 transferAmount.addEventListener("input", onlyNumbers);
@@ -64,10 +77,10 @@ export function showAllUserTransferCards() {
   if (curUser.cards.length !== 0) {
     curUser.cards.forEach((c) => {
       let html = `
-      <div>
+      <div class="cards-in_form__wrapper">
         <div class="card-wrapper">
           <label>
-            <input type="radio" id="html" name="transfer-card" value="${
+            <input class="cards-types--form" type="radio" id="html" name="transfer-card" value="${
               c.id
             }"></input>
             <img class="user-card__img" src="../img/${c.plan.toUpperCase()}.png" /></label>
@@ -106,6 +119,7 @@ const validationTransfer = {
         noUserError.classList.add("hidden");
         transferErrorNothingSelected.classList.add("hidden");
         transferBtnTransfer.classList.remove("hidden");
+        transferBtnReturn.classList.remove("hidden");
         transferBtnContinue.classList.add("hidden");
         transferMoneyTo = input;
         return true;
@@ -116,11 +130,15 @@ const validationTransfer = {
     const checkedCard = Array.from(
       document.querySelectorAll('input[name="transfer-card"]:checked')
     )[0];
-    console.log(checkedCard.value, checkedCard);
     const inputAmount = Number(transferAmount.value);
     if (checkedCard.length === 0) {
       transferErrorBlock.classList.remove("hidden");
       transferErrorNothingSelected.classList.remove("hidden");
+      return false;
+    }
+    if (inputAmount === "") {
+      transferErrorBlock.classList.add("hidden");
+      transferErrorNothingSelected.classList.add("hidden");
       return false;
     }
     if (inputAmount > cardBalance(checkedCard.value)) {
@@ -138,7 +156,7 @@ const validationTransfer = {
       transferErrorPositiveAmount.classList.add("hidden");
       transferNotEnoughMoney.classList.add("hidden");
       transferMoneyAmount = inputAmount;
-      transferMoneyCur = transferCurrency;
+      transferMoneyCur = transferCurrency.value;
       transferMoneyFrom = checkedCard.id;
       return true;
     }
@@ -169,20 +187,55 @@ function nextTransfField() {
 //Go backwards
 function prevTransfField() {
   curTransferMoneyStep--;
+  if (curTransferMoneyStep === 1) {
+    transferBtnContinue.classList.remove("hidden");
+    transferBtnReturn.classList.add("hidden");
+    transferBtnTransfer.classList.add("hidden");
+  }
   showTransferFields();
 }
-
+transferBtnCancel.addEventListener("click", function () {
+  if (curTransferMoneyStep === 1) {
+    transferBtnContinue.classList.remove("hidden");
+    transferBtnReturn.classList.add("hidden");
+    transferBtnTransfer.classList.add("hidden");
+  }
+  transferMoneyForm.reset();
+});
 transferBtnContinue.addEventListener("click", nextTransfField);
 transferBtnReturn.addEventListener("click", prevTransfField);
 
 // Submit form
-transferMoneyForm.addEventListener("sumbit", function (e) {
-  console.log("d");
+transferMoneyForm.addEventListener("submit", function (e) {
   e.preventDefault();
   if (validateMoneyTransfer() === true) {
+    curTransferMoneyStep = 1;
     transferMoneyForm.classList.add("hidden");
     transferMoneyForm.reset();
     waitingTransferBlock.classList.remove("hidden");
+    let { fName, lName, bDay, email, password, cards, transactions, location } =
+      JSON.parse(localStorage.getItem(transferMoneyTo));
+    const recepient = new User(
+      fName,
+      lName,
+      bDay,
+      email,
+      password,
+      cards,
+      transactions,
+      location
+    );
+    recepient.createNewTransaction(
+      "recieve",
+      cards[0].id,
+      null,
+      transferMoneyAmount,
+      transferMoneyCur,
+      "deposit",
+      null,
+      null
+    );
+    localStorage.setItem(recepient.email, JSON.stringify(recepient));
     curUser.createNewTransaction(
       "send",
       transferMoneyFrom,
@@ -195,9 +248,14 @@ transferMoneyForm.addEventListener("sumbit", function (e) {
     );
     localStorage.setItem(curUser.email, JSON.stringify(curUser));
     setTimeout(function () {
+      transferBtnTransfer.classList.add("hidden");
+      transferBtnContinue.classList.remove("hidden");
       transferMoneyForm.classList.remove("hidden");
       transferApproved.classList.remove("hidden");
       waitingTransferBlock.classList.add("hidden");
+      transferBtnReturn.classList.add("hidden");
+      showTransferFields();
+      showAllUserTransferCards();
     }, 3000);
   }
 });

@@ -232,24 +232,6 @@ const openTransactions = document.addEventListener("click", function (e) {
   }
 });
 
-// //Delete radio btns
-// function deleteRadioBtns(curTarget, curCard) {}
-
-// //Delete prev transactions info
-// function deletePrevInfo(curTarget, curCard) {
-//   const transactionsBlock = curTarget.closest(".total-card__info");
-//   const transactions = transactionsBlock.querySelector(".transactions");
-//   if (sortTransactions(curCard.id).length === 0) {
-//     const noTransactions = document.querySelector(".no-transactions__block");
-//     transactionsBlock.removeChild(noTransactions);
-//   } else {
-//     const radioBtns = transactionsBlock.querySelector(".sorting-box");
-//     console.log(radioBtns);
-//     radioBtns.removeChild(transactions);
-//     transactionsBlock.removeChild(radioBtns);
-//   }
-// }
-
 //Delete radio btns
 function radioBtnsDelete(curTarget, curCard) {
   const [transactionsBlock, transastions, mainBlock, radioBtnsContainer] =

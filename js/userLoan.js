@@ -43,6 +43,7 @@ const errorMoneyLimit = document.querySelector(".limit-loan--msg");
 const loanApproved = document.querySelector(".successful-loan--msg");
 const waitingLoanBlock = document.querySelector(".waiting-loan--block");
 const loanBtns = document.querySelector(".loan--btns");
+const loanTitle = document.querySelector(".request-loan__block h4");
 
 //Sort loans
 function sortLoans() {
@@ -81,15 +82,15 @@ function showAllUserSavCards() {
   if (curUser.cards.length !== 0) {
     curUser.cards.forEach((c) => {
       let html = `
-      <div>
+      <div class="cards-in_form__wrapper">
         <div class="card-wrapper">
           <label>
-            <input type="radio" id="html" name="new-loan--card" value="${
+            <input class="cards-types--form" type="radio" id="html" name="new-loan--card" value="${
               c.id
             }"></input>
             <img class="user-card__img" src="../img/${c.plan.toUpperCase()}.png" /></label>
         </div>
-        <h4>Balance ${showBalance(sortTransactions(c))}</h4>
+        <h4>Balance: ${showBalance(sortTransactions(c))} ${c.currency}</h4>
       </div>`;
       loanCardsContainer.insertAdjacentHTML("afterbegin", html);
     });
@@ -154,6 +155,7 @@ loanForm.addEventListener("submit", function (e) {
   e.preventDefault();
   if (checkInputs()) {
     loanFieldsWrapper.classList.add("hidden");
+    loanTitle.classList.add("hidden");
     loanBtns.classList.add("hidden");
     waitingLoanBlock.classList.remove("hidden");
     setTimeout(function () {
@@ -183,6 +185,7 @@ loanForm.addEventListener("submit", function (e) {
 // Reset form
 function resetLoanForm() {
   loanForm.reset();
+  loanTitle.classList.remove("hidden");
   loanForm.classList.remove("hidden");
   loanFieldsWrapper.classList.remove("hidden");
   loanBtnCancel.classList.remove("hidden");
