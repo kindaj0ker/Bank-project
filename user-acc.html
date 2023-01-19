@@ -43,7 +43,7 @@
 
       <div class="main-content">
         <div class="user-header">
-          <div class="greeting box-style">
+          <div class="greeting">
             <h2>Hello, <span class="user-f--name"></span>!</h2>
           </div>
           <button class="log-out--btn">LOG OUT</button>
@@ -91,49 +91,51 @@
             </div>
               <!-- loan menu -->
             <div id="loan" class="request-loan__block content-filler content-wrapper hidden">
-              <h5>Fill the form to request a bank loan and wait for the result</h5>
-              <div class="loan-field__wrapper">
-                    <form class="loan-form">
-                      <div class="loan-details--wrapper">
-                        <div class="loan-amount--msg">
-                          <label for="loan-amount">Type requested loan amount</label>
-                          <input class="inputField_loan" type="number" id="loan-amount" name="loan_amount" />
+              <h4 class="form-title">Fill the form to request a bank loan and wait for the result</h4>
+              <div class="loan-field__wrapper form-wrapper">
+                    <form class="loan-form main-form--style">
+                      <div class="loan-details--wrapper fields-wrapper--style">
+                        <div class="loan-amount--msg form-field--wrapper">
+                          <label class="form-field--text form-element-label" for="loan-amount">Type requested loan amount</label>
+                          <input class="inputField_loan form-element--value" type="number" id="loan-amount" name="loan_amount" />
                         </div>
-                        <div class="loan-currency--msg">
-                          <label for="loan--curr">Select currency</label>
-                          <select class="loan-currency" name="loan-currency" size="1" required>
+                        <div class="loan-currency--msg form-field--wrapper">
+                          <label class="form-field--text form-element-label" for="loan--curr">Select currency</label>
+                          <select class="loan-currency form-element--value" name="loan-currency" size="1" required>
                             <option class="loan-cur--option" selected value="$">$</option>
                             <option class="loan-cur--option" value="€">€</option>
                             <option class="loan-cur--option" value="£">£</option>
                           </select>
                         </div>
-                        <h4  class="loan-card__msg">Choose one of your cards</h4>
-                        <div class="loan-card__selection"></div>
+                        <div class="form-field--wrapper">
+                          <h4 class="loan-card__msg form-field--text form-element-label">Choose one of your cards</h4>
+                          <div class="loan-card__selection form-element--value"></div>
+                        </div>
                       </div>
-                      <div class="loan--error--block hidden">
-                        <div class="loan-no-selected--block hidden">
+                      <div class="loan--error--block hidden fields-wrapper--style">
+                        <div class="loan-no-selected--block error-field hidden">
                           <h4>Please, select one element to proceed.</h4>
                         </div>
-                        <div class="loan-positive hidden">
+                        <div class="loan-positive error-field hidden">
                           <h4>Please, enter positive loan amount.</h4>
                         </div>
                       </div>
-                      <div class="loan--btns">
-                        <div class="loan-btn__request">
-                          <button type="submit">Request</button>
+                      <div class="loan--btns form-btns--wrapper fields-wrapper--style">
+                        <div class="loan-btn__request form-btn-wrap">
+                          <button class="form-btn" type="submit">Request</button>
                         </div>
-                        <div class="loan--btn__cancel">
-                          <button type="button">Cancel</button>
+                        <div class="loan--btn__cancel form-btn-wrap">
+                          <button class="form-btn" type="button">Cancel</button>
                         </div>
-                          <div class="loan-btn__try-again hidden">
-                          <button type="button">Try again</button>
+                          <div class="loan-btn__try-again form-btn-wrap hidden">
+                          <button class="form-btn" type="button">Try again</button>
                         </div>
                       </div>
                     </form>
-                    <div class="waiting-loan--block hidden">
+                    <div class="waiting-loan--block hidden fields-wrapper--style">
                     <h5 class="waiting-sign">Waiting for bank approval</h5><div class="loading-spinner"></div>
                   </div>
-                    <div class="loan-result--msgs hidden">
+                    <div class="loan-result--msgs hidden fields-wrapper--style">
                       <div class="successful-loan--msg hidden">
                     <h4>Operation successfully completed.</h4>
                     <div class="loan-okay--btn">
@@ -169,75 +171,83 @@
                     <h4>Sorry, but you don't have money to manage your savings. Please, check your account balance.</h4>
                   </div>
                 </div>
-                  <div class="create-sav--block hidden">
-                    <form class="create-new--sav__form">
-                      <div data-step="1" class="create-sav--goal__wrapper">
-                        <h4  class="create-sav--goal__msg new-sav__msg">Choose a goal of your savings</h4>
-                        <div data-content="sav-goal__selection" class="sav-new--goal__selection"></div>
-                      </div>
-                      <div data-step="2" class="create-sav--card__wrapper hidden">
-                        <h4  class="choose-sav--card__msg new-sav__msg">Choose your card to transfer from</h4>
-                        <div data-content="sav-card__selection" class="sav-card__selection"></div>
-                      </div>
-                      <div data-step="3" class="sav-amount--cur-wrapper hidden">
-                        <div class="sav-amount--msg">
-                          <label for="sav-amount">Type saving amount</label>
-                          <input class="inputField_new_sav" type="number" id="sav-amount" name="sav_amount" />
+                  <div class="create-sav--block form-wrapper hidden">
+                    <form class="create-new--sav__form main-form--style">
+                      <div data-step="1" class="create-sav--goal__wrapper fields-wrapper--style">
+                        <div class="form-field--wrapper">
+                          <h4  class="create-sav--goal__msg new-sav__msg form-element-label">Choose a goal of your savings</h4>
+                        <div data-content="sav-goal__selection" class="sav-new--goal__selection form-element--value"></div>
                         </div>
-                        <div class="sav-currency--msg">
-                          <label for="loan-currency">Select currency</label>
-                          <select class="sav-currency" name="sav-currency" size="1" required>
+                      </div>
+                      <div data-step="2" class="create-sav--card__wrapper fields-wrapper--style hidden">
+                        <div class="form-field--wrapper">
+                           <h4  class="choose-sav--card__msg form-element-label new-sav__msg">Choose your card to transfer from</h4>
+                        <div data-content="sav-card__selection" class="sav-card__selection form-element--value"></div>
+                        </div>
+                      </div>
+                      <div data-step="3" class="sav-amount--cur-wrapper fields-wrapper--style hidden">
+                        <div class="sav-amount--msg form-field--wrapper">
+                          <label class="form-element-label" for="sav-amount">Type saving amount</label>
+                          <input class="inputField_new_sav form-element--value" type="number" id="sav-amount" name="sav_amount" />
+                        </div>
+                        <div class="sav-currency--msg form-field--wrapper">
+                          <label class="form-element-label" for="loan-currency">Select currency</label>
+                          <select class="sav-currency form-element--value" name="sav-currency" size="1" required>
                             <option class="sav-cur-option" selected value="$">$</option>
                             <option class="sav-cur-option" value="€">€</option>
                             <option class="sav-cur-option" value="£">£</option>
                           </select>
                         </div>
                       </div>
-                      <div class="sav-error--block hidden">
-                        <div class="no-selected--block hidden">
-                          <h4>Please, select one element to proceed</h4>
+                      <div class="sav-error--block fields-wrapper--style hidden">
+                        <div class="no-selected--block error-field hidden">
+                          <h4>Please, select one element to proceed.</h4>
                         </div>
-                        <div class="positive-new--sav hidden">
+                        <div class="positive-new--sav error-field hidden">
                           <h4>Please, enter positive saving amount.</h4>
                         </div>
-                        <div class="not-enough--money hidden">
-                          <h4>You have reached balance limit</h4>
+                        <div class="not-enough--money error-field  hidden">
+                          <h4>You have reached balance limit.</h4>
                         </div>
                       </div>
-                      <div class="create-sav--btns">
+                      <div class="create-sav--btns form-btns--wrapper">
                         <div class="create-sav--btn__continue">
-                          <button type="button">Next</button>
+                          <button class="form-btn" type="button">Next</button>
                         </div>
                         <div class="create-sav--btn__return hidden">
-                          <button type="button">Go back</button>
+                          <button class="form-btn" type="button">Go back</button>
                         </div>
                         <div class="create-sav--btn__cancel">
-                          <button type="button">Cancel</button>
+                          <button class="form-btn" type="button">Cancel</button>
                         </div>
                         <div class="create-sav--btn__add hidden">
-                          <button type="submit">Add saving</button>
+                          <button  class="form-btn" type="submit">Add saving</button>
                         </div>
                       </div>
                     </form>
                   </div>
-                  <div class="transfer-sav--block hidden">
-                    <form class="transfer-sav--card__form">
-                      <div data-transf="1" class="transfer-sav--goal__wrapper">
-                        <h4  class="transfer-sav--goal__msg transfer-sav__msg">Choose a goal of your savings to transfer money from</h4>
-                        <div class="transfer-sav--goal__selection"></div>
-                      </div>
-                      <div data-transf="2" class="transfer-sav--card__wrapper hidden">
-                        <h4  class="transfer-sav--card__msg transfer-sav__msg">Choose your card to transfer from</h4>
-                        <div class="transfer-card__selection"></div>
-                      </div>
-                      <div data-transf="3" class="transfer-sav-amount--cur-wrapper hidden">
-                        <div class="transfer-sav-amount--msg">
-                          <label for="transfer-sav-amount">Type saving amount</label>
-                          <input class="inputField_sav__transfer" type="number" id="transfer-sav--amount" name="tr_amount" />
+                  <div class="transfer-sav--block form-wrapper hidden">
+                    <form class="transfer-sav--card__form main-form--style">
+                      <div data-transf="1" class="transfer-sav--goal__wrapper fields-wrapper--style">
+                        <div class="form-field--wrapper">
+                          <h4  class="transfer-sav--goal__msg form-element-label transfer-sav__msg">Choose a goal of your savings to transfer money from</h4>
+                        <div class="transfer-sav--goal__selection form-element--value"></div>
                         </div>
-                        <div class="transfer-sav-currency--msg">
-                          <label for="transfer-sav--curr">Select currency</label>
-                          <select class="transfer-sav-currency" name="sav-currency" size="1" required>
+                      </div>
+                      <div data-transf="2" class="transfer-sav--card__wrapper fields-wrapper--style hidden">
+                        <div class="form-field--wrapper">
+                          <h4  class="transfer-sav--card__msg form-element-label transfer-sav__msg">Choose your card to transfer from</h4>
+                        <div class="transfer-card__selection form-element--value"></div>
+                      </div>
+                      </div>
+                      <div data-transf="3" class="transfer-sav-amount--cur-wrapper fields-wrapper--style hidden">
+                        <div class="transfer-sav-amount--msg form-field--wrapper">
+                          <label class="form-element-label" for="transfer-sav-amount">Type saving amount</label>
+                          <input class="inputField_sav__transfer form-element--value" type="number" id="transfer-sav--amount" name="tr_amount" />
+                        </div>
+                        <div class="transfer-sav-currency--msg form-field--wrapper">
+                          <label class="form-element-label" for="transfer-sav--curr">Select currency</label>
+                          <select class="transfer-sav-currency form-element--value" name="sav-currency" size="1" required>
                             <option class="transfer-sav--option" selected value="$">$</option>
                             <option class="transfer-sav--option" value="€">€</option>
                             <option class="transfer-sav--option" value="£">£</option>
@@ -245,28 +255,28 @@
                         </div>
                       </div>
                       <div class="transfer-sav--error--block hidden">
-                        <div class="transfer-sav--no-selected--block hidden">
+                        <div class="transfer-sav--no-selected--block error-field hidden">
                           <h4>Please, select one element to proceed.</h4>
                         </div>
-                        <div class="transfer-sav-positive hidden">
+                        <div class="transfer-sav-positive error-field hidden">
                           <h4>Please, enter positive transfer amount.</h4>
                         </div>
-                        <div class="transfer-sav-not-enough--money hidden">
+                        <div class="transfer-sav-not-enough--money error-field hidden">
                           <h4>You don't have enough money on this saving.</h4>
                         </div>
                       </div>
-                      <div class="transfer-sav--btns">
+                      <div class="transfer-sav--btns form-btns--wrapper">
                         <div class="transfer-sav--btn__continue">
-                          <button type="button">Next</button>
+                          <button class="form-btn" type="button">Next</button>
                         </div>
                         <div class="transfer-sav--btn__return hidden">
-                          <button type="button">Go back</button>
+                          <button class="form-btn" type="button">Go back</button>
                         </div>
                         <div class="transfer-sav--btn__cancel">
-                          <button type="button">Cancel</button>
+                          <button class="form-btn" type="button">Cancel</button>
                         </div>
                         <div class="transfer-sav--btn__add hidden">
-                          <button type="submit">Add saving</button>
+                          <button class="form-btn" type="submit">Transfer</button>
                         </div>
                       </div>
                     </form>
@@ -283,32 +293,38 @@
 
               <!-- transfer menu -->
               <div id="transfer" class="hidden content-filler content-wrapper">
-                <h5>Fill the form to transfer money to another person.</h5>
-                <div class="transfer-logic">
-                  <form class="transfer-form">
-                    <div data-transfer="1" class="transfer-person-block">
-                      <label for="transfer-card--id">Type user email
+                <h5 class="form-title">Fill the form to transfer money to another person.</h5>
+                <div class="transfer-logic form-wrapper">
+                  <form class="transfer-form main-form--style">
+                    <div data-transfer="1" class="transfer-person-block fields-wrapper--style">
+                      <div class="form-field--wrapper">
+                        <label class="form-element-label" for="transfer-card--id">Type user email
                       </label>
-                        <input class="inputField_id-card--transfer" type="text" id="transfer-amount" name="transfer_amount" />
+                        <input class="inputField_id-card--transfer form-element--value" type="text" id="transfer-amount" name="transfer_amount" />
+                      </div>
                     </div>
-                    <div data-transfer="2" class="transfer-details--wrapper hidden">
-                        <h5>Specify the details about your transfer.</h5>
-                        <h4  class="transfer-card__msg">Choose one of your cards</h4>
-                        <div class="transfer-money--card__selection"></div>
-                        <div class="transfer-amount--msg">
-                          <label for="transfer-amount">Type transfer amount</label>
-                          <input class="inputField_transfer" type="number" id="transfer-amount" name="transfer_amount" />
+                    <div data-transfer="2" class="transfer-details--wrapper fields-wrapper--style hidden">
+                      <div class="form-field--wrapper">
+                        <h4 class="form-title ">Specify the details about your transfer</h4>
+                      </div>
+                        <div class="form-field--wrapper">
+                        <h4  class="transfer-card__msg form-element-label">Choose one of your cards</h4>
+                        <div class="transfer-money--card__selection form-element--value"></div>
                         </div>
-                        <div class="transfer-currency--msg">
-                          <label for="transfer--curr">Select currency</label>
-                          <select class="transfer-currency" name="transfer-currency" size="1" required>
+                        <div class="transfer-amount--msg form-field--wrapper">
+                          <label class="form-element-label" for="transfer-amount">Type transfer amount</label>
+                          <input class="inputField_transfer form-element--value" type="number" id="transfer-amount" name="transfer_amount" />
+                        </div>
+                        <div class="transfer-currency--msg form-field--wrapper">
+                          <label class="form-element-label" for="transfer--curr">Select currency</label>
+                          <select class="transfer-currency form-element--value" name="transfer-currency" size="1" required>
                             <option class="transfer-cur--option" selected value="$">$</option>
                             <option class="transfer-cur--option" value="€">€</option>
                             <option class="transfer-cur--option" value="£">£</option>
                           </select>
                         </div>
                       </div>
-                      <div class="transfer--error--block hidden">
+                      <div class="transfer--error--block fields-wrapper--style hidden">
                         <div class="transfer-no-selected--block hidden">
                           <h4>Please, fill the form to proceed.</h4>
                         </div>
@@ -322,18 +338,18 @@
                           <h4>You've reached your card's limit.</h4>
                         </div>
                       </div>
-                      <div class="transfer--btns">
+                      <div class="transfer--btns form-btns--wrapper fields-wrapper--style">
                         <div class="transfer--btn__continue">
-                          <button type="button">Next</button>
+                          <button class="form-btn" type="button">Next</button>
                         </div>
                         <div class="transfer--btn__return hidden">
-                          <button type="button">Go back</button>
+                          <button class="form-btn" type="button">Go back</button>
                         </div>
                         <div class="transfer--btn__cancel">
-                          <button type="button">Cancel</button>
+                          <button class="form-btn" type="button">Cancel</button>
                         </div>
                         <div class="transfer--btn__transfer hidden">
-                          <button type="submit">Transfer</button>
+                          <button class="form-btn" type="submit">Transfer</button>
                         </div>
                       </div>
                     </form>
@@ -347,10 +363,10 @@
                       <button type="button">Ok</button>
                     </div> 
                       </div>
-                      <div class="often-transfer--msg hidden">
+                      <div class="often-transfer--msg error-field  hidden">
                         <h4>You can't request a loan more than once a month. Try again later!</h4> 
                       </div>
-                      <div class="limit-transfer--msg hidden">
+                      <div class="limit-transfer--msg error-field hidden">
                         <h4>Requested amount is above the limit. Try again!</h4> 
                     </div>
                   </div>
