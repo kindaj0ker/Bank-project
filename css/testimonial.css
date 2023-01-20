@@ -1,3 +1,6 @@
+:root {
+  --background-mode: rgba(128, 126, 126, 0.664);
+}
 body {
   margin: 0;
   padding: 0;
@@ -8,24 +11,214 @@ body {
   border-radius: 25px;
   margin: 1.5rem;
 }
+.bank-cards--block {
+  display: flex;
+  flex-direction: column;
+  margin: 1rem 0;
+}
+.promo-text--wrapper {
+  margin: 0 2rem;
+}
+.promoted-card--wrapper {
+  align-self: center;
+  display: flex;
+  flex-direction: column;
+  width: 90%;
+  height: 15rem;
+  border-radius: 15px;
+  background-image: url(../img/promo-card--cover.png);
+  background-size: cover;
+}
+
+.promo-text--wrapper h3 {
+  margin: 2rem;
+  font-size: 3rem;
+  color: white;
+  font-family: var(--element-font);
+}
+.promo-text--wrapper h5 {
+  margin: 2rem;
+  font-size: 1.3rem;
+  color: white;
+  font-family: var(--element-font);
+}
+.promo-card--btn {
+  color: white;
+  background-color: rgb(1, 1, 22);
+  border-radius: 15px;
+  margin: 0rem 4rem;
+  padding: 0.5rem;
+  font-size: 0.9rem;
+  font-family: var(--element-font);
+}
+.promo-card--btn:hover {
+  cursor: pointer;
+  background-color: white;
+  color: rgb(1, 1, 22);
+}
+
+.bank-cards--title {
+  padding: 1rem;
+}
+.bank-cards--title h2 {
+  font-size: 2.4rem;
+  margin: 1rem 3rem;
+  font-family: var(--element-font);
+}
+.bank-cards--title h3 {
+  font-size: 1.5rem;
+  color: rgb(85, 79, 79);
+  margin: 1rem 3rem;
+  font-family: var(--element-font);
+}
+/* cards */
+.debit-cards {
+  margin: 3rem 0rem;
+  padding: 1rem;
+  display: flex;
+  flex-direction: row;
+  align-self: center;
+  justify-content: space-around;
+  background-color: var(--background-mode);
+}
+.debit-card--wrapper {
+  background-color: whitesmoke;
+  justify-content: center;
+  align-content: center;
+  width: 18%;
+  border: 0.1rem solid gray;
+  border-radius: 15px;
+  display: flex;
+  flex-direction: column;
+}
+.debit-card--img {
+  margin: 1rem auto;
+  padding: 0.8rem;
+  background-color: gainsboro;
+  border-radius: 10px;
+}
+.debit-card--img img {
+  width: 11rem;
+}
+.debit-card--info {
+  margin: 0.5rem 1rem;
+  padding: 0.2rem;
+}
+.debit-card--info h4 {
+  margin: 0.2rem;
+  font-size: 1.3rem;
+  font-family: var(--element-font);
+}
+.debit-card--info h5 {
+  margin: 0.2rem;
+  font-size: 0.9rem;
+  color: gray;
+  font-family: var(--element-font);
+}
+.learn-more--btn {
+  align-self: center;
+  border: none;
+  margin: 0.5rem;
+  font-size: 1.1rem;
+  font-family: var(--element-font);
+  color: orange;
+}
+.learn-more--btn:hover {
+  cursor: pointer;
+  color: red;
+}
+/* cards info */
+.more-info--wrapper {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+}
+.card-details--wrapper {
+  font-family: var(--element-font);
+  background-color: rgba(255, 255, 255, 0.596);
+  width: 70%;
+  padding: 2rem 6rem;
+  margin: 0;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+.details-title {
+  font-size: 1.5rem;
+  margin: 1rem 0.3rem;
+}
+.card-details--content {
+  display: flex;
+  flex-direction: column;
+  margin: 0 1rem;
+  width: 60%;
+}
+.card-bonus--block {
+  display: flex;
+  flex-direction: column;
+  margin: 0.5rem 0;
+}
+.card-bonus {
+  display: flex;
+  flex-direction: row;
+  padding: 0.2rem;
+  align-items: center;
+  margin: 0;
+}
+.card-bonus h5 {
+  padding: 0.2rem;
+  margin: 0;
+  font-size: 1rem;
+}
+.card-img--detail {
+  width: 40%;
+  margin: auto 0;
+}
+.card-img--detail img {
+  width: 100%;
+}
+.tick-img img {
+  width: 1.5rem;
+  margin: 0rem 0.3rem;
+  padding: 0;
+}
+.get-card--btn button {
+  border: none;
+  margin: 1rem;
+  font-size: 1.5rem;
+  padding: 0.4rem 1.3rem;
+  font-family: var(--element-font);
+  color: orange;
+  background-color: rgb(5, 39, 90);
+}
+.get-card--btn button:hover {
+  cursor: pointer;
+  background-color: orange;
+  color: rgb(5, 39, 90);
+}
+/* slider */
+
 .slider {
+  align-self: center;
   overflow: hidden;
-  margin: 0rem auto;
+  margin: 4rem auto;
   padding: 0;
   position: relative;
   width: 30%;
-  height: 25rem;
+  height: 20rem;
 }
 .slide {
   position: absolute;
   margin: 1rem auto;
-  padding: 1rem;
+  padding: 0;
   width: 100%;
   height: 100%;
   display: grid;
   grid-template-rows: 2fr 1fr;
   background-color: rgba(182, 181, 179, 0.85);
-  border-radius: 25px;
+  border-radius: 15px;
   box-shadow: 0.3rem 0.3rem 0.6rem rgb(138, 133, 133);
   transition: transform 1s;
 }
@@ -50,7 +243,7 @@ body {
   margin: 0.5rem;
   padding: 0.5rem;
   max-width: 80%;
-  font-size: 1.2rem;
+  font-size: 1.1rem;
 }
 .slider-bottom {
   height: max-content;
@@ -91,6 +284,7 @@ body {
   align-items: center;
 }
 .arrows-slider {
+  margin: 0.1rem;
   padding: 0.1rem;
   background-color: white;
   border-radius: 45px;
@@ -100,10 +294,10 @@ body {
   z-index: 10;
 }
 .arrow-right--slider {
-  right: 3%;
+  right: -6%;
   transform: translate(-50%, -50%);
 }
 .arrow-left--slider {
-  left: 3%;
+  left: 6%;
   transform: translate(-50%, -50%);
 }

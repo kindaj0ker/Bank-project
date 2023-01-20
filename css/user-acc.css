@@ -3,6 +3,7 @@
   --header-font: "Playfair Display SC", serif;
   --text-font: "Lato", sans-serif;
   --element-font: "Dosis", sans-serif;
+  --green-color: rgb(36, 161, 117);
   --orange-color: #ff5e00;
   --gray-color: rgb(202, 200, 199);
   --menu-color: rgb(23, 23, 27);
@@ -78,6 +79,8 @@ body {
   border-radius: 15px;
 }
 .greeting {
+  font-family: var(--menu-font);
+  font-size: 1.25rem;
   color: white;
   padding: 0.5rem;
   margin: 1.5rem 0 0.5rem 0.5rem;
@@ -104,39 +107,35 @@ body {
 .box-style {
   display: flex;
   background-color: var(--small-block);
+  color: white;
   border-radius: 15px;
   padding: 0.5rem;
   margin: 0.5rem;
+  font-size: 0.9rem;
+  font-family: var(--menu-font);
+  justify-content: center;
 }
-
-.log-out--timer h5 {
-  color: white;
-  font-weight: 200;
-}
-.timer {
-  color: white;
-  font-weight: 800;
+.log-timer {
+  font-family: var(--menu-font);
+  font-size: 0.9rem;
 }
 /* geolocation style */
-.user-date--time__box {
-  color: white;
-}
 
 /* main user content styles */
 /* transactions */
 .transactions {
   display: hidden;
   flex-direction: column;
-  width: 100%;
+  justify-content: space-around;
   align-items: flex-start;
 }
 .transaction {
-  margin: 0.2rem auto;
+  margin: 0.3rem auto;
   padding: 0.3rem;
   font-family: var(--element-font);
   display: flex;
   flex-direction: row;
-  width: 50%;
+  width: 11rem;
   border-radius: 10px;
   background-color: white;
   justify-content: space-between;
@@ -163,6 +162,8 @@ body {
 }
 .transaction--date {
   color: grey;
+  font-size: 0.8rem;
+  text-align: center;
 }
 
 .withdrawal {
@@ -179,15 +180,24 @@ body {
 }
 /* CARDS ZONE */
 .no-transactions__block {
-  background-color: var(--blue-color);
-  border: 0.1rem solid black;
+  display: flex;
+  background-color: var(--orange-color);
+  margin: 0.8rem;
+  padding: 0.5rem;
+  color: white;
+  font-size: 1.1rem;
+  font-family: var(--text-font);
 }
-.user-cards__zone {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  background-color: azure;
+#user-cards__zone {
+  display: flex;
+  flex-direction: row;
+}
+.user-cards-info {
+  display: flex;
+  flex-direction: column;
 }
 .total-card__info {
+  margin: 0.5rem 0;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
@@ -196,14 +206,20 @@ body {
   display: flex;
   flex-direction: row;
   justify-content: space-evenly;
+  width: 50%;
 }
 .card-info__block {
   margin: 0 0.2rem;
   display: flex;
   flex-direction: column;
-  font-family: var(--element-font);
+  font-family: var(--menu-font);
+  color: var(--field-color);
 }
-
+.balance-info__block {
+  font-family: var(--menu-font);
+  font-size: 0.9rem;
+  color: white;
+}
 .card-number {
   margin: 0;
 }
@@ -215,12 +231,12 @@ body {
 }
 .transactions-init {
   margin: 0.5rem 0;
-  color: var(--blue-color);
+  color: var(--gray-color);
   text-decoration: underline;
   font-size: 1.1rem;
 }
 .transactions-init:hover {
-  color: var(--gray-color);
+  color: var(--orange-color);
   cursor: pointer;
 }
 .user-card__img {
@@ -236,93 +252,35 @@ body {
 .sorted-btns {
   display: flex;
   flex-direction: row;
+  color: var(--field-color);
+  font-size: 1rem;
+  font-family: var(--menu-font);
 }
+.sorted-btn {
+  margin: 0.2rem;
+  padding: 0.2rem;
+}
+
 .sorting-box {
   display: flex;
   flex-direction: column;
-  float: right;
   justify-content: space-evenly;
 }
 /* Create new card */
-
-.create-card__box {
-  margin: 1rem;
-  padding: 1rem;
-  display: block;
-  width: 100%;
-  align-self: center;
-  background-color: var(--gray-color);
-  border-radius: 15px;
-}
-.create-card__box:hover {
-  cursor: pointer;
-}
-.create-p {
-  margin: auto 2rem;
-  text-align: center;
-  font-size: 1.2rem;
-}
-.register-form {
-  width: 100%;
-  display: grid;
-}
-.card-option {
-  color: black;
-  outline: none;
-}
-
-.form-field {
-  font-family: var(--text-font);
-  background-color: rgb(38, 42, 52);
-  border-radius: 15px;
-  margin: 0.3rem 0rem;
-  padding: 0.3rem 0rem;
-}
-
-.form-field label {
-  color: rgb(127, 137, 154);
-  font-size: 1rem;
-  margin: 0rem 0.5rem;
-  padding: 0;
-}
-.form-field img {
-  background-color: whitesmoke;
-  border-radius: 10px;
-  padding: 0.2rem;
-  margin: 0.2rem;
-  width: 1.5rem;
-}
-.get-new--card__wrapper {
-  margin: 0.5rem;
-  padding: 0.5rem;
-  border-radius: 10px;
-}
-.get-new--card__wrapper:hover {
-  cursor: pointer;
+.creation {
+  margin: 1.5rem;
+  color: orange;
   background-color: white;
-  color: orange;
-}
-.card-creation--btns--wrapper {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-around;
-}
-.card-btn {
-  align-self: center;
-  background-color: orange;
-  color: white;
-  border-radius: 15px;
-  margin: 1rem;
-  width: 100%;
   padding: 0.5rem;
-  display: block;
-  box-shadow: 0.3rem 0.3rem 0.4rem gray;
-  font-family: var(--element-font);
-  font-size: 1.5rem;
+  justify-content: center;
+  font-size: 1.2rem;
+  font-family: var(--menu-font);
+  width: fit-content;
 }
-.card-btn:hover {
-  background: white;
-  color: orange;
+.creation:hover {
+  cursor: pointer;
+  color: white;
+  background-color: var(--orange-color);
 }
 .waiting-block {
   display: flex;
@@ -334,6 +292,11 @@ body {
   font-size: 1.3rem;
 }
 /* Savings */
+.total-savings--balance--wrapper {
+  font-family: var(--menu-font);
+  margin: 0.5rem;
+  font-size: 1.1rem;
+}
 .savings-block {
   display: flex;
   flex-direction: column;
@@ -344,6 +307,7 @@ body {
   color: white;
 }
 .manage-sav--btn {
+  font-family: var(--element-font);
   margin: 0.5rem;
   font-size: 1.3rem;
 }
@@ -355,6 +319,7 @@ body {
 .manage-sav {
   margin: 0.8rem;
   font-size: 1rem;
+  font-family: var(--element-font);
 }
 .manage-sav:hover {
   cursor: pointer;
@@ -386,9 +351,10 @@ body {
   border: 0.2rem solid black;
   border-radius: 10px;
 }
+
 .saving-category__name {
   font-family: var(--element-font);
-  margin: 0.2rem auto;
+  text-align: center;
 }
 .saving-category__img:hover {
   cursor: grab;
@@ -398,11 +364,20 @@ body {
 .total-savings--balance {
   color: white;
 }
+.saving-balance--wrapper {
+  margin-top: 1rem;
+}
 .saving-balance {
+  padding: 0.5rem;
   color: white;
+  font-size: 1.1rem;
+  font-family: var(--menu-font);
 }
 .show-all-sav--btn {
   align-self: flex-end;
+  font-family: var(--element-font);
+  font-size: 1.1rem;
+  margin: 0.5rem 1rem;
 }
 .show-all-sav--btn h4 {
   text-decoration: underline;
@@ -412,18 +387,13 @@ body {
   cursor: pointer;
 }
 /* create new saving */
+
 .new-saving--category__img {
   margin: 0.3rem;
   width: 4rem;
   background-color: aliceblue;
   border: 0.2rem solid black;
   border-radius: 10px;
-}
-
-.sav-new--goal__selection {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
 }
 
 [type="radio"]:checked + img {
@@ -462,6 +432,8 @@ body {
   flex-direction: row;
   width: 95%;
   align-self: center;
+  height: fit-content;
+  min-height: 3rem;
 }
 .form-element-label {
   display: flex;
@@ -479,11 +451,12 @@ body {
   padding: 0.3rem;
   display: flex;
   flex-direction: row;
-  width: 60%;
+  width: 50%;
   justify-content: space-around;
   margin: 0.3rem;
   font-family: var(--menu-font);
   font-size: 0.9rem;
+  padding: 0.1rem;
 }
 .form-title {
   font-size: 1.2rem;
@@ -529,6 +502,41 @@ body {
   margin: 0.8rem;
   color: var(--orange-color);
   font-size: 1.2rem;
+}
+.waiting-block--wrapper {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-content: center;
+}
+
+.waiting-block--wrapper h5 {
+  color: var(--green-color);
+  font-family: var(--element-font);
+  font-size: 1.4rem;
+  margin: 0.8rem;
+}
+
+.result-wrapper {
+  display: flex;
+  margin: 1rem;
+  padding: 0.5rem;
+  justify-content: center;
+}
+.success-result-msg {
+  color: var(--green-color);
+  font-size: 1.4rem;
+  font-family: var(--element-font);
+  margin: 0.5rem;
+}
+.unsuccess-result-msg {
+  color: var(--orange-color);
+  font-family: var(--element-font);
+  font-size: 1.4rem;
+  margin: 0.5rem;
+}
+.success-sign {
+  width: 2rem;
 }
 
 /* estra classes */

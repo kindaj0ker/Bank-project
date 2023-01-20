@@ -66,7 +66,7 @@ const inputTransferSavCurr = document.querySelector(".transfer-sav-currency");
 const transferGoalsContainer = document.querySelector(
   ".transfer-sav--goal__selection"
 );
-const transferForm = document.querySelector(".transfer-sav--card__form");
+const transferMoneyForm = document.querySelector(".transfer-sav--card__form");
 const transferCardsContainer = document.querySelector(
   ".transfer-card__selection"
 );
@@ -114,6 +114,7 @@ function showAllSavGoals() {
     newSavGoalsContainer.insertAdjacentHTML("afterbegin", html);
   });
   manageSavBtn.addEventListener("click", function () {
+    console.log("fdbm");
     manageTypes.forEach((m) => m.classList.toggle("hidden"));
   });
 }
@@ -124,7 +125,7 @@ function htmlSaving(s) {
         <img class="oper-group__img" src="../img/${s.savingType}-saving.png"/>
         <div class="transaction-name--date__block">
               <span class="transaction--name">${s.savingType}</span>
-              <span class="transaction--date">Today</span>
+              <span class="transaction--date">${s.date}</span>
             </div>
             <div class="transaction-amount">
               <span class="transaction-currency">${s.currency}</span>
@@ -142,7 +143,6 @@ export function cardBalance(c) {
   const tr = curUser.transactions.filter(function (transaction) {
     return transaction.cardID === c;
   });
-  console.log(c, tr, showBalance(tr));
   return showBalance(tr);
 }
 
@@ -232,7 +232,7 @@ function revealSavings(e) {
       const html = htmlSaving(s);
       savingsRevealingBlock.insertAdjacentHTML("beforeend", html);
       balance =
-        s.type === "deposit"
+        s.type === "withdrawal"
           ? (balance += Number(s.amount))
           : (balance -= Number(s.amount));
       currencySaving = s.currency;
@@ -241,7 +241,7 @@ function revealSavings(e) {
 
   const balanceHtml = `
         <div class="saving-balance--wrapper">
-            <h5 class="saving-balance">Balance:${balance} ${currencySaving}</h5>
+            <h5 class="saving-balance">Balance:  ${balance} ${currencySaving}</h5>
         </div>`;
   savingsRevealingBlock.insertAdjacentHTML("afterbegin", balanceHtml);
 }
@@ -255,17 +255,16 @@ let curNewSavStep = 1;
 manageTypes.forEach((t) => {
   t.addEventListener("click", function (e) {
     savingsRevealingBlock.innerHTML = "";
+    categoriesBlock.classList.add("hidden");
     if (checkUserMoney() < 0) {
       userSavNoMoneyError.classList.remove("hidden");
     } else {
       manageSavBlock.classList.add("hidden");
       manageTypes.forEach((t) => t.classList.toggle("hidden"));
       if (e.target === createSavBtn) {
-        categoriesBlock.classList.add("hidden");
         createSavBlock.classList.remove("hidden");
       }
       if (e.target === transferSavBtn) {
-        categoriesBlock.classList.remove("hidden");
         transferSavBlock.classList.remove("hidden");
       }
     }
@@ -493,9 +492,12 @@ function showContentOnTransferStep() {
 }
 
 //Cancel transfer money from saving
-cancelTransferSavBtn.addEventListener("click", function () {
+cancelTransferSavBtn.addEventListener("click", function (e) {
+  console.log(e);
   curTransferSavStep = 1;
   if (curTransferSavStep === 1) {
+    validationTransferSavSteps();
+    nothingSelectedTransferSavBlock.classList.add("hidden");
     addTransferSavBtn.classList.add("hidden");
     nextTransferSavBtn.classList.remove("hidden");
     returnTransferSavBtn.classList.add("hidden");
@@ -504,8 +506,7 @@ cancelTransferSavBtn.addEventListener("click", function () {
   transferSavBlock.classList.add("hidden");
   categoriesBlock.classList.remove("hidden");
   manageSavBlock.classList.remove("hidden");
-  transferForm.reset();
-  validationTransferSavSteps();
+  transferMoneyForm.reset();
 });
 
 //Check new savings input
@@ -555,7 +556,6 @@ const validationTransferSteps = {
     }
   },
   3: () => {
-    console.log(checkSavTypeMoney());
     if (inputTransferSavAmount.value < 0) {
       transferErrorBlock.classList.remove("hidden");
       positiveTransferSavBlock.classList.remove("hidden");
@@ -605,11 +605,11 @@ nextTransferSavBtn.addEventListener("click", showNextContentTransfer);
 returnTransferSavBtn.addEventListener("click", goBackTransfer);
 
 //Submit transfer money froms savings
-transferForm.addEventListener("submit", function (e) {
+transferMoneyForm.addEventListener("submit", function (e) {
   e.preventDefault();
   if (validationTransferSavSteps() === true) {
-    transferForm.classList.add("hidden");
-    transferForm.reset();
+    transferMoneyForm.classList.add("hidden");
+    transferMoneyForm.reset();
     curTransferSavStep = "1";
     returnTransferSavBtn.classList.add("hidden");
     nextTransferSavBtn.classList.remove("hidden");

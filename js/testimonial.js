@@ -4,16 +4,19 @@ const btnSliderLeft = document.querySelector(".arrow-left--slider");
 const btnSliderRight = document.querySelector(".arrow-right--slider");
 const slides = document.querySelectorAll(".slide");
 const allDebitCardsContainer = document.querySelector("debit-cards");
+const learnMoreBlock = document.querySelector(".more-info--wrapper");
+const allLearnBtns = document.querySelectorAll(".learn-more--btn");
+const allInfo = document.querySelectorAll(".card-details--wrapper ");
 
-const allCardsTypes = ["STANDART", "PLUS", "VIP", "PREMIUM"];
-
-//Add all debit cards
-function allDebitCards() {
-  allCardsTypes.forEach((t)=>{
-  const html=
-  }
-  allDebitCardsContainer.insertAdjacentHTML("aftebegin", html))
-}
+//Show more info
+allLearnBtns.forEach((btn) =>
+  btn.addEventListener("click", function (e) {
+    allInfo.forEach((a) => a.classList.add("hidden"));
+    const cardType = e.target.id.split("-")[0] + "-" + "info";
+    const curInfo = document.getElementById(cardType);
+    curInfo.classList.toggle("hidden");
+  })
+);
 
 // Slider;
 let curSlide = 0;

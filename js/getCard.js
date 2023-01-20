@@ -1,5 +1,5 @@
 "use strict";
-import { User } from "./userAcc.js";
+import { User } from "./creatUser.js";
 
 const registerForm = document.querySelector(".register-content");
 const createAccBtn = document.querySelector(".create-acc--btn");
@@ -91,9 +91,7 @@ const isValidForm = function () {
     .map((input) => {
       if (input.value == "") {
         return false;
-      }
-
-      return true;
+      } else true;
     })
     .every(Boolean);
 
@@ -104,16 +102,16 @@ const isValidForm = function () {
   );
 };
 
-const firstName = fName.value;
-const lastName = lName.value;
-const bDay = ageField.value;
-const userEmail = email.value;
-const password = password.value;
-const cardPlan = plan.value;
-
 createAccBtn.addEventListener("click", function (e) {
   e.preventDefault();
   if (isValidForm(e)) {
+    const firstName = fName.value;
+    const lastName = lName.value;
+    const bDay = ageField.value;
+    const userEmail = email.value;
+    const password = password.value;
+    const cardPlan = plan.value;
+
     const user = new User(
       firstName,
       lastName,

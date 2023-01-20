@@ -3,7 +3,7 @@ import { User } from "./creatUser.js";
 import { showBalance } from "./userAcc.js";
 import { onlyNumbers, digitsRestriction, cardBalance } from "./userSavings.js";
 
-const transferBlock = document.querySelector(".transfer-logic");
+const transferTitle = document.querySelector(".transfer-title");
 const transferMoneyForm = document.querySelector(".transfer-form");
 const transferFieldsWrapper = document.querySelector(
   ".transfer-details--wrapper"
@@ -80,9 +80,9 @@ export function showAllUserTransferCards() {
       <div class="cards-in_form__wrapper">
         <div class="card-wrapper">
           <label>
-            <input class="cards-types--form" type="radio" id="html" name="transfer-card" value="${
+            <input class="cards-types--form" type="radio" value="${
               c.id
-            }"></input>
+            } name="transfer-money--card"></input>
             <img class="user-card__img" src="../img/${c.plan.toUpperCase()}.png" /></label>
         </div>
         <h4>Balance ${showBalance(sortTransactions(c))}</h4>
@@ -128,8 +128,8 @@ const validationTransfer = {
   },
   2: () => {
     const checkedCard = Array.from(
-      document.querySelectorAll('input[name="transfer-card"]:checked')
-    )[0];
+      document.querySelectorAll('input[name="transfer-money--card"]:checked')
+    );
     const inputAmount = Number(transferAmount.value);
     if (checkedCard.length === 0) {
       transferErrorBlock.classList.remove("hidden");
@@ -141,7 +141,7 @@ const validationTransfer = {
       transferErrorNothingSelected.classList.add("hidden");
       return false;
     }
-    if (inputAmount > cardBalance(checkedCard.value)) {
+    if (inputAmount > cardBalance(checkedCard.id)) {
       transferErrorBlock.classList.remove("hidden");
       transferNotEnoughMoney.classList.remove("hidden");
       return false;
@@ -151,13 +151,14 @@ const validationTransfer = {
       transferErrorPositiveAmount.classList.remove("hidden");
       return false;
     } else {
+      transferTitle.classList.add("hidden");
       transferErrorBlock.classList.add("hidden");
       transferErrorNothingSelected.classList.add("hidden");
       transferErrorPositiveAmount.classList.add("hidden");
       transferNotEnoughMoney.classList.add("hidden");
       transferMoneyAmount = inputAmount;
       transferMoneyCur = transferCurrency.value;
-      transferMoneyFrom = checkedCard.id;
+      transferMoneyFrom = checkedCard[0].id;
       return true;
     }
   },
@@ -254,6 +255,7 @@ transferMoneyForm.addEventListener("submit", function (e) {
       transferApproved.classList.remove("hidden");
       waitingTransferBlock.classList.add("hidden");
       transferBtnReturn.classList.add("hidden");
+      transferTitle.classList.remove("hidden");
       showTransferFields();
       showAllUserTransferCards();
     }, 3000);

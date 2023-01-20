@@ -54,14 +54,15 @@
             <div id="home" class="user-cards__zone content-filler content-wrapper hidden">
               <div class="create-card__box">
                 <div class="get-new--card__wrapper">
-                  <h5 class="create-p creation">Get a new card</h5>
+                  <h5 class="creation">GET a new CARD <span>+</span></h5>
                   </div>
-                  <form class="card-register-form hidden">
-                    <div class="form-field full-width--fields">
+                  <form class="card-register-form main-form--style hidden">
+                    <div class="form-field fields-wrapper--style">
+                      <h5 class="form-title">Fill the form to get a new card</h5>
                       <!-- card's plans -->
-                      <div class="plans-wrapper new-card--wrapper">
-                      <label for="plan">Choose your plan</label><br />
-                      <select class="new-plan" name="plan" size="1" required>
+                      <div class="form-field--wrapper new-card--wrapper">
+                      <label class="form-element-label" for="plan">Choose your plan</label><br />
+                      <select class="new-plan form-element--value" name="plan" size="1" required>
                         <option class="card-option" value="Standart">Standart FREE</option>
                         <option class="card-option" selected value="Plus">Plus $5.99/month</option>
                         <option class="card-option" value="Premium">Premium $9.99/month</option>
@@ -69,25 +70,29 @@
                       </select>
                       </div>
                       <!-- currency available -->
-                      <div class="currency-wrapper new-card--wrapper">
-                      <label for="plan">Select a currency</label><br />
-                      <select class="new-currency" name="currency" size="1" required>
+                      <div class="currency-wrapper form-field--wrapper">
+                      <label class="form-element-label" for="plan">Select a currency</label><br />
+                      <select class="new-currency form-element--value" name="currency" size="1" required>
                         <option class="currency-option" value="$">$</option>
                         <option class="currency-option" selected value="€">€</option>
                         <option class="currency-option" value="£">£</option>
                       </select>
                       </div>
                         </div>
-                        <div class="card-creation--btns--wrapper">  
-                      <button type="submit" class="create-new--card__btn card-btn" />Get a Card</button>
-                      <button type="button"class="cancel-card--creation card-btn" />Cancel</button>
+                        <div class="card-creation--btns--wrapper form-btns--wrapper">  
+                      <button type="submit" class="create-new--card__btn form-btn card-btn" />Get a Card</button>
+                      <button type="button"class="cancel-card--creation form-btn card-btn" />Cancel</button>
                       </div>  
                   </form>
-                  <div class="waiting-block hidden">
-                    <h5 class="waiting-sign">Waiting for bank approval</h5><div class="loading-spinner"></div></div>
-                    <div class="unsuccesful-card--pending hidden">
-                      <h4>You can not open a new card more than once a month. If you need futher help, please contact our support team or try again later.</h4><span class="close-unsuccesful--msg"><img src="../img/close-banner-btn.svg"/></span></div>
+                  <div class="waiting-block waiting-block--wrapper hidden">
+                    <h5 class="waiting-sign">Waiting for bank approval</h5><div class="loading-spinner"></div>
+                  </div>
+                    <div class="unsuccesful-card--pending unsuccess-result-msg hidden">
+                      <h4>You can not open a new card more than once a month. If you need futher help, please contact our support team or try again later.</h4><span class="close-unsuccesful--msg"><img src="../img/close-banner-btn.svg"/></span>
+                    </div>
               </div>
+              <div class="user-cards-info"></div>
+              <div class="transactions-info--wrapper"></div>
             </div>
               <!-- loan menu -->
             <div id="loan" class="request-loan__block content-filler content-wrapper hidden">
@@ -120,6 +125,20 @@
                           <h4>Please, enter positive loan amount.</h4>
                         </div>
                       </div>
+                      <div class="loan-result--msgs fields-wrapper--style hidden">
+                      <div class="successful-loan--msg result-wrapper hidden">
+                        <h4 class="success-result-msg">Operation successfully completed</h4>
+                        <span>
+                          <img class="success-sign" src="../img/success-sign.svg"/>
+                        </span>
+                      </div>
+                      <div class="often-loan--msg result-wrapper  hidden">
+                        <h4 class="unsuccess-result-msg" >You can't request a loan more than once a month. Try again later!</h4> 
+                      </div>
+                      <div class="limit-loan--msg result-wrapper hidden">
+                        <h4 class="unsuccess-result-msg">Requested amount is above the limit. Try again!</h4> 
+                      </div>
+                      </div>
                       <div class="loan--btns form-btns--wrapper fields-wrapper--style">
                         <div class="loan-btn__request form-btn-wrap">
                           <button class="form-btn" type="submit">Request</button>
@@ -132,22 +151,8 @@
                         </div>
                       </div>
                     </form>
-                    <div class="waiting-loan--block hidden fields-wrapper--style">
+                    <div class="waiting-loan--block waiting-block--wrapper hidden">
                     <h5 class="waiting-sign">Waiting for bank approval</h5><div class="loading-spinner"></div>
-                  </div>
-                    <div class="loan-result--msgs hidden fields-wrapper--style">
-                      <div class="successful-loan--msg hidden">
-                    <h4>Operation successfully completed.</h4>
-                    <div class="loan-okay--btn">
-                      <button type="button">Ok</button>
-                    </div> 
-                      </div>
-                      <div class="often-loan--msg hidden">
-                        <h4>You can't request a loan more than once a month. Try again later!</h4> 
-                      </div>
-                      <div class="limit-loan--msg hidden">
-                        <h4>Requested amount is above the limit. Try again!</h4> 
-                    </div>
                   </div>
                 </div> 
               </div>
@@ -175,7 +180,7 @@
                     <form class="create-new--sav__form main-form--style">
                       <div data-step="1" class="create-sav--goal__wrapper fields-wrapper--style">
                         <div class="form-field--wrapper">
-                          <h4  class="create-sav--goal__msg new-sav__msg form-element-label">Choose a goal of your savings</h4>
+                          <h4  class=" new-sav__msg form-element-label">Choose a goal of your savings</h4>
                         <div data-content="sav-goal__selection" class="sav-new--goal__selection form-element--value"></div>
                         </div>
                       </div>
@@ -242,7 +247,7 @@
                       </div>
                       <div data-transf="3" class="transfer-sav-amount--cur-wrapper fields-wrapper--style hidden">
                         <div class="transfer-sav-amount--msg form-field--wrapper">
-                          <label class="form-element-label" for="transfer-sav-amount">Type saving amount</label>
+                          <label class="form-element-label" for="transfer-sav-amount">Type transfer amount</label>
                           <input class="inputField_sav__transfer form-element--value" type="number" id="transfer-sav--amount" name="tr_amount" />
                         </div>
                         <div class="transfer-sav-currency--msg form-field--wrapper">
@@ -281,8 +286,11 @@
                       </div>
                     </form>
                   </div>
-                  <div class="successful-sav--msg hidden">
-                   <h4>Operation successfully completed</h4> 
+                  <div class="successful-sav--msg result-wrapper hidden">
+                    <h4 class="success-result-msg">Operation successfully completed</h4>
+                    <span>
+                        <img class="success-sign" src="../img/success-sign.svg"/>
+                    </span>
                   </div>
               </div>
               <div class="categories-block">
@@ -293,7 +301,7 @@
 
               <!-- transfer menu -->
               <div id="transfer" class="hidden content-filler content-wrapper">
-                <h5 class="form-title">Fill the form to transfer money to another person.</h5>
+                <h5 class="form-title transfer-title">Fill the form to transfer money to another person.</h5>
                 <div class="transfer-logic form-wrapper">
                   <form class="transfer-form main-form--style">
                     <div data-transfer="1" class="transfer-person-block fields-wrapper--style">
@@ -324,21 +332,21 @@
                           </select>
                         </div>
                       </div>
-                      <div class="transfer--error--block fields-wrapper--style hidden">
-                        <div class="transfer-no-selected--block hidden">
+                      <div class="transfer--error--block error--wrapper hidden">
+                        <div class="transfer-no-selected--block error-field hidden">
                           <h4>Please, fill the form to proceed.</h4>
                         </div>
-                        <div class="no-user hidden">
+                        <div class="no-user error-field hidden">
                           <h4>No user found. Please check the email or try again later.</h4>
                         </div>
-                        <div class="transfer-positive hidden">
+                        <div class="transfer-positive error-field  hidden">
                           <h4>Please, enter positive transfer amount.</h4>
                         </div>
-                        <div class="transfer-not--enough_money hidden">
+                        <div class="transfer-not--enough_money error-field hidden">
                           <h4>You've reached your card's limit.</h4>
                         </div>
                       </div>
-                      <div class="transfer--btns form-btns--wrapper fields-wrapper--style">
+                      <div class="transfer--btns form-btns--wrapper">
                         <div class="transfer--btn__continue">
                           <button class="form-btn" type="button">Next</button>
                         </div>
@@ -353,17 +361,14 @@
                         </div>
                       </div>
                     </form>
-                    <div class="waiting-transfer--block hidden">
+                    <div class="waiting-transfer--block waiting-block--wrapper hidden">
                     <h5 class="waiting-sign">Pending</h5><div class="loading-spinner"></div>
                   </div>
-                    <div class="transfer-result--msgs hidden">
-                      <div class="successful-transfer--msg hidden">
-                    <h4>Operation successfully completed.</h4>
-                    <div class="transfer-okay--btn">
-                      <button type="button">Ok</button>
-                    </div> 
+                    <div class="transfer-result--msgs result-wrapper hidden">
+                      <div class="successful-transfer--msg result-wrapper hidden">
+                        <h4 class="success-result-msg">Operation successfully completed <span class="success-sign"><img src="../img/success-sign.svg"/></span></h4>
                       </div>
-                      <div class="often-transfer--msg error-field  hidden">
+                      <div class="often-transfer--msg error-field hidden">
                         <h4>You can't request a loan more than once a month. Try again later!</h4> 
                       </div>
                       <div class="limit-transfer--msg error-field hidden">
@@ -377,7 +382,7 @@
             <div class="currency-info--box info-box box-style"></div>
             <div class="user-date--time__box info-box box-style"></div>
             <div class="log-out--timer info-box box-style">
-              <h5>
+              <h5 class="log-timer">
                 You'll be logged out in
                 <span class="timer"></span>
               </h5>

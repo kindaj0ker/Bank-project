@@ -22,10 +22,12 @@ const curUser = new User(
 
 //Select main elements
 
+const allTransBlocksWrapper=document.querySelector(".transactions-info--wrapper")
 const timerBlock = document.querySelector(".timer");
 const contentSpace = document.querySelector(".content-space");
 const allContentFillers = document.querySelectorAll(".content-filler");
 const cardsZone = document.querySelector(".user-cards__zone");
+const userCardsBlock = document.querySelector(".user-cards-info");
 let timer;
 
 //Init page
@@ -120,7 +122,7 @@ function revealCards(curUser) {
           <img class="user-card__img" src="../img/${card.plan.toUpperCase()}.png" />
         </div>
         <div class="card-info__block">
-          <p class="card-number">#1 card</p>
+          <p class="card-number">#${card.id} card</p>
           <p class="card-plan">${card.plan.toUpperCase()} plan</p>
           <p class="expiry-date">expired by ${card.expired}</p>
           <p class="transactions-init">Show transactions↓</p>
@@ -131,7 +133,7 @@ function revealCards(curUser) {
         </div>
       </div>
     </div>`;
-    cardsZone.insertAdjacentHTML("afterbegin", cardHtml);
+    userCardsBlock.insertAdjacentHTML("beforeend", cardHtml);
   });
 }
 
@@ -145,15 +147,15 @@ const sortTransactions = function (curCard) {
 //Create radio buttons
 function createRadioBtns(id) {
   return `<div class="sorted-btns">
-  <div>
+  <div class="sorted-btn">
         <input class="radio" type="radio" id="all" name="trans_${id}" value="all" checked/>
         <label for="trans">All transactions</label>
       </div>
-      <div>
+      <div class="sorted-btn">
         <input class="radio" type="radio" id="withdrawal" name="trans_${id}" value="withdrawals" />
         <label for="trans">Withdrawals</label>
       </div>
-      <div>
+      <div class="sorted-btn">
         <input class="radio" type="radio" id="deposit" name="trans_${id}" value="deposits"/>
         <label for="trans">Deposits</label>
       </div>
@@ -162,6 +164,9 @@ function createRadioBtns(id) {
 //Reveal card transactions block
 function revealTransactions(transactions, curTarget, curCard) {
   const cardTransactionsContainer = curTarget.closest(".total-card__info");
+  if (cardTransactionsContainer.querySelector(".no-transactions__block")) {
+    cardTransactionsContainer.removeChild(".no-transactions__block");
+  }
   if (sortTransactions(curCard.id).length === 0) {
     const noTransBlock = `<div class="no-transactions__block">
         <p class="no-transactions__p"> No transactions found</p>
@@ -182,7 +187,7 @@ function revealTransactions(transactions, curTarget, curCard) {
             </span>
             <div class="transaction-name--date__block">
               <span class="transaction--name">${t.group.toUpperCase()}</span>
-              <span class="transaction--date">Today</span>
+              <span class="transaction--date">${t.date}</span>
             </div>
             <div class="transaction-amount">
               <span class="transaction-currency">${t.currency}</span>
@@ -213,8 +218,6 @@ const openTransactions = document.addEventListener("click", function (e) {
       const cardTransactionsContainer = curTarget.closest(".total-card__info");
       const transContainer =
         cardTransactionsContainer.querySelector(".sorting-box");
-      console.log(curTarget);
-      console.log(transContainer);
       const btns = createRadioBtns(curCard.id);
       transContainer.insertAdjacentHTML("afterbegin", btns);
       const radioBtns = document.getElementsByName(`trans_${curCard.id}`);

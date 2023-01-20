@@ -115,7 +115,7 @@ function checkInputs() {
   }
   if (checked.length === 0) {
     loanErrorBlock.classList.remove("hidden");
-    errorNothingSelected.remove("hidden");
+    errorNothingSelected.classList.remove("hidden");
     return false;
   } else {
     loanErrorBlock.classList.add("hidden");
@@ -173,6 +173,12 @@ loanForm.addEventListener("submit", function (e) {
         localStorage.setItem(curUser.email, JSON.stringify(curUser));
         loanBtnCancel.classList.add("hidden");
         loanBtnTryAgain.classList.add("hidden");
+        setTimeout(function () {
+          resetLoanForm();
+          showAllUserSavCards();
+          loanResultsBlock.classList.add("hidden");
+          loanApproved.classList.add("hidden");
+        }, 3000);
       }
       loanBtnRequest.classList.remove("hidden");
       waitingLoanBlock.classList.add("hidden");
@@ -194,6 +200,8 @@ function resetLoanForm() {
   errorMoneyLimit.classList.add("hidden");
   loanBtnTryAgain.classList.add("hidden");
   errorTooOften.classList.add("hidden");
+  errorNothingSelected.classList.add("hidden");
+  errorPositiveAmount.classList.add("hidden");
   loanBtns.classList.remove("hidden");
   loanApproved.classList.add("hidden");
   loanBtnRequest.classList.remove("hidden");
@@ -207,10 +215,4 @@ loanBtnTryAgain.addEventListener("click", function (e) {
 loanBtnCancel.addEventListener("click", function (e) {
   e.preventDefault();
   resetLoanForm();
-});
-
-loanOkBtn.addEventListener("click", function (e) {
-  e.preventDefault();
-  resetLoanForm();
-  showAllUserSavCards();
 });
