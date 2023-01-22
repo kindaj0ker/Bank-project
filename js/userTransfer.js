@@ -82,7 +82,7 @@ export function showAllUserTransferCards() {
           <label>
             <input class="cards-types--form" type="radio" value="${
               c.id
-            } name="transfer-money--card"></input>
+            }" name="transfer-money--card"></input>
             <img class="user-card__img" src="../img/${c.plan.toUpperCase()}.png" /></label>
         </div>
         <h4>Balance ${showBalance(sortTransactions(c))}</h4>
@@ -141,7 +141,7 @@ const validationTransfer = {
       transferErrorNothingSelected.classList.add("hidden");
       return false;
     }
-    if (inputAmount > cardBalance(checkedCard.id)) {
+    if (inputAmount > cardBalance(checkedCard[0].value)) {
       transferErrorBlock.classList.remove("hidden");
       transferNotEnoughMoney.classList.remove("hidden");
       return false;
@@ -250,14 +250,19 @@ transferMoneyForm.addEventListener("submit", function (e) {
     localStorage.setItem(curUser.email, JSON.stringify(curUser));
     setTimeout(function () {
       transferBtnTransfer.classList.add("hidden");
-      transferBtnContinue.classList.remove("hidden");
-      transferMoneyForm.classList.remove("hidden");
+      transferResultsBlock.classList.remove("hidden");
       transferApproved.classList.remove("hidden");
       waitingTransferBlock.classList.add("hidden");
       transferBtnReturn.classList.add("hidden");
-      transferTitle.classList.remove("hidden");
-      showTransferFields();
-      showAllUserTransferCards();
+      setTimeout(function () {
+        transferBtnContinue.classList.remove("hidden");
+        transferMoneyForm.classList.remove("hidden");
+        transferResultsBlock.classList.add("hidden");
+        transferApproved.classList.add("hidden");
+        transferTitle.classList.remove("hidden");
+        showTransferFields();
+        showAllUserTransferCards();
+      }, 3000);
     }, 3000);
   }
 });

@@ -130,12 +130,12 @@ body {
   align-items: flex-start;
 }
 .transaction {
-  margin: 0.3rem auto;
+  margin: 0.3rem;
   padding: 0.3rem;
   font-family: var(--element-font);
   display: flex;
   flex-direction: row;
-  width: 11rem;
+  width: 50%;
   border-radius: 10px;
   background-color: white;
   justify-content: space-between;
@@ -188,16 +188,18 @@ body {
   font-size: 1.1rem;
   font-family: var(--text-font);
 }
-#user-cards__zone {
+.user-cards__zone {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
+  justify-content: center;
 }
 .user-cards-info {
   display: flex;
   flex-direction: column;
 }
 .total-card__info {
-  margin: 0.5rem 0;
+  margin: 0.5rem;
+  padding: 0.2rem;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
@@ -206,11 +208,13 @@ body {
   display: flex;
   flex-direction: row;
   justify-content: space-evenly;
-  width: 50%;
+  width: 55%;
 }
 .card-info__block {
-  margin: 0 0.2rem;
+  padding: 0;
+  margin: 0;
   display: flex;
+  flex-grow: 1;
   flex-direction: column;
   font-family: var(--menu-font);
   color: var(--field-color);
@@ -219,6 +223,10 @@ body {
   font-family: var(--menu-font);
   font-size: 0.9rem;
   color: white;
+  margin: 0;
+}
+.card-wrapper {
+  margin: 0 0.5rem 0 0;
 }
 .card-number {
   margin: 0;
@@ -262,6 +270,7 @@ body {
 }
 
 .sorting-box {
+  width: 80%;
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;
@@ -291,6 +300,7 @@ body {
 .waiting-sign {
   font-size: 1.3rem;
 }
+
 /* Savings */
 .total-savings--balance--wrapper {
   font-family: var(--menu-font);
@@ -529,14 +539,23 @@ body {
   font-family: var(--element-font);
   margin: 0.5rem;
 }
+.unsuccesful-card--pending {
+  margin: 0.5rem;
+  display: flex;
+  flex-direction: row;
+}
 .unsuccess-result-msg {
+  width: 80%;
   color: var(--orange-color);
   font-family: var(--element-font);
-  font-size: 1.4rem;
-  margin: 0.5rem;
+  font-size: 1.2rem;
 }
 .success-sign {
   width: 2rem;
+}
+.close-unsuccesful--msg img {
+  background-color: white;
+  border-radius: 50%;
 }
 
 /* estra classes */
@@ -581,5 +600,286 @@ body {
   }
   100% {
     transform: rotate(360deg);
+  }
+}
+/* responsive styles */
+@media (max-width: 1200px) {
+  .user-menu--list {
+    padding: 0.5rem;
+  }
+  .main-content {
+    margin: 0 0.5rem;
+  }
+  .greeting {
+    margin: 0.5rem 0;
+  }
+  .content-space {
+    margin-left: 0;
+  }
+  /* home */
+  .total-card__info {
+    width: 100%;
+  }
+  .user-card {
+    width: 70%;
+    justify-content: space-between;
+  }
+  .card-info__block {
+    padding: 0 1rem;
+  }
+  .card-wrapper {
+    margin: 0;
+  }
+  .close-unsuccesful--msg img {
+    width: 2rem;
+  }
+  .unsuccess-result-msg {
+    width: 90%;
+  }
+  /* loan */
+  .form-field--wrapper {
+    align-items: center;
+  }
+  .form-element-label {
+    width: 40%;
+    margin: 1rem;
+  }
+  input,
+  select {
+    margin: auto;
+    height: 2rem;
+  }
+  .form-element--value {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+  .cards-in_form__wrapper {
+    margin: 0.3rem;
+  }
+  /* savings */
+  .transaction {
+    margin: 0.5rem auto;
+    width: 60%;
+  }
+}
+@media (max-width: 950px) {
+  .log-out--btn {
+    font-size: 1.2rem;
+    box-shadow: 0.2rem 0.2rem 0.3rem rgba(159, 151, 151, 0.365);
+  }
+  .user-info {
+    margin: 0;
+  }
+  .content-wrapper {
+    width: 93%;
+    margin: 0 0.3rem;
+  }
+  .greeting {
+    margin-top: 1rem;
+    font-size: 1.2rem;
+  }
+  /* home */
+  .total-card__info {
+    margin: 0;
+  }
+  .user-card {
+    padding: 0;
+    width: 100%;
+    justify-content: space-around;
+  }
+  .balance-info__block {
+    width: 20%;
+  }
+  .card-info__block {
+    padding-left: 3rem;
+  }
+  .form-element--value div {
+    margin: 0.2rem;
+  }
+  .result-wrapper {
+    width: 90%;
+  }
+  .success-result-msg {
+    width: 90%;
+    text-align: center;
+  }
+}
+@media (max-width: 750px) {
+  .main-content {
+    margin: 0;
+    width: 82%;
+  }
+  .user-display {
+    display: flex;
+    flex-direction: row;
+  }
+  .user-menu {
+    width: 18%;
+  }
+  .content-space {
+    width: 80%;
+  }
+  .user-info {
+    width: 20%;
+  }
+  .user-menu--list {
+    padding: 0 0.3rem;
+  }
+  .content-wrapper {
+    margin: 0;
+    padding: 0.5rem;
+  }
+  /* home */
+  .create-card__box {
+    align-self: center;
+  }
+  .card-info__block {
+    padding: 0 0.3rem;
+  }
+  .content-space {
+    margin: 0;
+  }
+  .sorting-box {
+    width: 100%;
+  }
+  .transaction {
+    padding: 0.3rem;
+    margin: 0.3rem auto;
+  }
+  .form-field--wrapper {
+    margin: 0.5rem;
+    padding: 0.5rem;
+  }
+  .form-field--label {
+    margin: 0;
+    padding: 0;
+    width: 20%;
+  }
+}
+@media (max-width: 620px) {
+  .user-menu {
+    display: none;
+  }
+  .main-content {
+    width: 100%;
+    padding: 0.8rem;
+  }
+}
+@media (max-width: 550px) {
+  .user-content {
+    display: flex;
+    flex-direction: column-reverse;
+    align-items: center;
+  }
+  .user-info {
+    width: 100%;
+  }
+  .content-space {
+    width: 100%;
+  }
+  .content-wrapper {
+    width: 100%;
+    padding: 0;
+    margin: 0;
+  }
+  /* home */
+  .create-card__box {
+    width: 100%;
+    margin-bottom: 2rem;
+    margin-top: 1rem;
+  }
+  .fields-wrapper--style {
+    width: 100%;
+  }
+  .form-field--wrapper {
+    margin: 0.3rem;
+    padding: 0.2rem;
+    justify-content: center;
+  }
+  .user-card {
+    padding: 0.2rem 0.5rem;
+  }
+  .transaction {
+    width: 85%;
+    margin: 0.5rem;
+  }
+  .form-element-label {
+    margin: 0.2rem;
+    padding: 0.2rem;
+  }
+  /* savings */
+  .all-savings--categories {
+    flex-wrap: wrap;
+    padding: 0.2rem;
+  }
+  .saving-category__img {
+    width: 3.5rem;
+  }
+  .saving-category__img:hover {
+    width: 2.5rem;
+  }
+  .transaction {
+    justify-content: space-around;
+    width: 95%;
+    margin: 0.2rem;
+    padding: 0.1rem 0.3rem;
+  }
+  .main-content {
+    padding: 0 0.3rem;
+  }
+  .form-title {
+    font-size: 1rem;
+  }
+  .greeting {
+    font-size: 1rem;
+  }
+  .error-field {
+    font-size: 1rem;
+  }
+  .form-element-label {
+    font-size: 1rem;
+  }
+}
+
+@media (max-width: 400px) {
+  .total-card__info {
+    padding: 0;
+  }
+  .content-wrapper {
+    align-items: center;
+  }
+  .create-card__box {
+    margin: 0.5rem;
+  }
+  .user-card {
+    flex-direction: column;
+    padding: 0.5rem;
+  }
+  .form-field--label {
+    margin: 0;
+  }
+  .user-card {
+    width: 100%;
+    padding: 0;
+  }
+  .card-info__block {
+    padding: 0;
+  }
+  .balance-info__block {
+    display: flex;
+    flex-direction: row;
+  }
+  .balance {
+    width: fit-content;
+  }
+  .manage-sav--btn {
+    font-size: 1.1rem;
+  }
+  .oper-group__img {
+    width: 1.2rem;
+  }
+  .transaction {
+    width: 90%;
   }
 }

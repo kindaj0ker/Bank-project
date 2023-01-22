@@ -47,6 +47,7 @@ const nothingSelectedNewSavBlock = document.querySelector(
 const positiveNewSavBlock = document.querySelector(".positive-new--sav");
 const notEnoughMoneyBlock = document.querySelector(".not-enough--money");
 const successfulSavMsg = document.querySelector(".successful-sav--msg");
+
 //Transfer selectors
 const transferWrappers = document.querySelectorAll("[data-transf]");
 const nextTransferSavBtn = document.querySelector(
@@ -113,7 +114,6 @@ function showAllSavGoals() {
       </div>`;
     newSavGoalsContainer.insertAdjacentHTML("afterbegin", html);
   });
-
   manageSavBtn.addEventListener("click", function () {
     manageTypes.forEach((m) => m.classList.toggle("hidden"));
   });
@@ -250,7 +250,7 @@ const savingTypeBtn = document.querySelectorAll(".saving-category__img");
 savingTypeBtn.forEach((btn) => btn.addEventListener("click", revealSavings));
 
 //Create/transfer new saving
-let curNewSavStep = 1;
+let transferMoneyForm = 1;
 
 manageTypes.forEach((t) => {
   t.addEventListener("click", function (e) {
@@ -275,7 +275,7 @@ manageTypes.forEach((t) => {
 function showContentOnStep() {
   savWrappers.forEach((w) => w.classList.add("hidden"));
   const curEl = Array.from(savWrappers).find(
-    (el) => Number(el.dataset.step) === curNewSavStep
+    (el) => Number(el.dataset.step) === transferMoneyForm
   );
   curEl.classList.remove("hidden");
 }
@@ -283,8 +283,8 @@ function showContentOnStep() {
 
 //Cancel new saving creation
 cancelNewSavBtn.addEventListener("click", function () {
-  curNewSavStep = 1;
-  if (curNewSavStep === 1) {
+  transferMoneyForm = 1;
+  if (transferMoneyForm === 1) {
     addNewSavBtn.classList.add("hidden");
     nextNewSavBtn.classList.remove("hidden");
     returnNewSavBtn.classList.add("hidden");
@@ -396,22 +396,22 @@ const validationSteps = {
 
 //Validation steps funcion
 function validationCreateSavSteps() {
-  return validationSteps[curNewSavStep]();
+  return validationSteps[transferMoneyForm]();
 }
 
 //Next button
 function showNextContent() {
   if (validationCreateSavSteps() === true) {
-    curNewSavStep++;
+    transferMoneyForm++;
     showContentOnStep();
   }
 }
 
 //Go back button
 function goBack() {
-  curNewSavStep--;
+  transferMoneyForm--;
   showContentOnStep();
-  if (curNewSavStep === 1) {
+  if (transferMoneyForm === 1) {
     addNewSavBtn.classList.add("hidden");
     nextNewSavBtn.classList.remove("hidden");
     returnNewSavBtn.classList.add("hidden");
@@ -426,7 +426,7 @@ newSavForm.addEventListener("submit", function (e) {
   if (validationCreateSavSteps() === true) {
     newSavForm.classList.add("hidden");
     newSavForm.reset();
-    curNewSavStep = 1;
+    transferMoneyForm = 1;
     showContentOnStep();
     returnNewSavBtn.classList.add("hidden");
     nextNewSavBtn.classList.remove("hidden");

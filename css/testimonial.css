@@ -184,7 +184,11 @@ body {
   margin: 0rem 0.3rem;
   padding: 0;
 }
-.get-card--btn button {
+.get-card--btn {
+  height: 10%;
+}
+.get-card--btn a {
+  text-decoration: none;
   border: none;
   margin: 1rem;
   font-size: 1.5rem;
@@ -193,7 +197,7 @@ body {
   color: orange;
   background-color: rgb(5, 39, 90);
 }
-.get-card--btn button:hover {
+.get-card--btn a:hover {
   cursor: pointer;
   background-color: orange;
   color: rgb(5, 39, 90);
@@ -203,33 +207,33 @@ body {
 .slider {
   align-self: center;
   overflow: hidden;
-  margin: 4rem auto;
+  margin: 2rem auto;
   padding: 0;
   position: relative;
-  width: 30%;
+  width: 80%;
   height: 20rem;
 }
 .slide {
   position: absolute;
-  margin: 1rem auto;
+  margin: 0 auto;
   padding: 0;
   width: 100%;
   height: 100%;
   display: grid;
   grid-template-rows: 2fr 1fr;
-  background-color: rgba(182, 181, 179, 0.85);
-  border-radius: 15px;
-  box-shadow: 0.3rem 0.3rem 0.6rem rgb(138, 133, 133);
+  background-color: var(--background-mode);
+  border-radius: 25px;
   transition: transform 1s;
 }
 .quotes {
   width: 3rem;
   position: absolute;
-  right: 1rem;
-  top: 0.5rem;
+  right: 2rem;
+  top: 2rem;
 }
 .slider-top {
-  box-sizing: border-box;
+  padding: 0.5rem;
+  box-sizing: content-box;
   position: relative;
   height: max-content;
   border-bottom: 0.2rem solid grey;
@@ -246,7 +250,9 @@ body {
   font-size: 1.1rem;
 }
 .slider-bottom {
-  height: max-content;
+  padding: 0;
+  margin: 0;
+  height: min-content;
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -256,7 +262,7 @@ body {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin: 0.5rem 0 0 0;
+  margin: 0;
 }
 
 .client-name {
@@ -300,4 +306,163 @@ body {
 .arrow-left--slider {
   left: 6%;
   transform: translate(-50%, -50%);
+}
+
+/*responsive design*/
+@media (max-width: 1260px) {
+  .debit-card--wrapper {
+    width: 15rem;
+  }
+}
+@media (max-width: 950px) {
+  .promo-text--wrapper h3 {
+    font-size: 2.2rem;
+  }
+  .bank-cards--title h3 {
+    font-size: 1.5rem;
+  }
+  .debit-card--img img {
+    width: 8rem;
+  }
+  .get-card--btn a {
+    font-size: 1rem;
+  }
+  .get-card--btn {
+    margin: 0.5rem;
+  }
+  .card-details--wrapper {
+    padding: 1rem;
+  }
+}
+@media (max-width: 750px) {
+  .debit-card--wrapper {
+    width: 20rem;
+  }
+  .debit-card--img img {
+    width: 10rem;
+  }
+  .debit-cards {
+    display: grid;
+    row-gap: 0.5rem;
+    grid-template-areas: "a a" "a a";
+  }
+  .card-details--wrapper {
+    width: 95%;
+  }
+  .promo-text--wrapper {
+    margin: 1rem;
+  }
+  .promo-text--wrapper h5 {
+    font-size: 1rem;
+    width: 40%;
+    margin-bottom: 0;
+  }
+  .debit-cards {
+    margin: 1rem 0;
+    padding: 0.5rem;
+  }
+}
+@media (max-width: 680px) {
+  .debit-cards {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .debit-card--wrapper {
+    width: 80%;
+  }
+  .card-details--wrapper {
+    width: 95%;
+  }
+
+  .debit-card--img {
+    margin: 0.5rem auto;
+  }
+
+  .debit-card--info h4 {
+    margin: 0 1rem;
+  }
+  .debit-card--info h5 {
+    margin: 0 1rem 0.5rem 1rem;
+  }
+  .learn-more--btn {
+    margin-bottom: 1rem;
+  }
+  .bank-cards--title h3 {
+    font-size: 1.1rem;
+  }
+}
+@media (max-width: 400px) {
+  .promo-text--wrapper h3 {
+    font-size: 1.5rem;
+  }
+  .promoted-card--wrapper {
+    background-position: 50%, 35%;
+  }
+  .promo-text--wrapper {
+    margin: 0;
+  }
+  .promo-card--btn {
+    margin: 1.8rem;
+    font-size: 0.9rem;
+  }
+  .bank-cards--title h2 {
+    margin: 0;
+    padding: 1rem 0.5rem;
+  }
+  .bank-cards--title h3 {
+    margin: 0;
+    padding: 0.5rem;
+  }
+  .debit-cards {
+    padding: 0.5rem 0;
+  }
+  .debit-card--wrapper {
+    margin: 0.5rem 0;
+  }
+  .card-details--content {
+    margin: 0rem;
+    width: fit-content;
+  }
+  .details-title {
+    margin: 0.3rem;
+    align-self: center;
+  }
+  .card-bonus--block {
+    margin: 0;
+    width: fit-content;
+  }
+  .card-bonus {
+    padding: 0.3rem 0;
+    width: 100%;
+  }
+  .card-bonus h5 {
+    width: 100%;
+    padding: 0;
+    margin: 0;
+  }
+  .tick-img {
+    align-self: flex-start;
+  }
+  .card-img--detail {
+    align-self: center;
+  }
+  .card-details--wrapper {
+    flex-direction: column-reverse;
+  }
+}
+@media (max-width: 400px) {
+  .content {
+    margin: 0.5rem;
+  }
+  .debit-card--wrapper {
+    width: 99%;
+    margin: 0.2rem 0;
+  }
+  .promoted-card--wrapper {
+    width: 99%;
+  }
+  .card-img--detail {
+    width: 100%;
+  }
 }

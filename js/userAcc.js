@@ -22,7 +22,9 @@ const curUser = new User(
 
 //Select main elements
 
-const allTransBlocksWrapper=document.querySelector(".transactions-info--wrapper")
+const allTransBlocksWrapper = document.querySelector(
+  ".transactions-info--wrapper"
+);
 const timerBlock = document.querySelector(".timer");
 const contentSpace = document.querySelector(".content-space");
 const allContentFillers = document.querySelectorAll(".content-filler");
@@ -114,6 +116,7 @@ function revealCards(curUser) {
   curUser.cards.forEach((card) => {
     const curId = card.id;
     const curCardTrans = curUser.transactions.filter((t) => t.cardID === curId);
+
     const balance = showBalance(curCardTrans);
     const cardHtml = `
     <div class="total-card__info">
@@ -128,7 +131,7 @@ function revealCards(curUser) {
           <p class="transactions-init">Show transactions↓</p>
         </div>
         <div class="balance-info__block">
-          <h3>Balance</h3>
+          <h3>Balance: </h3>
           <p class="balance">${balance + " " + card.currency}</p>
         </div>
       </div>
@@ -164,16 +167,14 @@ function createRadioBtns(id) {
 //Reveal card transactions block
 function revealTransactions(transactions, curTarget, curCard) {
   const cardTransactionsContainer = curTarget.closest(".total-card__info");
-  if (cardTransactionsContainer.querySelector(".no-transactions__block")) {
-    cardTransactionsContainer.removeChild(".no-transactions__block");
-  }
+
   if (sortTransactions(curCard.id).length === 0) {
-    const noTransBlock = `<div class="no-transactions__block">
+    const noTransBlock = `<div class="no-transactions__block transaction-secret">
         <p class="no-transactions__p"> No transactions found</p>
       </div>`;
     cardTransactionsContainer.insertAdjacentHTML("beforeend", noTransBlock);
   } else {
-    const transastions = `<div class="sorting-box">
+    const transastions = `<div class="sorting-box transaction-secret">
     <div class="transactions">
     </div>
     </div>`;
@@ -214,18 +215,19 @@ const openTransactions = document.addEventListener("click", function (e) {
       //Add transactions info
       revealTransactions(sortTransactions(curCard.id), curTarget, curCard);
       const curCardID = curCard.id;
-
       const cardTransactionsContainer = curTarget.closest(".total-card__info");
       const transContainer =
         cardTransactionsContainer.querySelector(".sorting-box");
-      const btns = createRadioBtns(curCard.id);
-      transContainer.insertAdjacentHTML("afterbegin", btns);
-      const radioBtns = document.getElementsByName(`trans_${curCard.id}`);
-      radioBtns.forEach((btn) =>
-        btn.addEventListener("change", function () {
-          sortingTrans(curTarget, curCard, btn);
-        })
-      );
+      if (transContainer) {
+        const btns = createRadioBtns(curCard.id);
+        transContainer.insertAdjacentHTML("afterbegin", btns);
+        const radioBtns = document.getElementsByName(`trans_${curCard.id}`);
+        radioBtns.forEach((btn) =>
+          btn.addEventListener("change", function () {
+            sortingTrans(curTarget, curCard, btn);
+          })
+        );
+      }
     } else {
       //Close block
       closeTransactions.textContent = "Show transactions↓";
@@ -258,7 +260,7 @@ function prevTransDelete(curTarget, curCard) {
 function mainPrevDelete(curTarget, curCard) {
   const transactionsBlock = curTarget.closest(".total-card__info");
   const transactions = transactionsBlock.querySelector(".transactions");
-  const mainBlock = transactionsBlock.querySelector(".sorting-box");
+  const mainBlock = transactionsBlock.querySelector(".transaction-secret");
   const radioBtnsContainer = curTarget.closest(".sorted-btns");
   return [transactionsBlock, transactions, mainBlock, radioBtnsContainer];
 }
@@ -344,6 +346,7 @@ function checkCardDate() {
     const plan = document.querySelector(".new-plan").value;
     const currency = document.querySelector(".new-currency").value;
     curUser.createNewCard(plan.toUpperCase(), null, null, currency);
+    localStorage.setItem(curUser.email, JSON.stringify(curUser));
     updateCardsContainer(curUser);
     return true;
   } else {

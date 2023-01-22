@@ -11,9 +11,11 @@ const allInfo = document.querySelectorAll(".card-details--wrapper ");
 //Show more info
 allLearnBtns.forEach((btn) =>
   btn.addEventListener("click", function (e) {
-    allInfo.forEach((a) => a.classList.add("hidden"));
     const cardType = e.target.id.split("-")[0] + "-" + "info";
     const curInfo = document.getElementById(cardType);
+    Array.from(allInfo)
+      .filter((c) => c !== curInfo)
+      .forEach((a) => a.classList.add("hidden"));
     curInfo.classList.toggle("hidden");
   })
 );
