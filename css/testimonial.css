@@ -211,10 +211,11 @@ body {
   margin: 2rem auto;
   padding: 0;
   position: relative;
-  width: 80%;
+  width: 60%;
   height: 20rem;
 }
 .slide {
+  font-family: var(--element-font);
   position: absolute;
   margin: 0 auto;
   padding: 0;
@@ -233,7 +234,9 @@ body {
   top: 2rem;
 }
 .slider-top {
-  padding: 0.5rem;
+  color: white;
+  padding: 1rem;
+  margin: 0.5rem 3rem;
   box-sizing: content-box;
   position: relative;
   height: max-content;
@@ -335,6 +338,20 @@ body {
   }
   .card-details--wrapper {
     padding: 1rem;
+  }
+  .slider {
+    height: 25rem;
+  }
+  .slider-top {
+    padding: 0 1rem;
+    margin: 0;
+  }
+  .slider-top p {
+    padding: 0;
+    margin: 0;
+  }
+  .slider-bottom {
+    padding: 2.5rem;
   }
 }
 @media (max-width: 750px) {
