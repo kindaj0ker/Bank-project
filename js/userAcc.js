@@ -4,22 +4,25 @@ import { showAllUserTransferCards } from "./userTransfer.js";
 const uniqid = new ShortUniqueId();
 import { User } from "./creatUser.js";
 //New user from registered user
+//let logedIn=JSON.parse(localStorage.getItem("logedIn"));
 
-//let curUser=JSON.parse(localStorage.getItem("logedIn"));
-
-let { fName, lName, bDay, email, password, cards, transactions, location } =
-  JSON.parse(localStorage.getItem("peterJ@gmail.com"));
-const curUser = new User(
-  fName,
-  lName,
-  bDay,
-  email,
-  password,
-  cards,
-  transactions,
-  location
-);
-
+let logedIn = "peterJ@gmail.com";
+//Function
+function getUser() {
+  let { fName, lName, bDay, email, password, cards, transactions, location } =
+    JSON.parse(localStorage.getItem("peterJ@gmail.com"));
+  const curUser = new User(
+    fName,
+    lName,
+    bDay,
+    email,
+    password,
+    cards,
+    transactions,
+    location
+  );
+  return curUser;
+}
 //Select main elements
 
 const allTransBlocksWrapper = document.querySelector(
@@ -92,13 +95,13 @@ function showContent() {
 //Reveal main content functions
 
 function revealHome() {
-  updateCardsContainer(curUser);
+  updateCardsContainer(getUser());
 }
 
 //Header greeting
 const userFname = document.querySelector(".user-f--name");
 window.addEventListener("DOMContentLoaded", function () {
-  userFname.textContent = `${curUser.fName}`;
+  userFname.textContent = `${getUser().fName}`;
 });
 
 //Show Balance
@@ -111,7 +114,9 @@ export function showBalance(transactions) {
 }
 
 //Reveal cards
-function revealCards(curUser) {
+function revealCards() {
+  const curUser = getUser();
+  userCardsBlock.innerHTML = "";
   //Show balance of every card
   curUser.cards.forEach((card) => {
     const curId = card.id;
@@ -142,7 +147,7 @@ function revealCards(curUser) {
 
 //Sort transactions
 const sortTransactions = function (curCard) {
-  return curUser.transactions.filter(function (transaction) {
+  return getUser().transactions.filter(function (transaction) {
     return transaction.cardID === curCard;
   });
 };
@@ -151,15 +156,18 @@ const sortTransactions = function (curCard) {
 function createRadioBtns(id) {
   return `<div class="sorted-btns">
   <div class="sorted-btn">
-        <input class="radio" type="radio" id="all" name="trans_${id}" value="all" checked/>
+        <input class="radio" type="radio" checked/>
+        <span class="checkmark" id="all" name="trans_${id}" value="all"></span>
         <label for="trans">All transactions</label>
       </div>
       <div class="sorted-btn">
-        <input class="radio" type="radio" id="withdrawal" name="trans_${id}" value="withdrawals" />
+        <input class="radio" type="radio" />
+        <span class="checkmark"  id="withdrawal" name="trans_${id}" value="withdrawals"></span>
         <label for="trans">Withdrawals</label>
       </div>
       <div class="sorted-btn">
-        <input class="radio" type="radio" id="deposit" name="trans_${id}" value="deposits"/>
+        <input class="radio" type="radio"/>
+        <span class="checkmark" id="deposit" name="trans_${id}" value="deposits"></span>
         <label for="trans">Deposits</label>
       </div>
       </div>`;
@@ -322,6 +330,7 @@ newCardForm.addEventListener("submit", function (e) {
 
 //Check latest card date
 function checkCardDate() {
+  const curUser = getUser();
   const allCardsResult = [];
   const comparationDate = 30;
   const today = new Date().getTime();
@@ -363,16 +372,16 @@ closeMsgBtn.addEventListener("click", function () {
 });
 
 //Update cards containers
-function updateCardsContainer(curUser) {
+function updateCardsContainer() {
   const allCards = document.querySelectorAll(".total-card__info");
   allCards.forEach((c) => c.remove());
-  revealCards(curUser);
+  revealCards();
 }
-updateCardsContainer(curUser);
+updateCardsContainer();
 
 // Sort savings
 const sortSavings = function () {
-  return curUser.transactions.filter(function (transaction) {
+  return getUser().transactions.filter(function (transaction) {
     return transaction.group === "savings";
   });
 };
@@ -441,6 +450,7 @@ const userNavigationBox = document.querySelector(".user-date--time__box");
 let lat, lng;
 
 function showLocation() {
+  const curUser = getUser();
   if (curUser.location.length > 0) {
     userNavigationBox.textContent =
       userNavigationBox.textContent = `You are in ${curUser.location[0]}, ${curUser.location[1]}`;

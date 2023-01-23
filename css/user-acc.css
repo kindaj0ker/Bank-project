@@ -396,6 +396,28 @@ body {
   color: var(--orange-color);
   cursor: pointer;
 }
+/* radio buttons */
+.sorted-btn {
+  user-select: none;
+  cursor: pointer;
+}
+.radio {
+  cursor: pointer;
+}
+.radio:checked ~ .checkmark {
+  background-color: orange;
+}
+.checkmark:after {
+  content: "";
+  position: absolute;
+  display: none;
+  border-radius: 50%;
+  background: white;
+}
+.radio:checked ~ .checkmark:after {
+  display: block;
+}
+
 /* create new saving */
 
 .new-saving--category__img {
@@ -846,29 +868,42 @@ body {
   .total-card__info {
     padding: 0;
   }
+  .transactions {
+    width: 90%;
+    align-self: center;
+  }
+  .transaction {
+    margin: 0.1rem 0;
+  }
   .content-wrapper {
     align-items: center;
   }
   .create-card__box {
     margin: 0.5rem;
   }
+  .user-cards-info {
+    width: 100%;
+  }
   .user-card {
     flex-direction: column;
     padding: 0.5rem;
+    width: 100%;
   }
   .form-field--label {
     margin: 0;
   }
-  .user-card {
-    width: 100%;
-    padding: 0;
-  }
+
   .card-info__block {
     padding: 0;
   }
   .balance-info__block {
+    align-items: center;
     display: flex;
     flex-direction: row;
+    width: 100%;
+  }
+  .balance-info__block h3 {
+    margin: 0.2rem;
   }
   .balance {
     width: fit-content;
@@ -878,8 +913,5 @@ body {
   }
   .oper-group__img {
     width: 1.2rem;
-  }
-  .transaction {
-    width: 90%;
   }
 }

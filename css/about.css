@@ -91,7 +91,7 @@
   margin: 1rem 0rem;
   color: rgb(236, 108, 3);
 }
-span {
+.title-span {
   display: inline-block;
   background-color: rgb(4, 19, 148);
   transform: skew(-15deg);
@@ -123,7 +123,7 @@ h2 {
   .slogan{
     font-size: 2rem;
   }
-  span{
+  .title-span{
     font-size: 1rem;
   }
   .get-started{
@@ -208,7 +208,7 @@ p{
 h2{
   font-size: 1.3rem;
 }
-span{
+.title-span{
   font-size: 1.3rem;
 }
 .get-started{

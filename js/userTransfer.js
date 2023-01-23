@@ -158,7 +158,8 @@ const validationTransfer = {
       transferNotEnoughMoney.classList.add("hidden");
       transferMoneyAmount = inputAmount;
       transferMoneyCur = transferCurrency.value;
-      transferMoneyFrom = checkedCard[0].id;
+      transferMoneyFrom = checkedCard[0].value;
+      console.log(checkedCard, transferMoneyFrom);
       return true;
     }
   },

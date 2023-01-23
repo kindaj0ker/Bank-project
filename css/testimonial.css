@@ -119,6 +119,7 @@ body {
   align-self: center;
   border: none;
   margin: 0.5rem;
+  margin-top: auto;
   font-size: 1.1rem;
   font-family: var(--element-font);
   color: orange;
@@ -236,7 +237,6 @@ body {
   box-sizing: content-box;
   position: relative;
   height: max-content;
-  border-bottom: 0.2rem solid grey;
 }
 .slider-top h3 {
   margin: 1rem 0.5rem;
@@ -291,21 +291,24 @@ body {
 }
 .arrows-slider {
   margin: 0.1rem;
-  padding: 0.1rem;
   background-color: white;
   border-radius: 45px;
   height: 2.5rem;
+  width: 2.5rem;
   position: absolute;
   top: 50%;
   z-index: 10;
 }
+.arrows-slider img {
+  padding: 8px;
+}
 .arrow-right--slider {
-  right: -6%;
-  transform: translate(-50%, -50%);
+  right: 0;
+  transform: translate(-6%, -50%);
 }
 .arrow-left--slider {
-  left: 6%;
-  transform: translate(-50%, -50%);
+  left: 0;
+  transform: translate(6%, -50%);
 }
 
 /*responsive design*/
