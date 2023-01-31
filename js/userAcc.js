@@ -45,6 +45,14 @@ const home = document.getElementById("menu-home");
 home.classList.add("menu-highlighted");
 home.parentElement.classList.add("highlighted");
 
+//Mobile version
+const allMenuM = Array.from(document.getElementsByClassName("menu-item"));
+document.addEventListener("click", function (e) {
+  if (e.target.classList.contains("menu-item")) {
+    showContent();
+  }
+});
+
 //Highlighted menu
 const allMenu = Array.from(document.getElementsByClassName("user-menu--li"));
 document.addEventListener("click", function (e) {
@@ -70,7 +78,10 @@ showContent();
 
 function showContent() {
   allMenu.forEach((m) => {
-    if (m.classList.contains("menu-highlighted")) {
+    if (
+      m.classList.contains("menu-highlighted") ||
+      m.classList.contains("m-menu")
+    ) {
       const curId = m.id.split("-")[1];
       const curMenu = "#" + curId;
       const curContentFiller = document.querySelector(curMenu);
@@ -155,21 +166,21 @@ const sortTransactions = function (curCard) {
 //Create radio buttons
 function createRadioBtns(id) {
   return `<div class="sorted-btns">
-  <div class="sorted-btn">
-        <input class="radio" type="radio" checked/>
-        <span class="checkmark" id="all" name="trans_${id}" value="all"></span>
-        <label for="trans">All transactions</label>
-      </div>
-      <div class="sorted-btn">
-        <input class="radio" type="radio" />
-        <span class="checkmark"  id="withdrawal" name="trans_${id}" value="withdrawals"></span>
-        <label for="trans">Withdrawals</label>
-      </div>
-      <div class="sorted-btn">
-        <input class="radio" type="radio"/>
-        <span class="checkmark" id="deposit" name="trans_${id}" value="deposits"></span>
-        <label for="trans">Deposits</label>
-      </div>
+  <label class="sorted-btn">
+        <input id="all" name="trans_${id}" value="all" class="radio" type="radio" checked/>
+        <span class="checkmark"></span>
+        All transactions
+      </label>
+      <label class="sorted-btn">
+        <input id="withdrawal" name="trans_${id}" value="withdrawals" class="radio" type="radio" />
+        <span class="checkmark"></span>
+        Withdrawals
+      </label>
+      <label class="sorted-btn">
+        <input class="radio" id="deposit" name="trans_${id}" value="deposits" type="radio"/>
+        <span class="checkmark"></span>
+        Deposits
+      </label>
       </div>`;
 }
 //Reveal card transactions block
@@ -444,7 +455,20 @@ function showSavings() {
 // loanAmountInput.addEventListener("input", onlyPositiveNumbers);
 
 // Currency info-box
-
+const currInfoBox = document.querySelector("currency-info--box");
+async function getCurrencyRate(currName) {
+  let response = await fetch(`https://open.er-api.com/v6/latest/${currName}`);
+  if (response.ok) {
+    let rate = await response.json();
+    console.log(rate.rates);
+    const html=
+    
+  }
+  if (!response.ok) {
+    currInfoBox.classList.add("hidden");
+  }
+}
+getCurrencyRate("USD");
 // Date-time box
 const userNavigationBox = document.querySelector(".user-date--time__box");
 let lat, lng;
