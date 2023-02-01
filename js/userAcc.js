@@ -53,6 +53,23 @@ document.addEventListener("click", function (e) {
   }
 });
 
+document.addEventListener("click", function (e) {
+  if (e.target.classList.contains("m-menu")) {
+    allMenu.forEach((m) => {
+      if (
+        m.classList.contains("menu-highlighted") &&
+        m.parentElement.classList.contains("highlighted")
+      ) {
+        m.classList.toggle("menu-highlighted");
+        m.parentElement.classList.toggle("highlighted");
+      }
+      e.target.parentElement.classList.add("highlighted");
+      e.target.classList.add("menu-highlighted");
+    });
+    showContent(allMenuM);
+  }
+});
+
 //Highlighted menu
 const allMenu = Array.from(document.getElementsByClassName("user-menu--li"));
 document.addEventListener("click", function (e) {
@@ -68,16 +85,16 @@ document.addEventListener("click", function (e) {
       e.target.parentElement.classList.add("highlighted");
       e.target.classList.add("menu-highlighted");
     });
-    showContent();
+    showContent(allMenu);
   }
 });
 
-showContent();
+showContent(allMenu);
 
 //Show html depends on current menu selection
 
-function showContent() {
-  allMenu.forEach((m) => {
+function showContent(menu) {
+  menu.forEach((m) => {
     if (
       m.classList.contains("menu-highlighted") ||
       m.classList.contains("m-menu")
@@ -455,20 +472,20 @@ function showSavings() {
 // loanAmountInput.addEventListener("input", onlyPositiveNumbers);
 
 // Currency info-box
-const currInfoBox = document.querySelector("currency-info--box");
-async function getCurrencyRate(currName) {
-  let response = await fetch(`https://open.er-api.com/v6/latest/${currName}`);
-  if (response.ok) {
-    let rate = await response.json();
-    console.log(rate.rates);
-    const html=
-    
-  }
-  if (!response.ok) {
-    currInfoBox.classList.add("hidden");
-  }
-}
-getCurrencyRate("USD");
+// const currInfoBox = document.querySelector("currency-info--box");
+// async function getCurrencyRate(currName) {
+//   let response = await fetch(`https://open.er-api.com/v6/latest/${currName}`);
+//   if (response.ok) {
+//     let rate = await response.json();
+//     console.log(rate.rates);
+//     const html=
+
+//   }
+//   if (!response.ok) {
+//     currInfoBox.classList.add("hidden");
+//   }
+// }
+// getCurrencyRate("USD");
 // Date-time box
 const userNavigationBox = document.querySelector(".user-date--time__box");
 let lat, lng;
