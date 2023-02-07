@@ -472,20 +472,149 @@ function showSavings() {
 // loanAmountInput.addEventListener("input", onlyPositiveNumbers);
 
 // Currency info-box
-// const currInfoBox = document.querySelector("currency-info--box");
-// async function getCurrencyRate(currName) {
-//   let response = await fetch(`https://open.er-api.com/v6/latest/${currName}`);
-//   if (response.ok) {
-//     let rate = await response.json();
-//     console.log(rate.rates);
-//     const html=
+const currInfoBox = document.querySelector("currency-info--box");
+const allCurr = document.querySelector(".all-rates");
+const exchangeRates = [];
+function getCurrHTML(currName, num) {
+  const html = `<div id="${currName}-curr" class="curr-rate">
+          <div class="curr-exchange--name">
+            <span>${currName}</span>
+          </div>
+          <div class="curr-exchange--info">
+            <div class="curr-exchange--to">
+              <span>${Object.keys(exchangeRates[num].rates)[0]}</span>
+            </div>
+            <div class="rate-box">
+              <div class="rate-amount">
+                <h5>Official rate</h5>
+                <h5>${
+                  exchangeRates[num].rates[
+                    Object.keys(exchangeRates[num].rates)[0]
+                  ].officialRate
+                }</h5>
+              </div>
+              <div class="rate-amount">
+                <h5>Buy</h5>
+                <h5>${
+                  exchangeRates[num].rates[
+                    Object.keys(exchangeRates[num].rates)[0]
+                  ].buy
+                }</h5>
+              </div>
+              <div class="rate-amount">
+                <h5>Sell</h5>
+                <h5>${
+                  exchangeRates[num].rates[
+                    Object.keys(exchangeRates[num].rates)[0]
+                  ].sell
+                }</h5>
+              </div>
+            </div>
+          </div>
+          <div class="curr-exchange--info">
+            <div class="curr-exchange--to">
+              <span>${Object.keys(exchangeRates[num].rates)[1]}</span>
+            </div>
+            <div class="rate-box">
+              <div class="rate-amount">
+                <h5>Official rate</h5>
+                <h5>${
+                  exchangeRates[num].rates[
+                    Object.keys(exchangeRates[num].rates)[1]
+                  ].officialRate
+                }</h5>
+              </div>
+              <div class="rate-amount">
+                <h5>Buy</h5>
+                <h5>${
+                  exchangeRates[num].rates[
+                    Object.keys(exchangeRates[num].rates)[1]
+                  ].buy
+                }</h5>
+              </div>
+              <div class="rate-amount">
+                <h5>Sell</h5>
+                <h5>${
+                  exchangeRates[num].rates[
+                    Object.keys(exchangeRates[num].rates)[1]
+                  ].sell
+                }</h5>
+              </div>
+            </div>
+          </div>
+        </div>`;
+  allCurr.insertAdjacentHTML("afterbegin", html);
+}
+async function getCurrencyRate(currName, num) {
+  let response = await fetch(`https://open.er-api.com/v6/latest/${currName}`);
+  if (response.ok) {
+    let rate = await response.json();
+    if (currName === "USD")
+      exchangeRates.push({
+        fromCurrency: currName,
+        rates: {
+          EUR: {
+            officialRate: rate.rates.EUR.toFixed(2),
+            buy: (rate.rates.EUR * 0.95).toFixed(2),
+            sell: (rate.rates.EUR * 1.05).toFixed(2),
+          },
+          GBP: {
+            officialRate: rate.rates.GBP.toFixed(2),
+            buy: (rate.rates.GBP * 0.95).toFixed(2),
+            sell: (rate.rates.GBP * 0.95).toFixed(2),
+          },
+        },
+      });
+    if (currName === "EUR")
+      exchangeRates.push({
+        fromCurrency: currName,
+        rates: {
+          USD: {
+            officialRate: rate.rates.USD.toFixed(2),
+            buy: (rate.rates.USD * 0.95).toFixed(2),
+            sell: (rate.rates.USD * 1.05).toFixed(2),
+          },
+          GBP: {
+            officialRate: rate.rates.GBP.toFixed(2),
+            buy: (rate.rates.GBP * 0.95).toFixed(2),
+            sell: (rate.rates.GBP * 0.95).toFixed(2),
+          },
+        },
+      });
+    if (currName === "GBP")
+      exchangeRates.push({
+        fromCurrency: currName,
+        rates: {
+          EUR: {
+            officialRate: rate.rates.EUR.toFixed(2),
+            buy: (rate.rates.EUR * 0.95).toFixed(2),
+            sell: (rate.rates.EUR * 1.05).toFixed(2),
+          },
+          USD: {
+            officialRate: rate.rates.USD.toFixed(2),
+            buy: (rate.rates.USD * 0.95).toFixed(2),
+            sell: (rate.rates.USD * 0.95).toFixed(2),
+          },
+        },
+      });
+    getCurrHTML(currName, num);
+    if (localStorage.getItem("exchangeRates") !== undefined) {
+      localStorage.removeItem("exchangeRates");
+      localStorage.setItem("exchangeRates", exchangeRates);
+    }
+  }
+  if (!response.ok) {
+    currInfoBox.classList.add("hidden");
+  }
+}
 
-//   }
-//   if (!response.ok) {
-//     currInfoBox.classList.add("hidden");
-//   }
-// }
-// getCurrencyRate("USD");
+getCurrencyRate("USD", 0);
+getCurrencyRate("EUR", 1);
+getCurrencyRate("GBP", 2);
+// if (operation.type ==="withdrawal"){
+//   currRate=curr.sell
+// } else currRate=curr.buy
+
 // Date-time box
 const userNavigationBox = document.querySelector(".user-date--time__box");
 let lat, lng;

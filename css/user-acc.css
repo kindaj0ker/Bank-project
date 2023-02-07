@@ -593,8 +593,52 @@ body {
   background-color: white;
   border-radius: 50%;
 }
-
-/* estra classes */
+/* currency box */
+.currency-info--box {
+  display: flex;
+  flex-direction: column;
+}
+.curr-rate {
+  display: flex;
+  flex-direction: column;
+}
+.all-rates {
+  display: flex;
+  flex-direction: column;
+  font-size: 1rem;
+}
+.curr-exchange--info {
+  margin: 0.3rem;
+}
+.exchange-names {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+.curr-exchange--name {
+  color: var(--orange-color);
+  padding: 0.2rem;
+  background-color: white;
+  margin: 0.5rem;
+  width: fit-content;
+}
+.curr-exchange--to {
+  color: var(--orange-color);
+}
+.rate-box {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  justify-content: space-between;
+  align-content: center;
+}
+.rate-amount {
+  display: flex;
+  flex-direction: column;
+  width: min-content;
+  margin: 0.3rem;
+}
+/* extra classes */
 .orange-text {
   color: var(--orange-color);
   border-radius: 15px;
@@ -640,6 +684,19 @@ body {
 }
 /* responsive styles */
 @media (max-width: 1200px) {
+  /* currency box */
+  .rate-box {
+    flex-direction: column;
+  }
+  .rate-amount {
+    width: 100%;
+    flex-direction: row;
+    align-content: space-between;
+  }
+  .rate-amount h5 {
+    margin-left: 0.3rem;
+    align-self: stretch;
+  }
   .user-menu--list {
     padding: 0.5rem;
   }
@@ -700,6 +757,32 @@ body {
   }
 }
 @media (max-width: 950px) {
+  /* info box */
+  .user-content {
+    display: flex;
+    flex-direction: column-reverse;
+    align-items: center;
+  }
+  .user-info {
+    width: 100%;
+  }
+  .content-space {
+    width: 100%;
+  }
+  .content-wrapper {
+    width: 100%;
+    padding: 0;
+    margin: 0;
+  }
+  /* currency */
+  .all-rates {
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+  .curr-exchange--to {
+    text-align: center;
+  }
+  /*  */
   .log-out--btn {
     font-size: 1.2rem;
     box-shadow: 0.2rem 0.2rem 0.3rem rgba(159, 151, 151, 0.365);
@@ -907,22 +990,6 @@ body {
   }
 }
 @media (max-width: 550px) {
-  .user-content {
-    display: flex;
-    flex-direction: column-reverse;
-    align-items: center;
-  }
-  .user-info {
-    width: 100%;
-  }
-  .content-space {
-    width: 100%;
-  }
-  .content-wrapper {
-    width: 100%;
-    padding: 0;
-    margin: 0;
-  }
   /* home */
   .create-card__box {
     width: 100%;
@@ -980,9 +1047,7 @@ body {
   .form-element-label {
     font-size: 1rem;
   }
-}
 
-@media (max-width: 400px) {
   .total-card__info {
     padding: 0;
   }
