@@ -46,16 +46,10 @@ home.classList.add("menu-highlighted");
 home.parentElement.classList.add("highlighted");
 
 //Mobile version
-const allMenuM = Array.from(document.getElementsByClassName("menu-item"));
-document.addEventListener("click", function (e) {
-  if (e.target.classList.contains("menu-item")) {
-    showContent();
-  }
-});
-
+const allMenuM = Array.from(document.getElementsByClassName("m-menu"));
 document.addEventListener("click", function (e) {
   if (e.target.classList.contains("m-menu")) {
-    allMenu.forEach((m) => {
+    allMenuM.forEach((m) => {
       if (
         m.classList.contains("menu-highlighted") &&
         m.parentElement.classList.contains("highlighted")
@@ -95,10 +89,7 @@ showContent(allMenu);
 
 function showContent(menu) {
   menu.forEach((m) => {
-    if (
-      m.classList.contains("menu-highlighted") ||
-      m.classList.contains("m-menu")
-    ) {
+    if (m.classList.contains("menu-highlighted")) {
       const curId = m.id.split("-")[1];
       const curMenu = "#" + curId;
       const curContentFiller = document.querySelector(curMenu);
