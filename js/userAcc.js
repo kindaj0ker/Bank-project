@@ -46,16 +46,14 @@ home.classList.add("menu-highlighted");
 home.parentElement.classList.add("highlighted");
 
 //Mobile version
-const allMenuM = Array.from(document.getElementsByClassName("menu-item"));
-document.addEventListener("click", function (e) {
-  if (e.target.classList.contains("menu-item")) {
-    showContent();
-  }
-});
+const allMenuM = Array.from(document.getElementsByClassName("m-menu"));
+const allMenu = Array.from(document.getElementsByClassName("user-menu--li"));
+const documentBody = document.querySelector("body");
+const checkboxEl = document.querySelector(".checkbox-menu");
 
 document.addEventListener("click", function (e) {
   if (e.target.classList.contains("m-menu")) {
-    allMenu.forEach((m) => {
+    allMenuM.forEach((m) => {
       if (
         m.classList.contains("menu-highlighted") &&
         m.parentElement.classList.contains("highlighted")
@@ -67,11 +65,17 @@ document.addEventListener("click", function (e) {
       e.target.classList.add("menu-highlighted");
     });
     showContent(allMenuM);
+    checkboxEl.checked = false;
   }
 });
 
 //Highlighted menu
-const allMenu = Array.from(document.getElementsByClassName("user-menu--li"));
+checkboxEl.addEventListener("change", function () {
+  if (this.checked) {
+    documentBody.classList.add("overflow-hidden");
+  } else documentBody.classList.remove("overflow-hidden");
+});
+
 document.addEventListener("click", function (e) {
   if (e.target.classList.contains("user-menu--li")) {
     allMenu.forEach((m) => {
@@ -95,10 +99,7 @@ showContent(allMenu);
 
 function showContent(menu) {
   menu.forEach((m) => {
-    if (
-      m.classList.contains("menu-highlighted") ||
-      m.classList.contains("m-menu")
-    ) {
+    if (m.classList.contains("menu-highlighted")) {
       const curId = m.id.split("-")[1];
       const curMenu = "#" + curId;
       const curContentFiller = document.querySelector(curMenu);

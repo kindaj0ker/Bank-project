@@ -147,13 +147,13 @@ body {
   border-radius: 3px;
   width: 3rem;
   margin: 0.3rem;
+  text-align: center;
 }
 
 .oper-group__img {
   padding: 0.2rem;
   margin: 0;
   width: 2.5rem;
-  align-self: center;
 }
 .transaction-name--date__block {
   display: flex;
@@ -196,6 +196,7 @@ body {
 .user-cards-info {
   display: flex;
   flex-direction: column;
+  padding-left: 1rem;
 }
 .total-card__info {
   margin: 0.5rem;
@@ -338,7 +339,9 @@ body {
   color: orange;
 }
 .categories-block {
+  width: 95%;
   display: flex;
+  align-self: center;
   flex-direction: column;
   justify-content: space-between;
   background-color: grey;
@@ -639,6 +642,9 @@ body {
   margin: 0.3rem;
 }
 /* extra classes */
+.overflow-hidden {
+  overflow: hidden;
+}
 .orange-text {
   color: var(--orange-color);
   border-radius: 15px;
@@ -704,6 +710,7 @@ body {
     margin: 0 0.5rem;
   }
   .greeting {
+    padding-left: 3rem;
     margin: 0.5rem 0;
   }
   .content-space {
@@ -778,6 +785,7 @@ body {
   .all-rates {
     flex-direction: row;
     flex-wrap: wrap;
+    justify-content: space-between;
   }
   .curr-exchange--to {
     text-align: center;
@@ -789,10 +797,6 @@ body {
   }
   .user-info {
     margin: 0;
-  }
-  .content-wrapper {
-    width: 93%;
-    margin: 0 0.3rem;
   }
   .greeting {
     margin-top: 1rem;
@@ -837,17 +841,10 @@ body {
     width: 18%;
   }
   .content-space {
-    width: 80%;
-  }
-  .user-info {
-    width: 20%;
+    width: 95%;
   }
   .user-menu--list {
     padding: 0 0.3rem;
-  }
-  .content-wrapper {
-    margin: 0;
-    padding: 0.5rem;
   }
   /* home */
   .create-card__box {
@@ -855,9 +852,6 @@ body {
   }
   .card-info__block {
     padding: 0 0.3rem;
-  }
-  .content-space {
-    margin: 0;
   }
   .sorting-box {
     width: 100%;
@@ -882,8 +876,9 @@ body {
   }
   /* hamburger menu */
   header {
-    margin-bottom: 35px;
+    margin-bottom: 25px;
   }
+
   .checkbox-menu {
     position: absolute;
     display: block;
@@ -1060,6 +1055,7 @@ body {
   }
   .content-wrapper {
     align-items: center;
+    margin: 0.4rem;
   }
   .create-card__box {
     margin: 0.5rem;
