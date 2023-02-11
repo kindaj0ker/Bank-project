@@ -211,6 +211,7 @@ body {
     display: none;
   }
   .menu-items {
+    pointer-events: all;
     padding-top: 5rem;
     background: rgba(179, 174, 174, 0.92);
     display: flex;

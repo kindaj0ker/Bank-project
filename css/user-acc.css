@@ -907,6 +907,7 @@ body {
     transform: translate(-200%);
     transition: transform 0.5s ease-in-out;
     text-align: center;
+    pointer-events: all;
   }
   .menu-item {
     margin: 0;
