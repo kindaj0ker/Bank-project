@@ -12,3 +12,12 @@ hamBtn.addEventListener("click", function (e) {
   bars.forEach((bar) => bar.classList.toggle("open"));
   console.log(bars);
 });
+
+//Mobile style
+const checkboxIcon = document.querySelector(".checkbox-menu");
+const body = document.querySelector("body");
+checkboxIcon.addEventListener("change", function () {
+  if (this.checked) {
+    body.classList.add("overflow-hidden");
+  } else documentBody.classList.remove("overflow-hidden");
+});

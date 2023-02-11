@@ -4,9 +4,9 @@ import { showAllUserTransferCards } from "./userTransfer.js";
 const uniqid = new ShortUniqueId();
 import { User } from "./creatUser.js";
 //New user from registered user
-//let logedIn=JSON.parse(localStorage.getItem("logedIn"));
+let logedIn = JSON.parse(localStorage.getItem("logedIn"));
 
-let logedIn = "peterJ@gmail.com";
+// let logedIn = "peterJ@gmail.com"; //for development use
 //Function
 function getUser() {
   let { fName, lName, bDay, email, password, cards, transactions, location } =
@@ -306,7 +306,7 @@ function mainPrevDelete(curTarget, curCard) {
 function sortingTrans(curTarget, curCard, btn) {
   if (btn.checked === true) {
     const type = btn.id;
-    // deletePrevInfo(curTarget, curCard);
+    //DeletePrevInfo(curTarget, curCard);
     prevTransDelete(curTarget, curCard);
     showSortedOperations(curTarget, curCard, type);
   }
@@ -428,49 +428,6 @@ function showSavings() {
   });
   createSavingsType(savingsTypes);
 }
-
-//Reveal savings
-// const savingsRevealingBlock = document.getElementById("savings-block");
-// function revealSavings(e) {
-//   const curSavingsType = e.target.id;
-//   savingsRevealingBlock.innerHTML = "";
-//   //Show balance
-//   let balance = 0;
-//   let currencySaving = "";
-//   sortSavings().forEach((s) => {
-//     if (s.savingType === curSavingsType) {
-//       const html = `<div class="transaction">
-//         <img class="oper-group__img" src="../img/${s.savingType}-saving.png"/>
-//         <div class="transaction-name--date__block">
-//           <span class="transaction--name">${s.savingType}</span>
-//           <span class="transaction--date">Today</span>
-//             </div>
-//         <div class="transaction-amount">
-//           <span class="transaction-currency">${s.currency}</span>
-//           <span class="transaction--amount">${s.amount}</span>
-//         </div>`;
-//       savingsRevealingBlock.insertAdjacentHTML("beforeend", html);
-//       balance += +s.amount;
-//       currencySaving = s.currency;
-//     }
-//   });
-//   const balanceHtml = `
-//         <div class="saving-balance">
-//             <h5>Balance:${balance} ${currencySaving} </h5>
-//         </div>`;
-//   savingsRevealingBlock.insertAdjacentHTML("afterbegin", balanceHtml);
-// }
-// const savingTypeBtn = document.querySelectorAll(".saving-category__img");
-// savingTypeBtn.forEach((btn) => btn.addEventListener("click", revealSavings));
-
-//Check input info
-// const loanAmountInput = document.querySelector(".inputField_loan");
-// const onlyNumbers = function () {
-//   let regex = /[A-Za-z]/g;
-//   this.value = this.value.replace(regex, "");
-// };
-
-// loanAmountInput.addEventListener("input", onlyPositiveNumbers);
 
 // Currency info-box
 const currInfoBox = document.querySelector("currency-info--box");
@@ -670,7 +627,7 @@ function countDownTimerFunc() {
     }
     time--;
   }
-  let time = 18000;
+  let time = 180;
   timeCounting();
   timer = setInterval(timeCounting, 1000);
   return timer;

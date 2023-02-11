@@ -136,6 +136,11 @@ body {
   background-color: black;
   color: white;
 }
+
+.overflow-hidden {
+  overflow: hidden;
+}
+
 @media (max-width: 940px) {
   #brand-icon-header {
     height: 5rem;
@@ -237,7 +242,7 @@ body {
     position: absolute;
     z-index: 100;
     width: 100%;
-    height: 100vh;
+    height: 100%;
   }
 
   .ham {
